@@ -326,7 +326,7 @@ def handle_aboutme(message):
 # Handles all photos sent
 @bot.message_handler(content_types=['photo'])
 def handle_photo(message):
-    if message.chat.typr == "private":
+    if message.chat.type == "private":
         bot.reply_to(message, "Nice! I'm going to upload your photo now. Do you want to see some cards?")
         #bot.send_chat_action(message.chat.id, 'upload_photo')
         _10 = random.randint(1, 10)
@@ -334,7 +334,7 @@ def handle_photo(message):
         #foto= str("index"+"%s"+".jpeg" % (_10))
         foto= "index"+_10+".jpeg"
         #print(foto)
-        photox = open('/home/gta/Desktop/danyel/fotos-aleatorias/'+foto, 'rb')
+        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/'+foto, 'rb')
         bot.send_photo(message.chat.id, photox)
         _10 = random.randint(1, 5)
         _10 = str(_10)
@@ -348,7 +348,7 @@ def handle_photo(message):
         file_info = bot.get_file(raw)
         downloaded_file = bot.download_file(file_info.file_path)
         nome_arq = str(raw)
-        with open('/home/gta/Desktop/danyel/arquivos-bot/'+message.chat.first_name+nome_arq,'wb') as new_file:
+        with open('/home/gta/Desktop/danyel/bot/arquivos-bot/'+message.chat.first_name+nome_arq,'wb') as new_file:
             new_file.write(downloaded_file)
         bot.send_message(message.chat.id,"Done! I've just downloaded your file, "+message.chat.first_name)
 
@@ -451,7 +451,7 @@ def handle_text(message):
             else:
                 animals[str(message.chat.first_name)]= 'chameleon'
                 bot.send_message(message.chat.id, "Nice!! Take 2")
-        photox = open('/home/gta/Desktop/danyel/fotos-aleatorias/chameleon.jpg', 'rb')
+        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/chameleon.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
         
 
@@ -468,7 +468,7 @@ def handle_text(message):
             else:
                 animals[str(message.chat.first_name)]= 'cat'
                 bot.send_message(message.chat.id, "Nice!")
-        photox = open('/home/gta/Desktop/danyel/fotos-aleatorias/cat.jpg', 'rb')
+        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/cat.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
     
     if message.text == 'dog':
@@ -484,7 +484,7 @@ def handle_text(message):
             else:
                 animals[str(message.chat.first_name)]= 'dog'
                 bot.send_message(message.chat.id, "Nice!! Take 6, you have an army now haha")
-        photox = open('/home/gta/Desktop/danyel/fotos-aleatorias/dog.jpg', 'rb')
+        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/dog.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
 
     if message.text == 'parrot':
@@ -500,7 +500,7 @@ def handle_text(message):
             else:
                 animals[str(message.chat.first_name)]= 'parrot'
                 bot.send_message(message.chat.id, "Nice!!!")
-        photox = open('/home/gta/Desktop/danyel/fotos-aleatorias/parrot.jpg', 'rb')
+        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/parrot.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
 
     if message.text == 'duck':
@@ -516,7 +516,7 @@ def handle_text(message):
             else:
                 animals[str(message.chat.first_name)]= 'duck'
                 bot.send_message(message.chat.id, "WTF")
-        photox = open('/home/gta/Desktop/danyel/fotos-aleatorias/duck.jpeg', 'rb')
+        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/duck.jpeg', 'rb')
         bot.send_photo(message.chat.id, photox)
 
     if message.text == 'gecko':
@@ -532,7 +532,7 @@ def handle_text(message):
             else:
                 animals[str(message.chat.first_name)]= 'gecko'
                 bot.send_message(message.chat.id, "How cute!")
-        photox = open('/home/gta/Desktop/danyel/fotos-aleatorias/gecko.jpg', 'rb')
+        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/gecko.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
     #if message.text.lower() == 'thanks' or 'thank you' or 'ty' or if 'than' in message.text.lower():
     if 'thank' in message.text.lower() or message.text.lower() =='ty':
