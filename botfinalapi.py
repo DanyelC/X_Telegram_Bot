@@ -354,14 +354,14 @@ def handle_photo(message):
 
 @bot.message_handler(content_types=['document'])
 def handle_photo(message):
-    if message.chat.typr == "private":
+    if message.chat.type == "private":
         bot.reply_to(message, "Nice! I'm going to upload your document now. Do you want to see some cards?")
         #bot.send_chat_action(message.chat.id, 'upload_photo')
         _10 = random.randint(1, 5)
         _10 = str(_10)
         #foto= str("index"+"%s"+".jpeg" % (_10))
         foto= "index"+_10+".jpeg"
-        photox = open('/home/gta/Desktop/danyel/fotos-aleatorias/'+foto, 'rb')
+        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/'+foto, 'rb')
         bot.send_photo(message.chat.id, photox)
         _10 = random.randint(1, 5)
         _10 = str(_10)
@@ -373,7 +373,7 @@ def handle_photo(message):
         file_info = bot.get_file(raw)
         downloaded_file = bot.download_file(file_info.file_path)
         nome_arq = str(raw)
-        with open('/home/gta/Desktop/danyel/arquivos-bot/'+message.chat.first_name+nome_arq,'wb') as new_file:
+        with open('/home/gta/Desktop/danyel/bot/arquivos-bot/'+message.chat.first_name+nome_arq,'wb') as new_file:
             new_file.write(downloaded_file)
         bot.send_message(message.chat.id,"Done! I've just downloaded your file, "+message.chat.first_name)
 
