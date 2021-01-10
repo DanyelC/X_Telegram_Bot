@@ -13,6 +13,7 @@ ungetmes={}
 contagem={}
 animals={}
 control=0
+Danyel= 847307875
 #content_types=["text", "sticker", "pinned_message", "photo", "audio"]
 
 sobre = "This bot was developed and created by Danyel Clinário. It is still in the testing phase, any \
@@ -32,6 +33,8 @@ def handle_start(message):
         sleep(1)
         #global control
         #control = 1
+        #TEM QUE VER SE TEM AMIGO JA..................
+        bot.send_message(message.chat.id, "But before starting...")
         handle_choose_animal(message)
     #print(message)
     else:
@@ -43,6 +46,7 @@ def handle_start(message):
         sleep(1)
         #global control
         #control = 1
+        bot.send_message(message.chat.id, "But before starting...")
         handle_choose_animal(message)
 
     
@@ -85,7 +89,7 @@ def handle_getme(message):
             bot.reply_to(message, "I already have your chat id for further interactions")
         else:
             getmes[str(message.chat.first_name)]=str(message.chat.id)
-            bot.send_message(847307875, "Someone just subscribed! "+message.chat.first_name+ " joined")
+            bot.send_message(Danyel, "XXX-ADMIM-MESSAGE-XXX: Someone just subscribed! "+message.chat.first_name+ " joined")
             bot.reply_to(message, "I just saved your chat id for further interactions")
     #getmes.append(message.chat.id)
     
@@ -94,7 +98,7 @@ def handle_getme(message):
             bot.reply_to(message, "I already have your chat id for further interactions")
         else:
             getmes[str(message.chat.title)]=str(message.chat.id)
-            bot.send_message(847307875, "Someone just subscribed! "+message.chat.title+ " joined")
+            bot.send_message(Danyel, "XXX-ADMIM-MESSAGE-XXX: Someone just subscribed! "+message.chat.title+ " joined")
             bot.reply_to(message, "I just saved your chat id for further interactions")
         #getmes.append(str(message.chat.title))
         #getmes.append(str(message.chat.first_name))
@@ -229,7 +233,7 @@ def handle_stop(message):
 
 @bot.message_handler(commands=['contagem'])
 def handle_adminhozinho(message):
-    if message.chat.id == 847307875:
+    if message.chat.id == Danyel:
         if message.chat.first_name == 'Danyel':
 #            if 'admin1' in admin and 'admin2' in admin:
             if contagem:
@@ -245,7 +249,7 @@ def handle_adminhozinho(message):
 
 @bot.message_handler(commands=['animals'])
 def handle_adminhozinho(message):
-    if message.chat.id == 847307875:
+    if message.chat.id == Danyel:
         if message.chat.first_name == 'Danyel':
 #            if 'admin1' in admin and 'admin2' in admin:
             if animals:
@@ -260,7 +264,7 @@ def handle_adminhozinho(message):
 
 @bot.message_handler(commands=['getmes'])
 def handle_adminhozinho(message):
-    if message.chat.id == 847307875:
+    if message.chat.id == Danyel:
         if message.chat.first_name == 'Danyel':
             if getmes:
                 for x, y in getmes.items():
@@ -272,7 +276,7 @@ def handle_adminhozinho(message):
 
 @bot.message_handler(commands=['ungetmes'])
 def handle_adminhozinho(message):
-    if message.chat.id == 847307875:
+    if message.chat.id == Danyel:
         if message.chat.first_name == 'Danyel':
             if ungetmes:
                 for x, y in ungetmes.items():
@@ -289,7 +293,7 @@ def handle_adminhozinho(message):
 @bot.message_handler(commands=['menu'])
 def handle_menu(message):
     bot.send_message(message.chat.id, "A list of commands:")
-    if message.chat.id == 847307875:
+    if message.chat.id == Danyel:
         if message.chat.first_name == 'Danyel':
             bot.send_message(message.chat.id,
             '1) /menu - The list of all my 9 commands\n' +
@@ -432,20 +436,21 @@ def handle_choose_animal(message):
     #global control
     #if control == 1:
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
-    itembtna = types.KeyboardButton('cat')
-    itembtnv = types.KeyboardButton('dog')
-    itembtnc = types.KeyboardButton('parrot')
-    itembtnd = types.KeyboardButton('duck')
-    itembtne = types.KeyboardButton('gecko')
-    itembtnkk = types.KeyboardButton('chameleon')
+    itembtna = types.KeyboardButton('Cat')
+    itembtnv = types.KeyboardButton('Dog')
+    itembtnc = types.KeyboardButton('Parrot')
+    itembtnd = types.KeyboardButton('Duck')
+    itembtne = types.KeyboardButton('Gecko')
+    itembtnkk = types.KeyboardButton('Chameleon')
     markup.row(itembtna, itembtnv, itembtnkk)
     markup.row(itembtnc, itembtnd, itembtne)
     if message.chat.type == "group":
         bot.send_message(message.chat.id, "You are going to choose a friend to the group chat, not only for you")
         sleep(2)
-    bot.send_message(message.chat.id, "It is dangerous to go alone, choose one :", reply_markup=markup)
-    teste=message.text
-    bot.send_message(message.chat.id, message.text)
+    animal_keyboard = bot.send_message(message.chat.id, "It is dangerous to go alone, choose one :", reply_markup=markup)
+    #teste=message.text
+    bot.register_next_step_handler(animal_keyboard , step_choose_animal)
+    #bot.send_message(message.chat.id, message.text)
         #check_control(message,control)
     #else: bot.forward_message(847307875,message.chat.id,message.id)
 
@@ -465,111 +470,118 @@ def handle_choose_animal(message):
 #    year2= message.text
 #    bot.send_message(message.chat.id, "You was born in "+str(year2))
 
-
-
-
-
-
-
-
-
+#Handle the animal chosen
 def step_choose_animal(message):
     #def check_control(message,control):
         #if control == 1:
-    if message.text == 'chameleon':
+    the_animal = message.text
+    bot.send_message(message.chat.id, str(the_animal))
+    if the_animal == 'Chameleon':
         if message.chat.type == "group":
             if str('Group: '+message.chat.title) in animals:
                 bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
             else:
-                animals[str('Group: '+message.chat.title)]= 'chameleon'
+                animals[str('Group: '+message.chat.title)]= 'Chameleon'
                 bot.send_message(message.chat.id, "Nice!! Take 2")
+                bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
         else:       
             if str(message.chat.first_name) in animals:
                 bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
             else:
-                animals[str(message.chat.first_name)]= 'chameleon'
+                animals[str(message.chat.first_name)]= 'Chameleon'
                 bot.send_message(message.chat.id, "Nice!! Take 2")
+                bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
         photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/chameleon.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
         
 
-    if message.text == 'cat':
+    if the_animal == 'Cat':
         if message.chat.type == "group":
             if str('Group: '+message.chat.title) in animals:
                 bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
             else:
-                animals[str('Group: '+message.chat.title)]= 'cat'
+                animals[str('Group: '+message.chat.title)]= 'Cat'
                 bot.send_message(message.chat.id, "Nice!")
+                bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
         else:
             if str(message.chat.first_name) in animals:
                 bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
             else:
-                animals[str(message.chat.first_name)]= 'cat'
+                animals[str(message.chat.first_name)]= 'Cat'
                 bot.send_message(message.chat.id, "Nice!")
+                bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
         photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/cat.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
     
-    if message.text == 'dog':
+    if the_animal == 'Dog':
         if message.chat.type == "group":
             if str('Group: '+message.chat.title) in animals:
                 bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
             else:
-                animals[str('Group: '+message.chat.title)]= 'dog'
+                animals[str('Group: '+message.chat.title)]= 'Dog'
                 bot.send_message(message.chat.id, "Nice!! Take 6, you have an army now haha")
+                bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
         else:
             if str(message.chat.first_name) in animals:
                 bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
             else:
-                animals[str(message.chat.first_name)]= 'dog'
+                animals[str(message.chat.first_name)]= 'Dog'
                 bot.send_message(message.chat.id, "Nice!! Take 6, you have an army now haha")
+                bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
         photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/dog.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
 
-    if message.text == 'parrot':
+    if the_animal == 'Parrot':
         if message.chat.type == "group":
             if str('Group: '+message.chat.title) in animals:
                 bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
             else:
-                animals[str('Group: '+message.chat.title)]= 'parrot'
+                animals[str('Group: '+message.chat.title)]= 'Parrot'
                 bot.send_message(message.chat.id, "Nice!!!")
+                bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
         else:
             if str(message.chat.first_name) in animals:
                 bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
             else:
-                animals[str(message.chat.first_name)]= 'parrot'
+                animals[str(message.chat.first_name)]= 'Parrot'
                 bot.send_message(message.chat.id, "Nice!!!")
+                bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
         photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/parrot.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
 
-    if message.text == 'duck':
+    if the_animal == 'Duck':
         if message.chat.type == "group":
             if str('Group: '+message.chat.title) in animals:
                 bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
             else:
-                animals[str('Group: '+message.chat.title)]= 'duck'
-                bot.send_message(message.chat.id, "WTF")
+                animals[str('Group: '+message.chat.title)]= 'Duck'
+                bot.send_message(message.chat.id, "WTF...")
+                bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
         else:
             if str(message.chat.first_name) in animals:
                 bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
             else:
-                animals[str(message.chat.first_name)]= 'duck'
-                bot.send_message(message.chat.id, "WTF")
+                animals[str(message.chat.first_name)]= 'Duck'
+                bot.send_message(message.chat.id, "WTF...")
+                bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
         photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/duck.jpeg', 'rb')
         bot.send_photo(message.chat.id, photox)
 
-    if message.text == 'gecko':
+    if the_animal == 'Gecko':
         if message.chat.type == "group":
             if str('Group: '+message.chat.title) in animals:
                 bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
             else:
-                animals[str('Group: '+message.chat.title)]= 'gecko'
+                animals[str('Group: '+message.chat.title)]= 'Gecko'
                 bot.send_message(message.chat.id, "How cute!")
+                bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
         else:
             if str(message.chat.first_name) in animals:
                 bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
             else:
-                animals[str(message.chat.first_name)]= 'gecko'
+                animals[str(message.chat.first_name)]= 'Gecko'
                 bot.send_message(message.chat.id, "How cute!")
+                bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
         photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/gecko.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
     #if message.text.lower() == 'thanks' or 'thank you' or 'ty' or if 'than' in message.text.lower():
