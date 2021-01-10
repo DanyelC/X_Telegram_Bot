@@ -25,13 +25,25 @@ bot = telebot.TeleBot("1147645813:AAHbIB78oyWUwz_JYT3pFaKgEjCPsOL2hhQ")
 def handle_start(message):
     if message.chat.type == "private":
         bot.send_message(message.chat.id, 'Hello, '+ message.chat.first_name +'. My name is Exodia. How can I help you?')
+        sleep(1)
         handle_getme(message)
-        bot.reply_to(message, "Would like to see the menu? You just need to click here: /menu")
+        sleep(1)
+        bot.send_message(message.chat.id, "Would like to see the menu? You just need to click here: /menu")
+        sleep(1)
+        #global control
+        #control = 1
+        handle_choose_animal(message)
     #print(message)
     else:
         bot.send_message(message.chat.id, 'Hello people from '+ message.chat.title +' group. My name is Exodia. How can I help you?')
+        sleep(1)
         handle_getme(message)
+        sleep(1)
         bot.reply_to(message, "Would like to see the menu? You just need to click here: /menu")
+        sleep(1)
+        #global control
+        #control = 1
+        handle_choose_animal(message)
 
     
     
@@ -321,7 +333,7 @@ def handle_aboutme(message):
     if str(message.chat.first_name) in animals:
         bot.reply_to(message, "Your friend is: "+ animals[message.chat.first_name])
     else:
-        bot.send_message(message.chat.id, "You should choose a friend first. Type 'show me the keyboard'")
+        bot.send_message(message.chat.id, "You should choose a friend first. Type \start again") #show me the keyboard'")
 
 # Handles all photos sent
 @bot.message_handler(content_types=['photo'])
@@ -412,30 +424,56 @@ def handle_video_audio(message):
 
 
 
-@bot.message_handler(content_types=['text'])
-def handle_text(message):
+#@bot.message_handler(content_types=['text'])
+def handle_choose_animal(message):
     #teste(message)
     #quiz(message)
-    if message.text.lower() == 'show me the keyboard':
-        global control
-        control=1
-        markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
-        itembtna = types.KeyboardButton('cat')
-        itembtnv = types.KeyboardButton('dog')
-        itembtnc = types.KeyboardButton('parrot')
-        itembtnd = types.KeyboardButton('duck')
-        itembtne = types.KeyboardButton('gecko')
-        itembtnkk = types.KeyboardButton('chameleon')
-        markup.row(itembtna, itembtnv, itembtnkk)
-        markup.row(itembtnc, itembtnd, itembtne)
-        if message.chat.type == "group":
-            bot.send_message(message.chat.id, "You are going to choose a friend to the group chat, not only for you")
-            sleep(2)
-        bot.send_message(message.chat.id, "It is dangerous to go alone, choose one :", reply_markup=markup)
+    #if message.text.lower() == 'show me the keyboard':
+    #global control
+    #if control == 1:
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
+    itembtna = types.KeyboardButton('cat')
+    itembtnv = types.KeyboardButton('dog')
+    itembtnc = types.KeyboardButton('parrot')
+    itembtnd = types.KeyboardButton('duck')
+    itembtne = types.KeyboardButton('gecko')
+    itembtnkk = types.KeyboardButton('chameleon')
+    markup.row(itembtna, itembtnv, itembtnkk)
+    markup.row(itembtnc, itembtnd, itembtne)
+    if message.chat.type == "group":
+        bot.send_message(message.chat.id, "You are going to choose a friend to the group chat, not only for you")
+        sleep(2)
+    bot.send_message(message.chat.id, "It is dangerous to go alone, choose one :", reply_markup=markup)
+    teste=message.text
+    bot.send_message(message.chat.id, message.text)
         #check_control(message,control)
     #else: bot.forward_message(847307875,message.chat.id,message.id)
 
 
+#@bot.message_handler(content_types=['text'])
+#def teste(message):
+#    age = bot.send_message(message.chat.id, "How old are you?")
+#    bot.register_next_step_handler(age , step_set_age)
+
+#def step_set_age(message):
+#    age2 = message.text
+#    bot.send_message(message.chat.id, "Your age is "+str(age2))
+#    year = bot.send_message(message.chat.id,'When were you born?')
+#    bot.register_next_step_handler(year, step_set_year)
+
+#def step_set_year(message):
+#    year2= message.text
+#    bot.send_message(message.chat.id, "You was born in "+str(year2))
+
+
+
+
+
+
+
+
+
+def step_choose_animal(message):
     #def check_control(message,control):
         #if control == 1:
     if message.text == 'chameleon':
