@@ -63,7 +63,7 @@ def handle_help(message):
         '7) /score - I can show you our score \n' +
         '8) /stop - Delete your account (under development) \n' +
         '9) /myfriend - Details about your friend (under development)\n' +
-        '10) Show me the Keyboard - not a command but something you should type\n'+
+        #'10) Show me the Keyboard - not a command but something you should type\n'+
         'Future features:\n'+
         'Coming soon!\n')  
 
@@ -111,7 +111,13 @@ def handle_about(message):
 # Handles all text messages that contains the command '/play'.
 @bot.message_handler(commands=['play', 'score'])
 def handle_play_score(message):
-    if message.text == "/play":
+    if message.text == "/score":
+            if str(message.chat.first_name) in contagem:
+                bot.reply_to(message, "Your score is %d and mine is %d" % (contagem[str(message.chat.first_name)], contagem[str(message.chat.first_name)+'Exodia']))
+            else: 
+                bot.reply_to(message, "We haven't played ... yet. Lets play now! Click here: /play")
+
+    elif message.text == "/play":
         _1 = random.randint(1, 6)
         _2 = random.randint(1, 6)
         _3 = random.randint(1, 6)
@@ -168,11 +174,7 @@ def handle_play_score(message):
                 bot.send_message(message.chat.id, "Your score is %d and mine is %d" % (contagem[str(message.chat.title)], contagem[str(message.chat.title)+'Exodia']))
             bot.send_message(message.chat.id, "Let's play again? /play")            
     
-        if message.text == "/score":
-            if str(message.chat.first_name) in contagem:
-                bot.reply_to(message, "Your score is %d and mine is %d" % (contagem[str(message.chat.first_name)], contagem[str(message.chat.first_name)+'Exodia']))
-            else: 
-                bot.reply_to(message, "We haven't played ... yet. Lets play now! Click here: /play")
+        
         
     
 # Handles all text messages that contains the command '/stop'.
