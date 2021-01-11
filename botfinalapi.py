@@ -34,10 +34,16 @@ def handle_start(message):
         #global control
         #control = 1
         #TEM QUE VER SE TEM AMIGO JA..................
-        bot.send_message(message.chat.id, "But before starting...")
-        handle_choose_animal(message)
+        if message.chat.type == "group":
+            if str('Group: '+message.chat.title) in animals:
+                bot.send_message(message.chat.id, "You already have your friend")
+        elif str(message.chat.first_name) in animals:
+                bot.send_message(message.chat.id, "You already have your friend")
+        else:
+            bot.send_message(message.chat.id, "But before starting...")
+            handle_choose_animal(message)
     #print(message)
-    else:
+    else:   
         bot.send_message(message.chat.id, 'Hello people from '+ message.chat.title +' group. My name is Exodia. How can I help you?')
         sleep(1)
         handle_getme(message)
@@ -56,7 +62,7 @@ def handle_start(message):
 @bot.message_handler(commands=['help'])
 def handle_help(message):
     bot.reply_to(message, "How can I help you?")
-    sleep(2)
+    sleep(1)
     bot.send_message(message.chat.id,
         '1) /menu - The list of all my 9 commands\n' +
         '2) /start - Get started about the game (under development)\n' +
@@ -241,7 +247,7 @@ def handle_adminhozinho(message):
                     bot.send_message(message.chat.id, x)
                     bot.send_message(message.chat.id, y)
                     bot.send_message(message.chat.id, "----------------")
-            else: bot.send_message(message.chat.id, "nothing")
+            else: bot.send_message(message.chat.id, "Nothing, Sir")
 #                del admin['admin1']
 #                del admin['admin2']
 
@@ -257,7 +263,7 @@ def handle_adminhozinho(message):
                     bot.send_message(message.chat.id, x)
                     bot.send_message(message.chat.id, y)
                     bot.send_message(message.chat.id, "----------------")
-            else: bot.send_message(message.chat.id, "nothing")
+            else: bot.send_message(message.chat.id, "Nothing, Sir")
 #                del admin['admin1']
 #                del admin['admin2']
 
@@ -271,7 +277,7 @@ def handle_adminhozinho(message):
                     bot.send_message(message.chat.id, x)
                     bot.send_message(message.chat.id, y)
                     bot.send_message(message.chat.id, "----------------")
-            else: bot.send_message(message.chat.id, "nothing")
+            else: bot.send_message(message.chat.id, "Nothing, Sir")
 
 
 @bot.message_handler(commands=['ungetmes'])
@@ -283,7 +289,7 @@ def handle_adminhozinho(message):
                     bot.send_message(message.chat.id, x)
                     bot.send_message(message.chat.id, y)
                     bot.send_message(message.chat.id, "----------------")
-            else: bot.send_message(message.chat.id, "nothing")
+            else: bot.send_message(message.chat.id, "Nothing, Sir")
 
 # ADMIN STUFF BRO ---------------------------------------------------------------------------------------------------
 
@@ -436,14 +442,15 @@ def handle_choose_animal(message):
     #global control
     #if control == 1:
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
-    itembtna = types.KeyboardButton('Cat')
-    itembtnv = types.KeyboardButton('Dog')
-    itembtnc = types.KeyboardButton('Parrot')
-    itembtnd = types.KeyboardButton('Duck')
-    itembtne = types.KeyboardButton('Gecko')
-    itembtnkk = types.KeyboardButton('Chameleon')
-    markup.row(itembtna, itembtnv, itembtnkk)
-    markup.row(itembtnc, itembtnd, itembtne)
+    catx = types.KeyboardButton('Cat')
+    dogx = types.KeyboardButton('Dog')
+    parrotx = types.KeyboardButton('Parrot')
+    duckx = types.KeyboardButton('Duck')
+    geckox = types.KeyboardButton('Gecko')
+    chameleonx = types.KeyboardButton('Chameleon')
+    markup.row(catx, dogx, chameleonx)
+    markup.row(parrotx, duckx, geckox)
+
     if message.chat.type == "group":
         bot.send_message(message.chat.id, "You are going to choose a friend to the group chat, not only for you")
         sleep(2)
@@ -476,23 +483,22 @@ def step_choose_animal(message):
         #if control == 1:
     the_animal = message.text
     bot.send_message(message.chat.id, str(the_animal))
+
     if the_animal == 'Chameleon':
-        if message.chat.type == "group":
-            if str('Group: '+message.chat.title) in animals:
-                bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
-            else:
-                animals[str('Group: '+message.chat.title)]= 'Chameleon'
-                bot.send_message(message.chat.id, "Nice!! Take 2")
-                bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
-        else:       
-            if str(message.chat.first_name) in animals:
-                bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
-            else:
-                animals[str(message.chat.first_name)]= 'Chameleon'
-                bot.send_message(message.chat.id, "Nice!! Take 2")
-                bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
         photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/chameleon.jpg', 'rb')
-        bot.send_photo(message.chat.id, photox)
+        #bot.send_photo(message.chat.id, photox)
+
+
+        markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
+        yes = types.KeyboardButton('YES!')
+        another = types.KeyboardButton('I wanna look another one')
+        markup.row( yes, another)
+        confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
+
+        #confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?")
+        bot.register_next_step_handler(confirm_animal , step_animal_confirmation1, "Chameleon")
+        #photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/chameleon.jpg', 'rb')
+        #bot.send_photo(message.chat.id, photox)
         
 
     if the_animal == 'Cat':
@@ -585,9 +591,30 @@ def step_choose_animal(message):
         photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/gecko.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
     #if message.text.lower() == 'thanks' or 'thank you' or 'ty' or if 'than' in message.text.lower():
-    if 'thank' in message.text.lower() or message.text.lower() =='ty':
-        bot.send_message(message.chat.id, ":)")
+    #if 'thank' in message.text.lower() or message.text.lower() =='ty':
+    #    bot.send_message(message.chat.id, ":)")
 
+
+
+def step_animal_confirmation1(message, animal):
+    confirtm_animal = message.text
+    if confirm_animal == "YES!":
+        if animal == "Chameleon":
+            if message.chat.type == "group":
+                if str('Group: '+message.chat.title) in animals:
+                    bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
+                else:
+                    animals[str('Group: '+message.chat.title)]= 'Chameleon'
+                    bot.send_message(message.chat.id, "Nice!! Take 2")
+                    bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
+            else:       
+                if str(message.chat.first_name) in animals:
+                    bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
+                else:
+                    animals[str(message.chat.first_name)]= 'Chameleon'
+                    bot.send_message(message.chat.id, "Nice!! Take 2")
+                    bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
+    else: handle_choose_animal(message)
 
 #================ TESTANDO CRIAÇÃO DE CONVERSAS ========================
 
