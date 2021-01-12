@@ -20,6 +20,7 @@ bot = telebot.TeleBot("1147645813:AAHbIB78oyWUwz_JYT3pFaKgEjCPsOL2hhQ")
 # Handles all text messages that contains the command '/start'
 @bot.message_handler(commands=['start'])
 def handle_start(message):
+    #bot.send_message(message.chat.id, 'Hey! '+"\U0001F601")
     if message.chat.type == "private":
         bot.send_message(message.chat.id, 'Hello, '+ message.chat.first_name +'. My name is Exodia. How can I help you?')
         sleep(1)
@@ -54,15 +55,15 @@ def handle_help(message):
     bot.reply_to(message, "How can I help you?")
     sleep(1)
     bot.send_message(message.chat.id,
-        '1) /menu - The list of all my 9 commands\n' +
+        '1) /menu - The list of all my 8 commands\n' +
         '2) /start - Get started about the game (under development)\n' +
         '3) /help - Questions and answers about the game (under development)\n' +
-        '4) /getme - Subscribe to create your account and get some news!\n' +
-        '5) /about - Contact my creator!\n'+
-        "6) /play - Let's play some dices! \n" +
-        '7) /score - I can show you our score \n' +
-        '8) /stop - Delete your account (under development) \n' +
-        '9) /myfriend - Details about your friend (under development)\n' +
+        #'4) /getme - Subscribe to create your account and get some news!\n' +
+        '4) /about - Contact my creator!\n'+
+        "5) /play - Let's play some dices! \n" +
+        '6) /score - I can show you our score \n' +
+        '7) /stop - Delete your account (under development) \n' +
+        '8) /myfriend - Details about your friend (under development)\n' +
         #'10) Show me the Keyboard - not a command but something you should type\n'+
         'Future features:\n'+
         'Coming soon!\n')  
@@ -188,6 +189,8 @@ def handle_stop(message):
     if message.chat.type == "private":
         if str(message.chat.first_name) in getmes:
             ungetmes[str(message.chat.first_name)] = getmes[str(message.chat.first_name)]
+            #with open('/home/gta/Desktop/danyel/bot/arquivos-bot/ungetmes.txt','a') as new_file: 
+            #    new_file.write(str(message.chat.first_name+": "+str(message.chat.id)+'\n')
             del getmes[str(message.chat.first_name)]
             bot.send_message(message.chat.id, "Your chat id was deleted")
         else:
@@ -195,6 +198,8 @@ def handle_stop(message):
     elif message.chat.type == "group":
         if str(message.chat.title) in getmes:
             ungetmes[str(message.chat.title)]=getmes[str(message.chat.title)]
+            #with open('/home/gta/Desktop/danyel/bot/arquivos-bot/getmes.txt','a') as new_file:
+            #    new_file.write('Group '+str(message.chat.title)+": "+str(message.chat.id)+'\n')
             del getmes[str(message.chat.title)]
             bot.send_message(message.chat.id, "Your chat id was deleted")
         else:
@@ -262,15 +267,15 @@ def handle_menu(message):
     if message.chat.id == Danyel:
         if message.chat.first_name == 'Danyel':
             bot.send_message(message.chat.id,
-            '1) /menu - The list of all my 9 commands\n' +
+            '1) /menu - The list of all my 8 commands\n' +
             '2) /start - Get started about the game (under development)\n' +
             '3) /help - Questions and answers about the game (under development)\n' +
-            '4) /getme - Subscribe to create your account and get some news!\n' +
-            '5) /about - Contact my creator!\n'+
-            "6) /play - Let's play some dices! \n" +
-            '7) /score - I can show you our score \n' +
-            '8) /stop - Delete your account (under development) \n' +
-            '9) /myfriend - Details about your friend (under development)\n' +
+            #'4) /getme - Subscribe to create your account and get some news!\n' +
+            '4) /about - Contact my creator!\n'+
+            "5) /play - Let's play some dices! \n" +
+            '6) /score - I can show you our score \n' +
+            '7) /stop - Delete your account (under development) \n' +
+            '8) /myfriend - Details about your friend (under development)\n' +
             #'10) Show me the Keyboard - not a command but something you should type\n'+
             'Future features:\n'+
             'Coming soon!\n\n'
@@ -283,15 +288,15 @@ def handle_menu(message):
             '3) /animals\n'+
             '4) /ungetmes')
     else: bot.send_message(message.chat.id,
-        '1) /menu - The list of all my 9 commands\n' +
+        '1) /menu - The list of all my 8 commands\n' +
         '2) /start - Get started about the game (under development)\n' +
         '3) /help - Questions and answers about the game (under development)\n' +
-        '4) /getme - Subscribe to create your account and get some news!\n' +
-        '5) /about - Contact my creator!\n'+
-        "6) /play - Let's play some dices! \n" +
-        '7) /score - I can show you our score \n' +
-        '8) /stop - Delete your account (under development) \n' +
-        '9) /myfriend - Details about your friend (under development)\n' +
+        #'4) /getme - Subscribe to create your account and get some news!\n' +
+        '4) /about - Contact my creator!\n'+
+        "5) /play - Let's play some dices! \n" +
+        '6) /score - I can show you our score \n' +
+        '7) /stop - Delete your account (under development) \n' +
+        '8) /myfriend - Details about your friend (under development)\n' +
         #'10) Show me the Keyboard - not a command but something you should type\n'+
         'Future features:\n'+
         'Coming soon!\n')
@@ -383,13 +388,13 @@ def handle_video_audio(message):
 
 def handle_choose_animal(message):
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
-    catx = types.KeyboardButton('Cat')
-    dogx = types.KeyboardButton('Dog')
-    parrotx = types.KeyboardButton('Parrot')
-    duckx = types.KeyboardButton('Duck')
-    geckox = types.KeyboardButton('Gecko')
-    chameleonx = types.KeyboardButton('Chameleon')
-    markup.row(catx, dogx, chameleonx)
+    catx = types.KeyboardButton('Cat \U0001F408')
+    dogx = types.KeyboardButton('Dog \U0001F415')
+    parrotx = types.KeyboardButton('Parrot \U0001F99C')
+    duckx = types.KeyboardButton('Duck \U0001F986')
+    geckox = types.KeyboardButton('Gecko \U0001F98E')
+    snakex = types.KeyboardButton('Snake \U0001F40D')
+    markup.row(catx, dogx, snakex)
     markup.row(parrotx, duckx, geckox)
 
     if message.chat.type == "group":
@@ -426,13 +431,13 @@ def step_choose_animal(message):
     the_animal = message.text
     bot.send_message(message.chat.id, str(the_animal))
 
-    if the_animal == 'Chameleon':
-        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/chameleon.jpg', 'rb')
+    if the_animal == 'Snake':
+        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/snake.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
 
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
 
-        bot.register_next_step_handler(confirm_animal , step_animal_confirmation, "Chameleon")
+        bot.register_next_step_handler(confirm_animal , step_animal_confirmation, "Snake")
        
         
 
@@ -493,23 +498,23 @@ def step_choose_animal(message):
 def step_animal_confirmation(message, animal):
     confirm_animal = message.text
     if confirm_animal == "YES!":
-        if animal == "Chameleon":
+        if animal == "Snake":
             if message.chat.type == "group":
                 if str('Group: '+message.chat.title) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
-                    animals[str('Group: '+message.chat.title)]= 'Chameleon'
+                    animals[str('Group: '+message.chat.title)]= 'Snake'
                     with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
-                        new_file.write('Group '+str(message.chat.title)+": "+'Chameleon\n')
-                    bot.send_message(message.chat.id, "Nice!! Take 2")
+                        new_file.write('Group '+str(message.chat.title)+": "+'Snake\n')
+                    bot.send_message(message.chat.id, "WOW, take care")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
             else:       
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
-                    animals[str(message.chat.first_name)]= 'Chameleon'
+                    animals[str(message.chat.first_name)]= 'Snake'
                     with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
-                        new_file.write('Group '+str(message.chat.first_name)+": "+'Chameleon\n')
+                        new_file.write(str(message.chat.first_name)+": "+'Snake\n')
                     bot.send_message(message.chat.id, "Nice!! Take 2")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
         
@@ -529,7 +534,7 @@ def step_animal_confirmation(message, animal):
                 else:
                     animals[str(message.chat.first_name)]= 'Cat'
                     with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
-                        new_file.write('Group '+str(message.chat.first_name)+": "+'Dog\n')
+                        new_file.write(str(message.chat.first_name)+": "+'Dog\n')
                     bot.send_message(message.chat.id, "Nice!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
@@ -550,7 +555,7 @@ def step_animal_confirmation(message, animal):
                 else:
                     animals[str(message.chat.first_name)]= 'Dog'
                     with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
-                        new_file.write('Group '+str(message.chat.first_name)+": "+'Dog\n')
+                        new_file.write(str(message.chat.first_name)+": "+'Dog\n')
                     bot.send_message(message.chat.id, "Nice!! Take 6, you have an army now haha")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
@@ -570,7 +575,7 @@ def step_animal_confirmation(message, animal):
                 else:
                     animals[str(message.chat.first_name)]= 'Parrot'
                     with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
-                        new_file.write('Group '+str(message.chat.first_name)+": "+'Parrot\n')
+                        new_file.write(str(message.chat.first_name)+": "+'Parrot\n')
                     bot.send_message(message.chat.id, "Nice!!!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
@@ -590,7 +595,7 @@ def step_animal_confirmation(message, animal):
                 else:
                     animals[str(message.chat.first_name)]= 'Duck'
                     with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
-                        new_file.write('Group '+str(message.chat.first_name)+": "+'Duck\n')
+                        new_file.write(str(message.chat.first_name)+": "+'Duck\n')
                     bot.send_message(message.chat.id, "WTF...")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
@@ -610,7 +615,7 @@ def step_animal_confirmation(message, animal):
                 else:
                     animals[str(message.chat.first_name)]= 'Gecko'
                     with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
-                        new_file.write('Group '+str(message.chat.first_name)+": "+'Gecko\n')
+                        new_file.write(str(message.chat.first_name)+": "+'Gecko\n')
                     bot.send_message(message.chat.id, "How cute!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
     else: handle_choose_animal(message)
