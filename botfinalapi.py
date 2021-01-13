@@ -215,13 +215,15 @@ def handle_stop(message):
 
 @bot.message_handler(commands=['contagem'])
 def handle_admin_contagem(message):
+    f = open(path+'arquivos-bot/ungetmes.txt','w')
     if message.chat.id == Danyel:
         if message.chat.first_name == 'Danyel':
             if contagem:
                 for x, y in contagem.items():
-                    bot.send_message(message.chat.id, x)
-                    bot.send_message(message.chat.id, y)
+                    bot.send_message(message.chat.id, str(x)+": "+str(y))
                     bot.send_message(message.chat.id, "----------------")
+                    f.write(str(x)+": "+str(y)+'\n')
+                    f.write('----------------\n')
             else: bot.send_message(message.chat.id, "Nothing, Sir")
 
 
@@ -308,13 +310,21 @@ def handle_menu(message):
         'Coming soon!\n')
     
 
+@bot.message_handler(commands=['rank'])
+def handle_rank(message):
+    bot.send_message(message.chat.id,'*XXXX - UNDER DEVELOPMENT - XXXX*',parse_mode= 'Markdown')
+    bot.send_message(message.chat.id, "Wanna see the Global Ranking? I'm not sure if you are strong enough...")
+    keyboard = telebot.types.InlineKeyboardMarkup()
+    keyboard.add(telebot.types.InlineKeyboardButton('Are you ready? (Travel to Oasis)', url='telegram.me/X_Oasis_Bot'))
+    bot.send_message(message.chat.id,'Go to Oasis and then go to the square, you gonna find what you want (or not)',reply_markup=keyboard)
+    #bot.send_message(message.chat.id, "Go to Oasis and then go to the square, you gonna find what you want (or not).")
 
 @bot.message_handler(commands=['myfriend'])
 def handle_aboutme(message):
     if str(message.chat.first_name) in animals:
         bot.reply_to(message, "Your friend is: "+ animals[message.chat.first_name])
     else:
-        bot.send_message(message.chat.id, "You should choose a friend first. Type \start again")
+        bot.send_message(message.chat.id, "You should choose a friend first. Type /start again")
 
 # Handles all photos received
 @bot.message_handler(content_types=['photo'])
@@ -435,7 +445,7 @@ def step_choose_animal(message):
     markup.row( yes, another)
     
     the_animal = message.text
-    bot.send_message(message.chat.id, str(the_animal))
+    bot.send_message(message.chat.id, str(the_animal)+"... OK.")
 
     if the_animal == 'Snake \U0001F40D':
         photox = open(path+'fotos-aleatorias/snake.jpg', 'rb')
@@ -698,6 +708,10 @@ def query_handler(call):
 
 #    bot.send_message(call.message.chat.id,answer)
 #    bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id) 
+
+
+
+
 
 print('Exodia, Obliterate!')
 bot.polling()

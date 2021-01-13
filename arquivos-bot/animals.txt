@@ -1,2 +1,1 @@
-Xaxaxa: Snake
-Xaxaxa: Parrot
+Xaxaxa: Duck
