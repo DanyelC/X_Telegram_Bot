@@ -13,6 +13,7 @@ animals={}
 Danyel= 847307875
 sobre = "This bot was developed and created by Danyel Clinário. It is still in the testing phase, any \
 suggestion is welcome! Write me!"
+path = '/home/gta/Desktop/danyel/bot/'
 
 bot = telebot.TeleBot("1147645813:AAHbIB78oyWUwz_JYT3pFaKgEjCPsOL2hhQ")
 
@@ -86,7 +87,7 @@ def handle_getme(message):
             bot.reply_to(message, "I already have your chat id for further interactions")
         else:
             getmes[str(message.chat.first_name)]=str(message.chat.id)
-            with open('/home/gta/Desktop/danyel/bot/arquivos-bot/getmes.txt','a') as new_file:
+            with open(path+'arquivos-bot/getmes.txt','a') as new_file:
                 new_file.write(str(message.chat.first_name)+": "+str(message.chat.id)+'\n')
             bot.send_message(Danyel, "XXX-ADMIM-MESSAGE-XXX: Someone just subscribed! "+message.chat.first_name+ " joined")
             bot.reply_to(message, "I just saved your chat id for further interactions")
@@ -97,7 +98,7 @@ def handle_getme(message):
             bot.reply_to(message, "I already have your chat id for further interactions")
         else:
             getmes[str(message.chat.title)]=str(message.chat.id)
-            with open('/home/gta/Desktop/danyel/bot/arquivos-bot/getmes.txt','a') as new_file:
+            with open(path+'arquivos-bot/getmes.txt','a') as new_file:
                 new_file.write('Group '+str(message.chat.title)+": "+str(message.chat.id)+'\n')
             bot.send_message(Danyel, "XXX-ADMIM-MESSAGE-XXX: Someone just subscribed! "+message.chat.title+ " joined")
             bot.reply_to(message, "I just saved your chat id for further interactions")
@@ -189,19 +190,24 @@ def handle_stop(message):
     if message.chat.type == "private":
         if str(message.chat.first_name) in getmes:
             ungetmes[str(message.chat.first_name)] = getmes[str(message.chat.first_name)]
-            #with open('/home/gta/Desktop/danyel/bot/arquivos-bot/ungetmes.txt','a') as new_file: 
-            #    new_file.write(str(message.chat.first_name+": "+str(message.chat.id)+'\n')
+            name = str(message.chat.first_name)
+            cid = str(message.chat.id)
+            with open(path+'arquivos-bot/ungetmes.txt','a') as new_file: 
+                new_file.write(name+': '+ cid+'\n')
             del getmes[str(message.chat.first_name)]
-            bot.send_message(message.chat.id, "Your chat id was deleted")
+            bot.send_message(message.chat.id, "Your chat id was deleted, but your friend still here, waiting for you \U0001F97A")
+
         else:
             bot.send_message(message.chat.id, "Your chat id is not saved")
     elif message.chat.type == "group":
         if str(message.chat.title) in getmes:
             ungetmes[str(message.chat.title)]=getmes[str(message.chat.title)]
-            #with open('/home/gta/Desktop/danyel/bot/arquivos-bot/getmes.txt','a') as new_file:
-            #    new_file.write('Group '+str(message.chat.title)+": "+str(message.chat.id)+'\n')
+            title = str(message.chat.title)
+            cid = str(message.chat.id)
+            with open(path+'arquivos-bot/getmes.txt','a') as new_file:
+                new_file.write('Group '+title+": "+cid+'\n')
             del getmes[str(message.chat.title)]
-            bot.send_message(message.chat.id, "Your chat id was deleted")
+            bot.send_message(message.chat.id, "Your chat id was deleted, but your friend still here, waiting for you \U0001F97A")
         else:
             bot.send_message(message.chat.id, "Your chat id is not saved")
 
@@ -318,7 +324,7 @@ def handle_photo(message):
         _10 = random.randint(1, 10)
         _10 = str(_10)
         foto= "index"+_10+".jpeg"
-        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/'+foto, 'rb')
+        photox = open(path+'fotos-aleatorias/'+foto, 'rb')
         bot.send_photo(message.chat.id, photox)
         _10 = random.randint(1, 5)
         _10 = str(_10)
@@ -327,7 +333,7 @@ def handle_photo(message):
         file_info = bot.get_file(raw)
         downloaded_file = bot.download_file(file_info.file_path)
         nome_arq = str(raw)
-        with open('/home/gta/Desktop/danyel/bot/arquivos-bot/'+message.chat.first_name+nome_arq,'wb') as new_file:
+        with open(path+'arquivos-bot/'+message.chat.first_name+nome_arq,'wb') as new_file:
             new_file.write(downloaded_file)
         bot.send_message(message.chat.id,"Done! I've just downloaded your file, "+message.chat.first_name)
 
@@ -340,7 +346,7 @@ def handle_photo(message):
         _10 = random.randint(1, 5)
         _10 = str(_10)
         foto= "index"+_10+".jpeg"
-        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/'+foto, 'rb')
+        photox = open(path+'fotos-aleatorias/'+foto, 'rb')
         bot.send_photo(message.chat.id, photox)
         _10 = random.randint(1, 5)
         _10 = str(_10)
@@ -349,7 +355,7 @@ def handle_photo(message):
         file_info = bot.get_file(raw)
         downloaded_file = bot.download_file(file_info.file_path)
         nome_arq = str(raw)
-        with open('/home/gta/Desktop/danyel/bot/arquivos-bot/'+message.chat.first_name+nome_arq,'wb') as new_file:
+        with open(path+'arquivos-bot/'+message.chat.first_name+nome_arq,'wb') as new_file:
             new_file.write(downloaded_file)
         bot.send_message(message.chat.id,"Done! I've just downloaded your file, "+message.chat.first_name)
 
@@ -431,8 +437,8 @@ def step_choose_animal(message):
     the_animal = message.text
     bot.send_message(message.chat.id, str(the_animal))
 
-    if the_animal == 'Snake':
-        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/snake.jpg', 'rb')
+    if the_animal == 'Snake \U0001F40D':
+        photox = open(path+'fotos-aleatorias/snake.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
 
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
@@ -441,8 +447,8 @@ def step_choose_animal(message):
        
         
 
-    if the_animal == 'Cat':
-        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/cat.jpg', 'rb')
+    if the_animal == 'Cat \U0001F408':
+        photox = open(path+'fotos-aleatorias/cat.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
 
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
@@ -451,8 +457,8 @@ def step_choose_animal(message):
 
         
         
-    if the_animal == 'Dog':
-        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/dog.jpg', 'rb')
+    if the_animal == 'Dog \U0001F415':
+        photox = open(path+'fotos-aleatorias/dog.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
 
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
@@ -461,8 +467,8 @@ def step_choose_animal(message):
 
         
         
-    if the_animal == 'Parrot':
-        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/parrot.jpg', 'rb')
+    if the_animal == 'Parrot \U0001F99C':
+        photox = open(path+'fotos-aleatorias/parrot.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
 
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
@@ -471,8 +477,8 @@ def step_choose_animal(message):
 
         
         
-    if the_animal == 'Duck':
-        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/duck.jpeg', 'rb')
+    if the_animal == 'Duck \U0001F986':
+        photox = open(path+'fotos-aleatorias/duck.jpeg', 'rb')
         bot.send_photo(message.chat.id, photox)
 
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
@@ -481,8 +487,8 @@ def step_choose_animal(message):
 
         
         
-    if the_animal == 'Gecko':
-        photox = open('/home/gta/Desktop/danyel/bot/fotos-aleatorias/gecko.jpg', 'rb')
+    if the_animal == 'Gecko \U0001F98E':
+        photox = open(path+'fotos-aleatorias/gecko.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
 
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
@@ -504,7 +510,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str('Group: '+message.chat.title)]= 'Snake'
-                    with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write('Group '+str(message.chat.title)+": "+'Snake\n')
                     bot.send_message(message.chat.id, "WOW, take care")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -513,9 +519,9 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str(message.chat.first_name)]= 'Snake'
-                    with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Snake\n')
-                    bot.send_message(message.chat.id, "Nice!! Take 2")
+                    bot.send_message(message.chat.id, "WOW, take care")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
         
         if animal == "Cat":
@@ -524,7 +530,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str('Group: '+message.chat.title)]= 'Cat'
-                    with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write('Group '+str(message.chat.title)+": "+'Cat\n')
                     bot.send_message(message.chat.id, "Nice!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -533,7 +539,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str(message.chat.first_name)]= 'Cat'
-                    with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Dog\n')
                     bot.send_message(message.chat.id, "Nice!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -545,7 +551,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str('Group: '+message.chat.title)]= 'Dog'
-                    with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write('Group '+str(message.chat.title)+": "+'Dog\n')
                     bot.send_message(message.chat.id, "Nice!! Take 6, you have an army now haha")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -554,7 +560,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str(message.chat.first_name)]= 'Dog'
-                    with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Dog\n')
                     bot.send_message(message.chat.id, "Nice!! Take 6, you have an army now haha")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -565,7 +571,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str('Group: '+message.chat.title)]= 'Parrot'
-                    with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write('Group '+str(message.chat.title)+": "+'Parrot\n')
                     bot.send_message(message.chat.id, "Nice!!!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -574,7 +580,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str(message.chat.first_name)]= 'Parrot'
-                    with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Parrot\n')
                     bot.send_message(message.chat.id, "Nice!!!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -585,7 +591,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str('Group: '+message.chat.title)]= 'Duck'
-                    with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write('Group '+str(message.chat.title)+": "+'Duck\n')
                     bot.send_message(message.chat.id, "WTF...")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -594,7 +600,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str(message.chat.first_name)]= 'Duck'
-                    with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Duck\n')
                     bot.send_message(message.chat.id, "WTF...")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -605,7 +611,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str('Group: '+message.chat.title)]= 'Gecko'
-                    with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write('Group '+str(message.chat.title)+": "+'Gecko\n')
                     bot.send_message(message.chat.id, "How cute!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -614,7 +620,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str(message.chat.first_name)]= 'Gecko'
-                    with open('/home/gta/Desktop/danyel/bot/arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Gecko\n')
                     bot.send_message(message.chat.id, "How cute!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
