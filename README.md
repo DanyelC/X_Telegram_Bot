@@ -1,4 +1,4 @@
-# XTelegramBot
+# X_Telegram_Bot
 This bot was developed and created by Danyel Clinário. It is still in the testing phase, any suggestion is welcome! @DanyelC
 
 ============================================================================================================
