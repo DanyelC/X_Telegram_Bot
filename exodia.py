@@ -307,7 +307,7 @@ def handle_menu(message):
         '8) /myfriend - Details about your friend (under development)\n' +
         #'10) Show me the Keyboard - not a command but something you should type\n'+
         'Future features:\n'+
-        'Coming soon!\n')
+        'Coming soon!\n') 
     
 
 @bot.message_handler(commands=['rank'])
