@@ -7,6 +7,7 @@ import requests
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 import configparser
 
+#para usar outros arquivos, chamar com import
 
 config = configparser.ConfigParser()
 config.sections()
@@ -29,7 +30,7 @@ path = '/home/gta/Desktop/danyel/bot/'
 # Handles all text messages that contains the command '/start'
 @bot.message_handler(commands=['start'])
 def handle_start(message):
-    #bot.send_message(message.chat.id, 'Hey! '+"\U0001F601")
+    bot.send_message(message.chat.id, 'Hey! '+"\U0001F601")
     if message.chat.type == "private":
         bot.send_message(message.chat.id, 'Hello, '+ message.chat.first_name +'. My name is Exodia. How can I help you?')
         sleep(1)
