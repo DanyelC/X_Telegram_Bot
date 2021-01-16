@@ -5,6 +5,15 @@ import random
 from time import sleep
 import requests
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+import configparser
+
+
+config = configparser.ConfigParser()
+config.sections()
+config.read('exodia_bot.conf')
+bot = telebot.TeleBot(config['DEFAULTS']['bot_token'])
+
+
 
 getmes={}
 ungetmes={}
@@ -15,7 +24,6 @@ sobre = "This bot was developed and created by Danyel Clinário. It is still in 
 suggestion is welcome! Write me!"
 path = '/home/gta/Desktop/danyel/bot/'
 
-bot = telebot.TeleBot("1147645813:AAHbIB78oyWUwz_JYT3pFaKgEjCPsOL2hhQ")
 
 
 # Handles all text messages that contains the command '/start'
