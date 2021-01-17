@@ -35,6 +35,7 @@ def handle_start(message):
     bot.send_chat_action(message.chat.id, "typing")
     bot.send_chat_action(message.chat.id, "typing")
     bot.send_message(message.chat.id, 'Hey! '+"\U0001F601")
+    
     if message.chat.type == "private":
         bot.send_message(message.chat.id, 'Hello, '+ message.chat.first_name +'. My name is Exodia. How can I help you?')
         bot.send_chat_action(message.chat.id, "typing")
@@ -104,7 +105,6 @@ def handle_help(message):
 def handle_getme(message):
     #bot.reply_to(message, "That's your chat id: "+ str(message.chat.id))
     #bot.forward_message(847307875,message.chat.id,message.id)
-
     if message.chat.type == "private":
         if message.chat.first_name in getmes:
             bot.reply_to(message, "I already have your chat id for further interactions")
