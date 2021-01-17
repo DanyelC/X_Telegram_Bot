@@ -104,7 +104,7 @@ def handle_getme(message):
         else:
             bot.send_message(message.chat.id, "fail")
             getmes[str(message.chat.first_name)]=str(message.chat.id)
-            with open('arquivos-bot/getmes.txt','a') as new_file:
+            with open(path+'arquivos-bot/getmes.txt','a') as new_file:
                 new_file.write(str(message.chat.first_name)+": "+str(message.chat.id)+'\n')
             bot.send_message(Danyel, "XXX-ADMIM-MESSAGE-XXX: Someone just subscribed! "+message.chat.first_name+ " joined")
             bot.reply_to(message, "I just saved your chat id for further interactions")
@@ -115,7 +115,7 @@ def handle_getme(message):
             bot.reply_to(message, "I already have your chat id for further interactions")
         else:
             getmes[str(message.chat.title)]=str(message.chat.id)
-            with open('arquivos-bot/getmes.txt','a') as new_file:
+            with open(path+'arquivos-bot/getmes.txt','a') as new_file:
                 new_file.write('Group '+str(message.chat.title)+": "+str(message.chat.id)+'\n')
             bot.send_message(Danyel, "XXX-ADMIM-MESSAGE-XXX: Someone just subscribed! "+message.chat.title+ " joined")
             bot.reply_to(message, "I just saved your chat id for further interactions")
@@ -222,7 +222,7 @@ def handle_stop(message):
             ungetmes[str(message.chat.first_name)] = getmes[str(message.chat.first_name)]
             name = str(message.chat.first_name)
             cid = str(message.chat.id)
-            with open('arquivos-bot/ungetmes.txt','a') as new_file: 
+            with open(path+'arquivos-bot/ungetmes.txt','a') as new_file: 
                 new_file.write(name+': '+ cid+'\n')
             del getmes[str(message.chat.first_name)]
             bot.send_chat_action(message.chat.id, "typing")
@@ -235,7 +235,7 @@ def handle_stop(message):
             ungetmes[str(message.chat.title)]=getmes[str(message.chat.title)]
             title = str(message.chat.title)
             cid = str(message.chat.id)
-            with open('arquivos-bot/getmes.txt','a') as new_file:
+            with open(path+'arquivos-bot/getmes.txt','a') as new_file:
                 new_file.write('Group '+title+": "+cid+'\n')
             del getmes[str(message.chat.title)]
             bot.send_chat_action(message.chat.id, "typing")
@@ -248,7 +248,7 @@ def handle_stop(message):
 
 @bot.message_handler(commands=['contagem'])
 def handle_admin_contagem(message):
-    f = open('arquivos-bot/ungetmes.txt','w')
+    f = open(path+'arquivos-bot/ungetmes.txt','w')
     if message.chat.id == Danyel:
         if message.chat.first_name == 'Danyel':
             if contagem:
@@ -376,7 +376,7 @@ def handle_photo(message):
         _10 = random.randint(1, 10)
         _10 = str(_10)
         foto= "index"+_10+".jpeg"
-        photox = open('fotos-aleatorias/'+foto, 'rb')
+        photox = open(path+'fotos-aleatorias/'+foto, 'rb')
         bot.send_photo(message.chat.id, photox)
         _10 = random.randint(1, 5)
         _10 = str(_10)
@@ -385,7 +385,7 @@ def handle_photo(message):
         file_info = bot.get_file(raw)
         downloaded_file = bot.download_file(file_info.file_path)
         nome_arq = str(raw)
-        with open('arquivos-bot/'+message.chat.first_name+nome_arq,'wb') as new_file:
+        with open(path+'arquivos-bot/'+message.chat.first_name+nome_arq,'wb') as new_file:
             new_file.write(downloaded_file)
         bot.send_message(message.chat.id,"Done! I've just downloaded your file, "+message.chat.first_name)
 
@@ -400,7 +400,7 @@ def handle_photo(message):
         _10 = random.randint(1, 5)
         _10 = str(_10)
         foto= "index"+_10+".jpeg"
-        photox = open('fotos-aleatorias/'+foto, 'rb')
+        photox = open(path+'fotos-aleatorias/'+foto, 'rb')
         bot.send_photo(message.chat.id, photox)
         _10 = random.randint(1, 5)
         _10 = str(_10)
@@ -409,7 +409,7 @@ def handle_photo(message):
         file_info = bot.get_file(raw)
         downloaded_file = bot.download_file(file_info.file_path)
         nome_arq = str(raw)
-        with open('arquivos-bot/'+message.chat.first_name+nome_arq,'wb') as new_file:
+        with open(path+'arquivos-bot/'+message.chat.first_name+nome_arq,'wb') as new_file:
             new_file.write(downloaded_file)
         bot.send_message(message.chat.id,"Done! I've just downloaded your file, "+message.chat.first_name)
 
@@ -495,7 +495,7 @@ def step_choose_animal(message):
     bot.send_message(message.chat.id, str(the_animal)+"... OK.")
 
     if the_animal == 'Snake \U0001F40D':
-        photox = open('fotos-aleatorias/snake.jpg', 'rb')
+        photox = open(path+'fotos-aleatorias/snake.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
         bot.send_chat_action(message.chat.id, "typing")
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
@@ -505,7 +505,7 @@ def step_choose_animal(message):
         
 
     if the_animal == 'Cat \U0001F408':
-        photox = open('fotos-aleatorias/cat.jpg', 'rb')
+        photox = open(path+'fotos-aleatorias/cat.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
         bot.send_chat_action(message.chat.id, "typing")
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
@@ -515,7 +515,7 @@ def step_choose_animal(message):
         
         
     if the_animal == 'Dog \U0001F415':
-        photox = open('fotos-aleatorias/dog.jpg', 'rb')
+        photox = open(path+'fotos-aleatorias/dog.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
         bot.send_chat_action(message.chat.id, "typing")
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
@@ -525,7 +525,7 @@ def step_choose_animal(message):
         
         
     if the_animal == 'Parrot \U0001F99C':
-        photox = open('fotos-aleatorias/parrot.jpg', 'rb')
+        photox = open(path+'fotos-aleatorias/parrot.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
         bot.send_chat_action(message.chat.id, "typing")
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
@@ -535,7 +535,7 @@ def step_choose_animal(message):
         
         
     if the_animal == 'Duck \U0001F986':
-        photox = open('fotos-aleatorias/duck.jpeg', 'rb')
+        photox = open(path+'fotos-aleatorias/duck.jpeg', 'rb')
         bot.send_photo(message.chat.id, photox)
         bot.send_chat_action(message.chat.id, "typing")
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
@@ -545,7 +545,7 @@ def step_choose_animal(message):
         
         
     if the_animal == 'Gecko \U0001F98E':
-        photox = open('fotos-aleatorias/gecko.jpg', 'rb')
+        photox = open(path+'fotos-aleatorias/gecko.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
         bot.send_chat_action(message.chat.id, "typing")
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
@@ -567,7 +567,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str('Group: '+message.chat.title)]= 'Snake'
-                    with open('arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write('Group '+str(message.chat.title)+": "+'Snake\n')
                     bot.send_message(message.chat.id, "WOW, take care")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -579,7 +579,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str(message.chat.first_name)]= 'Snake'
-                    with open('arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Snake\n')
                     bot.send_message(message.chat.id, "WOW, take care")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -596,7 +596,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str('Group: '+message.chat.title)]= 'Cat'
-                    with open('arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write('Group '+str(message.chat.title)+": "+'Cat\n')
                     bot.send_message(message.chat.id, "Nice!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -608,7 +608,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str(message.chat.first_name)]= 'Cat'
-                    with open('arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Dog\n')
                     bot.send_message(message.chat.id, "Nice!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -623,7 +623,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str('Group: '+message.chat.title)]= 'Dog'
-                    with open('arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write('Group '+str(message.chat.title)+": "+'Dog\n')
                     bot.send_message(message.chat.id, "Nice!! Take 6, you have an army now haha")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -635,7 +635,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str(message.chat.first_name)]= 'Dog'
-                    with open('arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Dog\n')
                     bot.send_message(message.chat.id, "Nice!! Take 6, you have an army now haha")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -650,7 +650,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str('Group: '+message.chat.title)]= 'Parrot'
-                    with open('arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write('Group '+str(message.chat.title)+": "+'Parrot\n')
                     bot.send_message(message.chat.id, "Nice!!!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -662,7 +662,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str(message.chat.first_name)]= 'Parrot'
-                    with open('arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Parrot\n')
                     bot.send_message(message.chat.id, "Nice!!!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -676,7 +676,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str('Group: '+message.chat.title)]= 'Duck'
-                    with open('arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write('Group '+str(message.chat.title)+": "+'Duck\n')
                     bot.send_message(message.chat.id, "WTF...")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -688,7 +688,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str(message.chat.first_name)]= 'Duck'
-                    with open('arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Duck\n')
                     bot.send_message(message.chat.id, "WTF...")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -702,7 +702,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str('Group: '+message.chat.title)]= 'Gecko'
-                    with open('arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write('Group '+str(message.chat.title)+": "+'Gecko\n')
                     bot.send_message(message.chat.id, "How cute!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
@@ -714,7 +714,7 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str(message.chat.first_name)]= 'Gecko'
-                    with open('arquivos-bot/animals.txt','a') as new_file:
+                    with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Gecko\n')
                     bot.send_message(message.chat.id, "How cute!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
