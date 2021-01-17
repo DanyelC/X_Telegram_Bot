@@ -102,6 +102,7 @@ def handle_getme(message):
         if message.chat.first_name in getmes:
             bot.reply_to(message, "I already have your chat id for further interactions")
         else:
+            bot.send_message(message.chat.id, "fail")
             getmes[str(message.chat.first_name)]=str(message.chat.id)
             with open(path+'arquivos-bot/getmes.txt','a') as new_file:
                 new_file.write(str(message.chat.first_name)+": "+str(message.chat.id)+'\n')
