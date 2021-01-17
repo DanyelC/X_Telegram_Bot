@@ -1,2 +1,9 @@
 Xaxaxa: Duck
 Xaxaxa: Duck
+Xaxaxa: Gecko
+Xaxaxa: Gecko
+Xaxaxa: Gecko
+Xaxaxa: Gecko
+Xaxaxa: Snake
+Xaxaxa: Snake
+Xaxaxa: Snake

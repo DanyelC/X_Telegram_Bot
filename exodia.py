@@ -6,6 +6,7 @@ from time import sleep
 import requests
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 import configparser
+from player import Player
 
 #para usar outros arquivos, chamar com import
 
@@ -20,6 +21,7 @@ getmes={}
 ungetmes={}
 contagem={}
 animals={}
+players={}
 Danyel= 847307875
 sobre = "This bot was developed and created by Danyel Clinário. It is still in the testing phase, any \
 suggestion is welcome! Write me!"
@@ -30,14 +32,19 @@ path = '/home/gta/Desktop/danyel/bot/'
 # Handles all text messages that contains the command '/start'
 @bot.message_handler(commands=['start'])
 def handle_start(message):
+    bot.send_chat_action(message.chat.id, "typing")
+    bot.send_chat_action(message.chat.id, "typing")
     bot.send_message(message.chat.id, 'Hey! '+"\U0001F601")
     if message.chat.type == "private":
         bot.send_message(message.chat.id, 'Hello, '+ message.chat.first_name +'. My name is Exodia. How can I help you?')
-        sleep(1)
+        bot.send_chat_action(message.chat.id, "typing")
+        bot.send_chat_action(message.chat.id, "typing")
         handle_getme(message)
-        sleep(1)
+        bot.send_chat_action(message.chat.id, "typing")
+        bot.send_chat_action(message.chat.id, "typing")
         bot.send_message(message.chat.id, "Would like to see the menu? You just need to click here: /menu")
-        sleep(1)
+        bot.send_chat_action(message.chat.id, "typing")
+        bot.send_chat_action(message.chat.id, "typing")
         if message.chat.type == "group":
             if str('Group: '+message.chat.title) in animals:
                 bot.send_message(message.chat.id, "You already have your friend")
@@ -46,13 +53,18 @@ def handle_start(message):
         else:
             bot.send_message(message.chat.id, "But before starting...")
             handle_choose_animal(message)
+            
+
     else:   
         bot.send_message(message.chat.id, 'Hello people from '+ message.chat.title +' group. My name is Exodia. How can I help you?')
-        sleep(1)
+        bot.send_chat_action(message.chat.id, "typing")
+        bot.send_chat_action(message.chat.id, "typing")
         handle_getme(message)
-        sleep(1)
+        bot.send_chat_action(message.chat.id, "typing")
+        bot.send_chat_action(message.chat.id, "typing")
         bot.reply_to(message, "Would like to see the menu? You just need to click here: /menu")
-        sleep(1)
+        bot.send_chat_action(message.chat.id, "typing")
+        bot.send_chat_action(message.chat.id, "typing")
         bot.send_message(message.chat.id, "But before starting...")
         handle_choose_animal(message)
 
@@ -62,8 +74,10 @@ def handle_start(message):
 # Handles all text messages that contains the command '/help'.
 @bot.message_handler(commands=['help'])
 def handle_help(message):
+    bot.send_chat_action(message.chat.id, "typing")
     bot.reply_to(message, "How can I help you?")
-    sleep(1)
+    bot.send_chat_action(message.chat.id, "typing")
+    bot.send_chat_action(message.chat.id, "typing")
     bot.send_message(message.chat.id,
         '1) /menu - The list of all my 8 commands\n' +
         '2) /start - Get started about the game (under development)\n' +
@@ -86,7 +100,7 @@ def handle_help(message):
 #    bot.send_message(1108257002, "eu tbm te amo ta")
 
 # getting your chat id
-@bot.message_handler(commands=['getme'])
+#@bot.message_handler(commands=['getme'])
 def handle_getme(message):
     #bot.reply_to(message, "That's your chat id: "+ str(message.chat.id))
     #bot.forward_message(847307875,message.chat.id,message.id)
@@ -117,6 +131,8 @@ def handle_getme(message):
 # Handles all text messages that contains the command '/about'.
 @bot.message_handler(commands=['about'])
 def handle_about(message):
+    bot.send_chat_action(message.chat.id, "typing")
+    bot.send_chat_action(message.chat.id, "typing")
     keyboard = telebot.types.InlineKeyboardMarkup()
     keyboard.add(telebot.types.InlineKeyboardButton('Message the developer', url='telegram.me/DanyelC'))
     bot.send_message(message.chat.id,sobre,reply_markup=keyboard)
@@ -126,6 +142,8 @@ def handle_about(message):
 # Handles all text messages that contains the command '/play'.
 @bot.message_handler(commands=['play', 'score'])
 def handle_play_score(message):
+    bot.send_chat_action(message.chat.id, "typing")
+    bot.send_chat_action(message.chat.id, "typing")
     if message.text == "/score":
             if str(message.chat.first_name) in contagem:
                 bot.reply_to(message, "Your score is %d and mine is %d" % (contagem[str(message.chat.first_name)], contagem[str(message.chat.first_name)+'Exodia']))
@@ -140,8 +158,10 @@ def handle_play_score(message):
         _5 = random.randint(1, 6)
         _6 = random.randint(1, 6)
         bot.reply_to(message, "OK! Let me roll the dice")
+        bot.send_chat_action(message.chat.id, "typing")
         bot.send_message(message.chat.id, 'You have ' + str(_1) + ' and ' + str(_2) + ' and ' + str(_3) + ' !\n Your result is ' + str(_1 + _2 + _3) + '!!!')
-        sleep(1)
+        bot.send_chat_action(message.chat.id, "typing")
+        bot.send_chat_action(message.chat.id, "typing")
         bot.send_message(message.chat.id, 'I have ' + str(_4) + ' and ' + str(_5) + ' and ' + str(_6) + ' !\n My result is ' + str(_4 + _5 + _6) + '!!!')
         if message.chat.type == "private": 
             if _1 + _2 + _3 == _4 + _5 + _6: torneio= "Nobody won, sorry"
@@ -159,10 +179,13 @@ def handle_play_score(message):
                 else: 
                     contagem[str(message.chat.first_name)+'Exodia'] = 1
                     contagem[str(message.chat.first_name)]=0
-            sleep(1)
+            bot.send_chat_action(message.chat.id, "typing")
+            bot.send_chat_action(message.chat.id, "typing")
             bot.send_message(message.chat.id,torneio)
-            sleep(1)
+            bot.send_chat_action(message.chat.id, "typing")
+            bot.send_chat_action(message.chat.id, "typing")
             if torneio!="Nobody won, sorry":
+                bot.send_chat_action(message.chat.id, "typing")
                 bot.send_message(message.chat.id, "Your score is %d and mine is %d" % (contagem[str(message.chat.first_name)], contagem[str(message.chat.first_name)+'Exodia']))
             bot.send_message(message.chat.id, "Let's play again? /play")
 
@@ -182,9 +205,11 @@ def handle_play_score(message):
                 else: 
                     contagem[str(message.chat.title)+'Exodia'] = 1
                     contagem[str(message.chat.title)]=0
-            sleep(1)
+            bot.send_chat_action(message.chat.id, "typing")
+            bot.send_chat_action(message.chat.id, "typing")
             bot.send_message(message.chat.id,torneio)
-            sleep(1)
+            bot.send_chat_action(message.chat.id, "typing")
+            bot.send_chat_action(message.chat.id, "typing")
             if torneio!="Nobody won, sorry":
                 bot.send_message(message.chat.id, "Your score is %d and mine is %d" % (contagem[str(message.chat.title)], contagem[str(message.chat.title)+'Exodia']))
             bot.send_message(message.chat.id, "Let's play again? /play")            
@@ -195,6 +220,8 @@ def handle_play_score(message):
 # Handles all text messages that contains the command '/stop'.
 @bot.message_handler(commands=['stop'])
 def handle_stop(message):
+    bot.send_chat_action(message.chat.id, "typing")
+    bot.send_chat_action(message.chat.id, "typing")
     bot.reply_to(message, "Don't worry! I won't write you again (except if you write me hahaha)")
     if message.chat.type == "private":
         if str(message.chat.first_name) in getmes:
@@ -204,6 +231,7 @@ def handle_stop(message):
             with open(path+'arquivos-bot/ungetmes.txt','a') as new_file: 
                 new_file.write(name+': '+ cid+'\n')
             del getmes[str(message.chat.first_name)]
+            bot.send_chat_action(message.chat.id, "typing")
             bot.send_message(message.chat.id, "Your chat id was deleted, but your friend still here, waiting for you \U0001F97A")
 
         else:
@@ -216,8 +244,10 @@ def handle_stop(message):
             with open(path+'arquivos-bot/getmes.txt','a') as new_file:
                 new_file.write('Group '+title+": "+cid+'\n')
             del getmes[str(message.chat.title)]
+            bot.send_chat_action(message.chat.id, "typing")
             bot.send_message(message.chat.id, "Your chat id was deleted, but your friend still here, waiting for you \U0001F97A")
         else:
+            bot.send_chat_action(message.chat.id, "typing")
             bot.send_message(message.chat.id, "Your chat id is not saved")
 
     
@@ -280,7 +310,10 @@ def handle_adminhozinho(message):
 # Handles all text messages that contains the command '/menu'.
 @bot.message_handler(commands=['menu'])
 def handle_menu(message):
+    bot.send_chat_action(message.chat.id, "typing")
     bot.send_message(message.chat.id, "A list of commands:")
+    bot.send_chat_action(message.chat.id, "typing")
+    bot.send_chat_action(message.chat.id, "typing")
     if message.chat.id == Danyel:
         if message.chat.first_name == 'Danyel':
             bot.send_message(message.chat.id,
@@ -321,6 +354,8 @@ def handle_menu(message):
 
 @bot.message_handler(commands=['rank'])
 def handle_rank(message):
+    bot.send_chat_action(message.chat.id, "typing")
+    bot.send_chat_action(message.chat.id, "typing")
     bot.send_message(message.chat.id,'*XXXX - UNDER DEVELOPMENT - XXXX*',parse_mode= 'Markdown')
     bot.send_message(message.chat.id, "Wanna see the Global Ranking? I'm not sure if you are strong enough...")
     keyboard = telebot.types.InlineKeyboardMarkup()
@@ -330,6 +365,8 @@ def handle_rank(message):
 
 @bot.message_handler(commands=['myfriend'])
 def handle_aboutme(message):
+    bot.send_chat_action(message.chat.id, "typing")
+    bot.send_chat_action(message.chat.id, "typing")
     if str(message.chat.first_name) in animals:
         bot.reply_to(message, "Your friend is: "+ animals[message.chat.first_name])
     else:
@@ -338,6 +375,8 @@ def handle_aboutme(message):
 # Handles all photos received
 @bot.message_handler(content_types=['photo'])
 def handle_photo(message):
+    bot.send_chat_action(message.chat.id, "typing")
+    bot.send_chat_action(message.chat.id, "typing")
     if message.chat.type == "private":
         bot.reply_to(message, "Nice! I'm going to upload your photo now. Do you want to see some cards?")
         _10 = random.randint(1, 10)
@@ -360,6 +399,8 @@ def handle_photo(message):
 
 @bot.message_handler(content_types=['document'])
 def handle_photo(message):
+    bot.send_chat_action(message.chat.id, "typing")
+    bot.send_chat_action(message.chat.id, "typing")
     if message.chat.type == "private":
         bot.reply_to(message, "Nice! I'm going to upload your document now. Do you want to see some cards?")
         _10 = random.randint(1, 5)
@@ -381,6 +422,7 @@ def handle_photo(message):
 # Handles all videos and audio files
 @bot.message_handler(content_types=['audio', 'video'])
 def handle_video_audio(message):
+    bot.send_chat_action(message.chat.id, "typing")
     bot.send_message(message.chat.id,"I will ignore it, "+message.chat.first_name)
     #markup = types.InlineKeyboardMarkup()
     #itembtna = types.KeyboardButton('gato')
@@ -423,8 +465,10 @@ def handle_choose_animal(message):
     markup.row(parrotx, duckx, geckox)
 
     if message.chat.type == "group":
+        bot.send_chat_action(message.chat.id, "typing")
         bot.send_message(message.chat.id, "You are going to choose a friend to the group chat, not only for you")
-        sleep(2)
+        bot.send_chat_action(message.chat.id, "typing")
+        bot.send_chat_action(message.chat.id, "typing")
     animal_keyboard = bot.send_message(message.chat.id, "It is dangerous to go alone, choose one :", reply_markup=markup)
     bot.register_next_step_handler(animal_keyboard , step_choose_animal)
 
@@ -459,7 +503,7 @@ def step_choose_animal(message):
     if the_animal == 'Snake \U0001F40D':
         photox = open(path+'fotos-aleatorias/snake.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
-
+        bot.send_chat_action(message.chat.id, "typing")
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
 
         bot.register_next_step_handler(confirm_animal , step_animal_confirmation, "Snake")
@@ -469,7 +513,7 @@ def step_choose_animal(message):
     if the_animal == 'Cat \U0001F408':
         photox = open(path+'fotos-aleatorias/cat.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
-
+        bot.send_chat_action(message.chat.id, "typing")
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
 
         bot.register_next_step_handler(confirm_animal , step_animal_confirmation, "Cat")
@@ -479,7 +523,7 @@ def step_choose_animal(message):
     if the_animal == 'Dog \U0001F415':
         photox = open(path+'fotos-aleatorias/dog.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
-
+        bot.send_chat_action(message.chat.id, "typing")
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
 
         bot.register_next_step_handler(confirm_animal , step_animal_confirmation, "Dog")
@@ -489,7 +533,7 @@ def step_choose_animal(message):
     if the_animal == 'Parrot \U0001F99C':
         photox = open(path+'fotos-aleatorias/parrot.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
-
+        bot.send_chat_action(message.chat.id, "typing")
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
 
         bot.register_next_step_handler(confirm_animal , step_animal_confirmation, "Parrot")
@@ -499,7 +543,7 @@ def step_choose_animal(message):
     if the_animal == 'Duck \U0001F986':
         photox = open(path+'fotos-aleatorias/duck.jpeg', 'rb')
         bot.send_photo(message.chat.id, photox)
-
+        bot.send_chat_action(message.chat.id, "typing")
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
 
         bot.register_next_step_handler(confirm_animal , step_animal_confirmation, "Duck")
@@ -509,7 +553,7 @@ def step_choose_animal(message):
     if the_animal == 'Gecko \U0001F98E':
         photox = open(path+'fotos-aleatorias/gecko.jpg', 'rb')
         bot.send_photo(message.chat.id, photox)
-
+        bot.send_chat_action(message.chat.id, "typing")
         confirm_animal = bot.send_message(message.chat.id, "Would you like to have this buddy as your friend?", reply_markup=markup)
 
         bot.register_next_step_handler(confirm_animal , step_animal_confirmation, "Gecko")
@@ -542,6 +586,12 @@ def step_animal_confirmation(message, animal):
                         new_file.write(str(message.chat.first_name)+": "+'Snake\n')
                     bot.send_message(message.chat.id, "WOW, take care")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
+                    
+                    #Player(id,animal,personalidade):
+                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
+                    print(players[str(message.chat.id)].id)
+                    print(players[str(message.chat.id)].animal)
+                    print(players[str(message.chat.id)].personalidade)
         
         if animal == "Cat":
             if message.chat.type == "group":
