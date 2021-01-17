@@ -577,6 +577,9 @@ def step_animal_confirmation(message, animal):
                         new_file.write('Group '+str(message.chat.title)+": "+'Snake\n')
                     bot.send_message(message.chat.id, "WOW, take care")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
+
+                    #Player(id,animal,personalidade):
+                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
             else:       
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -603,6 +606,9 @@ def step_animal_confirmation(message, animal):
                         new_file.write('Group '+str(message.chat.title)+": "+'Cat\n')
                     bot.send_message(message.chat.id, "Nice!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
+
+                    #Player(id,animal,personalidade):
+                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
             else:
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -612,6 +618,9 @@ def step_animal_confirmation(message, animal):
                         new_file.write(str(message.chat.first_name)+": "+'Dog\n')
                     bot.send_message(message.chat.id, "Nice!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
+
+                    #Player(id,animal,personalidade):
+                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
 
 
         if animal == "Dog":
@@ -624,6 +633,9 @@ def step_animal_confirmation(message, animal):
                         new_file.write('Group '+str(message.chat.title)+": "+'Dog\n')
                     bot.send_message(message.chat.id, "Nice!! Take 6, you have an army now haha")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
+
+                    #Player(id,animal,personalidade):
+                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
             else:
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -633,6 +645,10 @@ def step_animal_confirmation(message, animal):
                         new_file.write(str(message.chat.first_name)+": "+'Dog\n')
                     bot.send_message(message.chat.id, "Nice!! Take 6, you have an army now haha")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
+
+                    #Player(id,animal,personalidade):
+                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
+                    
 
         if animal == "Parrot":
             if message.chat.type == "group":
@@ -644,6 +660,9 @@ def step_animal_confirmation(message, animal):
                         new_file.write('Group '+str(message.chat.title)+": "+'Parrot\n')
                     bot.send_message(message.chat.id, "Nice!!!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
+
+                    #Player(id,animal,personalidade):
+                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
             else:
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -653,6 +672,9 @@ def step_animal_confirmation(message, animal):
                         new_file.write(str(message.chat.first_name)+": "+'Parrot\n')
                     bot.send_message(message.chat.id, "Nice!!!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
+
+                    #Player(id,animal,personalidade):
+                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
 
         if animal == "Duck":
             if message.chat.type == "group":
@@ -664,6 +686,9 @@ def step_animal_confirmation(message, animal):
                         new_file.write('Group '+str(message.chat.title)+": "+'Duck\n')
                     bot.send_message(message.chat.id, "WTF...")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
+
+                    #Player(id,animal,personalidade):
+                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
             else:
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -673,6 +698,9 @@ def step_animal_confirmation(message, animal):
                         new_file.write(str(message.chat.first_name)+": "+'Duck\n')
                     bot.send_message(message.chat.id, "WTF...")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
+
+                    #Player(id,animal,personalidade):
+                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
 
         if animal == "Gecko":
             if message.chat.type == "group":
@@ -684,6 +712,9 @@ def step_animal_confirmation(message, animal):
                         new_file.write('Group '+str(message.chat.title)+": "+'Gecko\n')
                     bot.send_message(message.chat.id, "How cute!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
+
+                    #Player(id,animal,personalidade):
+                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
             else:
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -693,6 +724,9 @@ def step_animal_confirmation(message, animal):
                         new_file.write(str(message.chat.first_name)+": "+'Gecko\n')
                     bot.send_message(message.chat.id, "How cute!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
+
+                    #Player(id,animal,personalidade):
+                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
     else: handle_choose_animal(message)
 
 #================ TESTANDO CRIAÇÃO DE CONVERSAS ========================
@@ -713,6 +747,29 @@ def step_animal_confirmation(message, animal):
 #    bot.send_message(message.chat.id, "You was born in "+str(year2))
 
 #================ TESTANDO CRIAÇÃO DE CONVERSAS ========================
+
+
+@bot.message_handler(commands=['players'])
+def handle_player(message):
+    if message.chat.id == Danyel:
+        if message.chat.first_name == 'Danyel':
+            if players:
+                #for y,x in players:
+                #    bot.send_message(Danyel,
+                #    x.id +'\n'+
+                #    x.score +'\n' +
+                #    x.personalidade+'\n'+
+                #    #'4) /getme - Subscribe to create your account and get some news!\n' +
+                #    x.vida+'\n'+
+                #    x.ataque+'\n' +
+                #    x.defesa+'\n' +
+                #    x.equipamento+'\n' +
+                #    x.magia+'\n')
+                for jogadores in players:
+                    x= players[jogadores].send_all_list()
+                    bot.send_message(Danyel, "=========================") 
+                    for y in x:
+                        bot.send_message(Danyel, y)  
 
 @bot.message_handler(content_types=['text'])
 def quiz(message):
