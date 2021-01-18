@@ -1,14 +1,15 @@
 class Player:
-    def __init__(self,id,animal,personalidade):
+    def __init__(self,id,animal,personality):
         self.id = id
         self.score = 0
         self.animal = animal
-        self.personalidade = personalidade
-        self.vida= 100
-        self.ataque = 10
-        self.defesa= 0
-        self.equipamento = ["Nada", 0]
-        self.magia = ["Nada", 0]
+        self.personality = personality
+        self.hp = 100
+        self.attack = 10
+        self.defense = 0
+        self.gear = ["Nothing", 0]
+        self.magic = ["Nothing", 0]
+        self.gold = 5000
 
 
 

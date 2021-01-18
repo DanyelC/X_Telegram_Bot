@@ -1,1 +1,9 @@
 Danyel: Gecko
+Danyel: Dog
+Danyel: Dog
+Danyel: Parrot
+Danyel: Parrot
+Danyel: Parrot
+Danyel: Parrot
+Danyel: Parrot
+Danyel: Snake

@@ -7,6 +7,7 @@ import requests
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 import configparser
 from player import Player
+from smallgames import hangman
 
 #para usar outros arquivos, chamar com import
 
@@ -22,6 +23,7 @@ ungetmes={}
 contagem={}
 animals={}
 players={}
+#tictactoe={}
 Danyel= 847307875
 sobre = "This bot was developed and created by Danyel Clinário. It is still in the testing phase, any \
 suggestion is welcome! Write me!"
@@ -118,7 +120,7 @@ def handle_getme(message):
             with open('arquivos-bot/getmes.txt','a') as new_file:
             #with open(path+'arquivos-bot/getmes.txt','a') as new_file:
                 new_file.write('Group '+str(message.chat.title)+": "+str(message.chat.id)+'\n')
-            bot.send_message(Danyel, "XXX-ADMIM-MESSAGE-XXX: Someone just subscribed! "+message.chat.title+ " joined")
+            bot.send_message(Danyel, "*XXX-ADMIM-MESSAGE-XXX*: Someone just subscribed! "+message.chat.title+ " joined", parse_mode= 'Markdown')
             bot.reply_to(message, "I just saved your chat id for further interactions")
 
 
@@ -135,7 +137,7 @@ def handle_about(message):
 
 
 # Handles all text messages that contains the command '/play'.
-@bot.message_handler(commands=['play', 'score'])
+@bot.message_handler(commands=['play', 'score','hangman'])
 def handle_play_score(message):
     bot.send_chat_action(message.chat.id, "typing")
     bot.send_chat_action(message.chat.id, "typing")
@@ -144,6 +146,9 @@ def handle_play_score(message):
                 bot.reply_to(message, "Your score is %d and mine is %d" % (contagem[str(message.chat.first_name)], contagem[str(message.chat.first_name)+'Exodia']))
             else: 
                 bot.reply_to(message, "We haven't played ... yet. Lets play now! Click here: /play")
+    #elif message.text == "/hangman":
+    #    tictactoe[str(message.chat.first_name)]= hangman(message)
+
 
     elif message.text == "/play":
         _1 = random.randint(1, 6)
@@ -303,6 +308,29 @@ def handle_adminhozinho(message):
 
 
 
+@bot.message_handler(commands=['players'])
+def handle_player(message):
+    if message.chat.id == Danyel:
+        if message.chat.first_name == 'Danyel':
+            if players:
+                #for y,x in players:
+                #    bot.send_message(Danyel,
+                #    x.id +'\n'+
+                #    x.score +'\n' +
+                #    x.personalidade+'\n'+
+                #    #'4) /getme - Subscribe to create your account and get some news!\n' +
+                #    x.vida+'\n'+
+                #    x.ataque+'\n' +
+                #    x.defesa+'\n' +
+                #    x.equipamento+'\n' +
+                #    x.magia+'\n')
+                for jogadores in players:
+                    x= players[jogadores].send_all_list()
+                    bot.send_message(Danyel, "=========================") 
+                    for y in x:
+                        bot.send_message(Danyel, y)  
+
+
 # ADMIN STUFF BRO ---------------------------------------------------------------------------------------------------
 
 # Handles all text messages that contains the command '/menu'.
@@ -362,13 +390,63 @@ def handle_rank(message):
     #bot.send_message(message.chat.id, "Go to Oasis and then go to the square, you gonna find what you want (or not).")
 
 @bot.message_handler(commands=['myfriend'])
-def handle_aboutme(message):
+def handle_myfriend(message):
     bot.send_chat_action(message.chat.id, "typing")
     bot.send_chat_action(message.chat.id, "typing")
     if str(message.chat.first_name) in animals:
-        bot.reply_to(message, "Your friend is: "+ animals[message.chat.first_name])
+        x = bot.reply_to(message, "Your friend is: "+ animals[message.chat.first_name])
+        
+        markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
+        yes = types.KeyboardButton('Yes')
+        no = types.KeyboardButton('Obviously no!')
+        markup.row( yes, no)
+
+        confirm_change = bot.reply_to(x, "Would you like to choose another one? You are going to spend 1k gold and lose 10 HP ( your friend is going to kick you)", reply_markup=markup)
+
+        bot.register_next_step_handler(confirm_change , step_animal_change)
     else:
         bot.send_message(message.chat.id, "You should choose a friend first. Type /start again")
+
+
+
+def step_animal_change(message):
+    answer = message.text
+    if answer == "Yes":
+        bot.send_chat_action(message.chat.id, "typing")
+        bot.send_message(message.chat.id, "kick this idiot!")
+        players[str(message.chat.id)].vida-=10
+        sleep(1)
+        bot.send_message(message.chat.id, "_"+animals[str(message.chat.first_name)]+" kicked you\n"+"you lost 10 HP_", parse_mode = 'Markdown')
+        sleep(1)
+        bot.send_message(message.chat.id, "_Exodia grabs your gold_", parse_mode = 'Markdown')
+        sleep(1)
+        players[str(message.chat.id)].gold-=1000
+        bot.send_message(message.chat.id, "_you lost 1k gold_", parse_mode = 'Markdown')
+        bot.send_chat_action(message.chat.id, "typing")
+        del animals[str(message.chat.first_name)]
+        bot.send_message(message.chat.id, "Ok so, I'm going to take your friend to a new home...")
+        bot.send_chat_action(message.chat.id, "typing")
+        bot.send_message(message.chat.id, "But first, take this...")
+        sleep(1)
+        bot.send_message(message.chat.id, "_Exodia punches you_", parse_mode = 'Markdown')
+        players[str(message.chat.id)].vida-=50
+        sleep(1)
+        bot.send_message(message.chat.id, "_you lost 50 HP_", parse_mode = 'Markdown')
+        sleep(1)
+        bot.send_message(message.chat.id, "*GIVE ME MORE MONEY!*", parse_mode = 'Markdown')
+        players[str(message.chat.id)].gold-=1000
+        slep(1)
+        bot.send_message(message.chat.id, "_you lost 1k gold again_", parse_mode = 'Markdown')
+        handle_choose_animal(message)
+    else: bot.send_message(message.chat.id, "Ok")
+
+
+
+@bot.message_handler(commands=['status'])
+def handle_status(message):
+    bot.send_message(message.chat.id, "_Thats all you have..._", parse_mode = 'Markdown')
+    x = players[str(message.chat.id)].send_all_list()
+    bot.send_message(message.chat.id, x )
 
 # Handles all photos received
 @bot.message_handler(content_types=['photo'])
@@ -490,6 +568,9 @@ def handle_choose_animal(message):
 #def step_set_year(message):
 #    year2= message.text
 #    bot.send_message(message.chat.id, "You was born in "+str(year2))
+
+
+
 
 
 #Handle the animal and sends it to confirmation
@@ -769,27 +850,6 @@ def step_animal_confirmation(message, animal):
 #================ TESTANDO CRIAÇÃO DE CONVERSAS ========================
 
 
-@bot.message_handler(commands=['players'])
-def handle_player(message):
-    if message.chat.id == Danyel:
-        if message.chat.first_name == 'Danyel':
-            if players:
-                #for y,x in players:
-                #    bot.send_message(Danyel,
-                #    x.id +'\n'+
-                #    x.score +'\n' +
-                #    x.personalidade+'\n'+
-                #    #'4) /getme - Subscribe to create your account and get some news!\n' +
-                #    x.vida+'\n'+
-                #    x.ataque+'\n' +
-                #    x.defesa+'\n' +
-                #    x.equipamento+'\n' +
-                #    x.magia+'\n')
-                for jogadores in players:
-                    x= players[jogadores].send_all_list()
-                    bot.send_message(Danyel, "=========================") 
-                    for y in x:
-                        bot.send_message(Danyel, y)  
 
 @bot.message_handler(content_types=['text'])
 def quiz(message):
