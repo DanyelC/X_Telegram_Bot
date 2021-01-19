@@ -319,7 +319,7 @@ def handle_player(message):
                 #    x.score +'\n' +
                 #    x.personalidade+'\n'+
                 #    #'4) /getme - Subscribe to create your account and get some news!\n' +
-                #    x.vida+'\n'+
+                #    x.hp+'\n'+
                 #    x.ataque+'\n' +
                 #    x.defesa+'\n' +
                 #    x.equipamento+'\n' +
@@ -414,7 +414,7 @@ def step_animal_change(message):
     if answer == "Yes":
         bot.send_chat_action(message.chat.id, "typing")
         bot.send_message(message.chat.id, "kick this idiot!")
-        players[str(message.chat.id)].vida-=10
+        players[str(message.chat.id)].hp-=10
         sleep(1)
         bot.send_message(message.chat.id, "_"+animals[str(message.chat.first_name)]+" kicked you\n"+"you lost 10 HP_", parse_mode = 'Markdown')
         sleep(1)
@@ -429,13 +429,13 @@ def step_animal_change(message):
         bot.send_message(message.chat.id, "But first, take this...")
         sleep(1)
         bot.send_message(message.chat.id, "_Exodia punches you_", parse_mode = 'Markdown')
-        players[str(message.chat.id)].vida-=50
+        players[str(message.chat.id)].hp-=50
         sleep(1)
         bot.send_message(message.chat.id, "_you lost 50 HP_", parse_mode = 'Markdown')
         sleep(1)
         bot.send_message(message.chat.id, "*GIVE ME MORE MONEY!*", parse_mode = 'Markdown')
         players[str(message.chat.id)].gold-=1000
-        slep(1)
+        sleep(1)
         bot.send_message(message.chat.id, "_you lost 1k gold again_", parse_mode = 'Markdown')
         handle_choose_animal(message)
     else: bot.send_message(message.chat.id, "Ok")
@@ -444,9 +444,12 @@ def step_animal_change(message):
 
 @bot.message_handler(commands=['status'])
 def handle_status(message):
-    bot.send_message(message.chat.id, "_Thats all you have..._", parse_mode = 'Markdown')
-    x = players[str(message.chat.id)].send_all_list()
-    bot.send_message(message.chat.id, x )
+    if str(message.chat.id) in players:
+        bot.send_message(message.chat.id, "_Thats all you have..._", parse_mode = 'Markdown')
+        x = players[str(message.chat.id)].send_all_list()
+        del(x[0])
+        for y in x:
+            bot.send_message(message.chat.id, y )
 
 # Handles all photos received
 @bot.message_handler(content_types=['photo'])
@@ -669,7 +672,11 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
                     #Player(id,animal,personalidade):
-                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
+                    if str(message.chat.id) in players:
+                        pass
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    if players[str(message.chat.id)].hp==100:
+                        bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
             else:       
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -682,10 +689,14 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
                     
                     #Player(id,animal,personalidade):
-                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
-                    print(players[str(message.chat.id)].id)
-                    print(players[str(message.chat.id)].animal)
-                    print(players[str(message.chat.id)].personalidade)
+                    if str(message.chat.id) in players:
+                        pass
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    if players[str(message.chat.id)].hp==100:
+                        bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
+                    #print(players[str(message.chat.id)].id)
+                    #print(players[str(message.chat.id)].animal)
+                    #print(players[str(message.chat.id)].personality)
         
         if animal == "Cat":
             if message.chat.type == "group":
@@ -700,7 +711,11 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
                     #Player(id,animal,personalidade):
-                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
+                    if str(message.chat.id) in players:
+                        pass
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    if players[str(message.chat.id)].hp==100:
+                        bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
             else:
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -713,7 +728,11 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
                     #Player(id,animal,personalidade):
-                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
+                    if str(message.chat.id) in players:
+                        pass
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    if players[str(message.chat.id)].hp==100:
+                        bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
 
 
         if animal == "Dog":
@@ -729,7 +748,11 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
                     #Player(id,animal,personalidade):
-                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
+                    if str(message.chat.id) in players:
+                        pass
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    if players[str(message.chat.id)].hp==100:
+                        bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
             else:
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -742,7 +765,11 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
                     #Player(id,animal,personalidade):
-                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
+                    if str(message.chat.id) in players:
+                        pass
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    if players[str(message.chat.id)].hp==100:
+                        bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                     
 
         if animal == "Parrot":
@@ -758,7 +785,11 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
                     #Player(id,animal,personalidade):
-                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
+                    if str(message.chat.id) in players:
+                        pass
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    if players[str(message.chat.id)].hp==100:
+                        bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
             else:
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -771,7 +802,11 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
                     #Player(id,animal,personalidade):
-                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
+                    if str(message.chat.id) in players:
+                        pass
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    if players[str(message.chat.id)].hp==100:
+                        bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
 
         if animal == "Duck":
             if message.chat.type == "group":
@@ -786,7 +821,11 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
                     #Player(id,animal,personalidade):
-                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
+                    if str(message.chat.id) in players:
+                        pass
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    if players[str(message.chat.id)].hp==100:
+                        bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
             else:
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -799,7 +838,11 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
                     #Player(id,animal,personalidade):
-                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
+                    if str(message.chat.id) in players:
+                        pass
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    if players[str(message.chat.id)].hp==100:
+                        bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
 
         if animal == "Gecko":
             if message.chat.type == "group":
@@ -814,7 +857,11 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
                     #Player(id,animal,personalidade):
-                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
+                    if str(message.chat.id) in players:
+                        pass
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    if players[str(message.chat.id)].hp==100:
+                        bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
             else:
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -827,7 +874,12 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
                     #Player(id,animal,personalidade):
-                    players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Não importa")
+                    if str(message.chat.id) in players:
+                        pass
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    if players[str(message.chat.id)].hp==100:
+                        bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
+
     else: handle_choose_animal(message)
 
 #================ TESTANDO CRIAÇÃO DE CONVERSAS ========================
