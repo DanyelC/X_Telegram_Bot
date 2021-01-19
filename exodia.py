@@ -82,7 +82,7 @@ def handle_help(message):
     bot.send_chat_action(message.chat.id, "typing")
     bot.send_chat_action(message.chat.id, "typing")
     bot.send_message(message.chat.id,
-        '1) /menu - The list of all my 8 commands\n' +
+        '1) /menu - The list of all my 10 commands\n' +
         '2) /start - Get started about the game (under development)\n' +
         '3) /help - Questions and answers about the game (under development)\n' +
         #'4) /getme - Subscribe to create your account and get some news!\n' +
@@ -91,6 +91,8 @@ def handle_help(message):
         '6) /score - I can show you our score \n' +
         '7) /stop - Delete your account (under development) \n' +
         '8) /myfriend - Details about your friend (under development)\n' +
+        '9) /status - Your status\n'+
+        '10) /rank - Are you the Chosen One?\n'+
         #'10) Show me the Keyboard - not a command but something you should type\n'+
         'Future features:\n'+
         'Coming soon!\n')  
@@ -234,6 +236,7 @@ def handle_stop(message):
             del getmes[str(message.chat.first_name)]
             bot.send_chat_action(message.chat.id, "typing")
             bot.send_message(message.chat.id, "Your chat id was deleted, but your friend still here, waiting for you \U0001F97A")
+            bot.send_message(message.chat.id, "To change your friend, type /myfriend")
 
         else:
             bot.send_message(message.chat.id, "Your chat id is not saved")
@@ -343,7 +346,7 @@ def handle_menu(message):
     if message.chat.id == Danyel:
         if message.chat.first_name == 'Danyel':
             bot.send_message(message.chat.id,
-            '1) /menu - The list of all my 8 commands\n' +
+            '1) /menu - The list of all my 10 commands\n' +
             '2) /start - Get started about the game (under development)\n' +
             '3) /help - Questions and answers about the game (under development)\n' +
             #'4) /getme - Subscribe to create your account and get some news!\n' +
@@ -352,6 +355,8 @@ def handle_menu(message):
             '6) /score - I can show you our score \n' +
             '7) /stop - Delete your account (under development) \n' +
             '8) /myfriend - Details about your friend (under development)\n' +
+            '9) /status - Your status\n'+
+            '10) /rank - Are you the Chosen One?\n'+
             #'10) Show me the Keyboard - not a command but something you should type\n'+
             'Future features:\n'+
             'Coming soon!\n\n'
@@ -362,9 +367,10 @@ def handle_menu(message):
             '1) /getmes\n' +
             '2) /contagem\n'+
             '3) /animals\n'+
-            '4) /ungetmes')
+            '4) /ungetmes\n'+
+            '5) /players')
     else: bot.send_message(message.chat.id,
-        '1) /menu - The list of all my 8 commands\n' +
+        '1) /menu - The list of all my 10 commands\n' +
         '2) /start - Get started about the game (under development)\n' +
         '3) /help - Questions and answers about the game (under development)\n' +
         #'4) /getme - Subscribe to create your account and get some news!\n' +
@@ -373,6 +379,8 @@ def handle_menu(message):
         '6) /score - I can show you our score \n' +
         '7) /stop - Delete your account (under development) \n' +
         '8) /myfriend - Details about your friend (under development)\n' +
+        '9) /status - Your status\n'+
+        '10) /rank - Are you the Chosen One?\n'+
         #'10) Show me the Keyboard - not a command but something you should type\n'+
         'Future features:\n'+
         'Coming soon!\n') 
@@ -393,20 +401,34 @@ def handle_rank(message):
 def handle_myfriend(message):
     bot.send_chat_action(message.chat.id, "typing")
     bot.send_chat_action(message.chat.id, "typing")
-    if str(message.chat.first_name) in animals:
-        x = bot.reply_to(message, "Your friend is: "+ animals[message.chat.first_name])
-        
-        markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
-        yes = types.KeyboardButton('Yes')
-        no = types.KeyboardButton('Obviously no!')
-        markup.row( yes, no)
+    if message.chat.type == "private":
+        if str(message.chat.first_name) in animals:
+            x = bot.reply_to(message, "Your friend is: "+ animals[message.chat.first_name])
+            
+            markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
+            yes = types.KeyboardButton('Yes')
+            no = types.KeyboardButton('Obviously no!')
+            markup.row( yes, no)
 
-        confirm_change = bot.reply_to(x, "Would you like to choose another one? You are going to spend 1k gold and lose 10 HP ( your friend is going to kick you)", reply_markup=markup)
+            confirm_change = bot.reply_to(x, "Would you like to choose another one? You are going to spend 1k gold and lose 10 HP ( your friend is going to kick you)", reply_markup=markup)
 
-        bot.register_next_step_handler(confirm_change , step_animal_change)
-    else:
-        bot.send_message(message.chat.id, "You should choose a friend first. Type /start again")
+            bot.register_next_step_handler(confirm_change , step_animal_change)
+        else:
+            bot.send_message(message.chat.id, "You should choose a friend first. Type /start again")
+    elif message.chat.type == "group":
+        if str(message.chat.title) in animals:
+            x = bot.reply_to(message, "Your friend is: "+ animals[message.chat.title])
+            
+            markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
+            yes = types.KeyboardButton('Yes')
+            no = types.KeyboardButton('Obviously no!')
+            markup.row( yes, no)
 
+            confirm_change = bot.reply_to(x, "Would you like to choose another one? You are going to spend 1k gold and lose 10 HP ( your friend is going to kick you)", reply_markup=markup)
+
+            bot.register_next_step_handler(confirm_change , step_animal_change)
+        else:
+            bot.send_message(message.chat.id, "You should choose a friend first. Type /start again")
 
 
 def step_animal_change(message):
@@ -450,12 +472,16 @@ def handle_status(message):
         del(x[0])
         for y in x:
             bot.send_message(message.chat.id, y )
+    else: bot.send_message(message.chat.id, "You don't have anything")
+
+
 
 # Handles all photos received
 @bot.message_handler(content_types=['photo'])
 def handle_photo(message):
     bot.send_chat_action(message.chat.id, "typing")
     bot.send_chat_action(message.chat.id, "typing")
+    bot.send_message(message.chat.id, "*UPLOAD DISABLED*", parse_mode= 'Markdown')
     if message.chat.type == "private":
         bot.reply_to(message, "Nice! I'm going to upload your photo now. Do you want to see some cards?")
         _10 = random.randint(1, 10)
@@ -482,6 +508,7 @@ def handle_photo(message):
 def handle_photo(message):
     bot.send_chat_action(message.chat.id, "typing")
     bot.send_chat_action(message.chat.id, "typing")
+    bot.send_message(message.chat.id, "*UPLOAD DISABLED*", parse_mode= 'Markdown')
     if message.chat.type == "private":
         bot.reply_to(message, "Nice! I'm going to upload your document now. Do you want to see some cards?")
         _10 = random.randint(1, 5)
@@ -677,6 +704,7 @@ def step_animal_confirmation(message, animal):
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
+                        quiz(message)
             else:       
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -697,6 +725,7 @@ def step_animal_confirmation(message, animal):
                     #print(players[str(message.chat.id)].id)
                     #print(players[str(message.chat.id)].animal)
                     #print(players[str(message.chat.id)].personality)
+                    quiz(message)
         
         if animal == "Cat":
             if message.chat.type == "group":
@@ -716,6 +745,7 @@ def step_animal_confirmation(message, animal):
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
+                        quiz(message)
             else:
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -733,7 +763,7 @@ def step_animal_confirmation(message, animal):
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
-
+                        quiz(message)
 
         if animal == "Dog":
             if message.chat.type == "group":
@@ -753,6 +783,8 @@ def step_animal_confirmation(message, animal):
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
+                        quiz(message)
+            
             else:
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -770,7 +802,7 @@ def step_animal_confirmation(message, animal):
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
-                    
+                        quiz(message)
 
         if animal == "Parrot":
             if message.chat.type == "group":
@@ -790,6 +822,8 @@ def step_animal_confirmation(message, animal):
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
+                        quiz(message)
+            
             else:
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -807,6 +841,7 @@ def step_animal_confirmation(message, animal):
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
+                        quiz(message)
 
         if animal == "Duck":
             if message.chat.type == "group":
@@ -826,6 +861,7 @@ def step_animal_confirmation(message, animal):
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
+                        quiz(message)
             else:
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -843,6 +879,7 @@ def step_animal_confirmation(message, animal):
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
+                        quiz(message)
 
         if animal == "Gecko":
             if message.chat.type == "group":
@@ -862,6 +899,7 @@ def step_animal_confirmation(message, animal):
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
+                        quiz(message)
             else:
                 if str(message.chat.first_name) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
@@ -879,6 +917,7 @@ def step_animal_confirmation(message, animal):
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
+                        quiz(message)
 
     else: handle_choose_animal(message)
 
@@ -958,6 +997,215 @@ def query_handler(call):
 #    bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id) 
 
 
+
+def quiz(message):
+    personality={}
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
+    Morning = types.KeyboardButton('Morning')
+    Afternoon = types.KeyboardButton('Afternoon')
+    Night = types.KeyboardButton('Night')
+    markup.row( Morning, Afternoon, Night)
+    
+    bot.send_message(message.chat.id, "Let's start the quiz")
+
+    answer1= bot.send_message(message.chat.id, "Do you prefer morning, afternoon or evening?", reply_markup=markup)
+
+    bot.register_next_step_handler(answer1, step_quiz2, personality)
+
+
+def step_quiz2(message,personality): #Do you believe in God? Yes, no , -1, 3"
+    if message.text == "Night":
+        personality[str(message.chat.id)]= 2
+    else:
+        personality[str(message.chat.id)]= 1
+
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
+    Yes = types.KeyboardButton('Yes')
+    No = types.KeyboardButton('No')
+    markup.row( Yes,No)
+
+    answer1= bot.send_message(message.chat.id, "Do you believe in God?", reply_markup=markup)
+
+    bot.register_next_step_handler(answer1, step_quiz3, personality)
+
+def step_quiz3(message,personality):# 3 - "If you were a God, who would you be? God of War, God of Nature, God of Wisdom. -5 , 1 , 4"
+        
+    if message.text == "Yes":
+        personality[str(message.chat.id)]+= -1
+    else:
+        personality[str(message.chat.id)]+= 3
+    
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
+    War = types.KeyboardButton('God of War')
+    Nature = types.KeyboardButton('God of Nature')
+    Wisdom = types.KeyboardButton('God of Wisdom')
+    markup.row( War, Nature, Wisdom)
+
+    answer1= bot.send_message(message.chat.id, "If you were a God, who would you be?", reply_markup=markup)
+
+    bot.register_next_step_handler(answer1, step_quiz4, personality)
+
+def step_quiz4(message,personality):# 4 - "If you could master an element, what would it be? Water, fire, wind, earth. 1, -5, 1, 0 "
+        
+    if message.text == "God of War":
+        personality[str(message.chat.id)]+= -5
+    elif message.text == "God of Nature":
+        personality[str(message.chat.id)]+= 1
+    else: 
+        personality[str(message.chat.id)]+= 4
+        
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
+    Water = types.KeyboardButton('Water')
+    Fire = types.KeyboardButton('Fire')
+    Wind = types.KeyboardButton('Wind')
+    Earth = types.KeyboardButton('Earth')
+    markup.row( Water,Fire,Wind,Earth)
+
+    answer1= bot.send_message(message.chat.id, "If you could master an element, what would it be?", reply_markup=markup)
+
+    bot.register_next_step_handler(answer1, step_quiz5, personality)
+
+def step_quiz5(message,personality):# 5 - "Are you happy? Yes, no. 1 , -3"
+        
+    if message.text == "Fire":
+        personality[str(message.chat.id)]+= -5
+    elif message.text == "Earth":
+        personality[str(message.chat.id)]+= 0
+    else: 
+        personality[str(message.chat.id)]+= 1
+        
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
+    Yes = types.KeyboardButton('Yes')
+    No = types.KeyboardButton('No')
+    markup.row( Yes,No)
+
+    answer1= bot.send_message(message.chat.id, "Are you happy?", reply_markup=markup)
+
+    bot.register_next_step_handler(answer1, step_quiz6, personality)
+
+def step_quiz6(message,personality):# 6 - "How often do you lie? None, low, medium, high. 0, -1, -2, -4"
+        
+    if message.text == "Yes":
+        personality[str(message.chat.id)]+= 1
+    else:
+        personality[str(message.chat.id)]+= -3
+
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
+    Nonex = types.KeyboardButton('None')
+    Low = types.KeyboardButton('Low')
+    Medium = types.KeyboardButton('Medium')
+    High = types.KeyboardButton('High')
+    markup.row( Nonex,Low,Medium,High)
+
+    answer1= bot.send_message(message.chat.id, "How often do you lie?", reply_markup=markup)
+
+    bot.register_next_step_handler(answer1, step_quiz7, personality)
+
+def step_quiz7(message,personality): # 7 - "Are you a stressed person? Yes, no. -2, 2"
+        
+    if message.text == "None":
+        personality[str(message.chat.id)]+= 0
+    elif message.text == "Low":
+        personality[str(message.chat.id)]+= -1
+    elif message.text == "Medium":
+        personality[str(message.chat.id)]+= -2
+    else:
+        personality[str(message.chat.id)]+= -4
+        
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
+    Yes = types.KeyboardButton('Yes')
+    No = types.KeyboardButton('No')
+    markup.row( Yes,No)
+
+    answer1= bot.send_message(message.chat.id, "Are you a stressed person?", reply_markup=markup)
+
+    bot.register_next_step_handler(answer1, step_quiz8, personality)
+
+def step_quiz8(message,personality): # 8 - "Are you an ambitious person? Yes, no, -3, 2"
+        
+    if message.text == "Yes":
+        personality[str(message.chat.id)]+= -2
+    else:
+        personality[str(message.chat.id)]+= 2
+        
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
+    Yes = types.KeyboardButton('Yes')
+    No = types.KeyboardButton('No')
+    markup.row( Yes,No)
+        
+    answer1= bot.send_message(message.chat.id, "Are you an ambitious person?", reply_markup=markup)
+
+    bot.register_next_step_handler(answer1, step_quiz9, personality)
+
+def step_quiz9(message,personality): # 9 - "Cheating is only a problem if you get caught? Truth, lie. -4, 2"
+        
+    if message.text == "Yes":
+        personality[str(message.chat.id)]+= -3
+    else:
+        personality[str(message.chat.id)]+= 2
+        
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
+    Yes = types.KeyboardButton('Yes')
+    No = types.KeyboardButton('No')
+    markup.row( Yes,No)
+    
+
+    answer1= bot.send_message(message.chat.id, "Cheating is only a problem if you get caught?", reply_markup=markup)
+
+    bot.register_next_step_handler(answer1, step_quiz10, personality)
+
+    
+def step_quiz10(message,personality): # 10 - "Power, happiness or peace? Power, happiness, peace. -2, -1, 1"
+        
+    if message.text == "Yes":
+        personality[str(message.chat.id)]+= -4
+    else:
+        personality[str(message.chat.id)]+= 2
+        
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
+    Power = types.KeyboardButton('Power')
+    Happiness = types.KeyboardButton('Happiness')
+    Peace = types.KeyboardButton('Peace')
+    markup.row( Power, Happiness, Peace)
+    
+
+    answer1= bot.send_message(message.chat.id,"Power, happiness or peace?", reply_markup=markup)
+
+    bot.register_next_step_handler(answer1, step_quiz_score, personality)
+
+    
+    
+def step_quiz_score(message,personality):
+    if message.text == "Power":
+        personality[str(message.chat.id)]+= -2
+    elif message.text == "Peace":
+        personality[str(message.chat.id)]+= 1
+    else:
+        personality[str(message.chat.id)]+= -1
+        
+    thepersonality(message,personality)
+
+
+
+
+def thepersonality(message,personality):
+    if personality[str(message.chat.id)] >= 0 and personality[str(message.chat.id)] <= 5:
+        players[str(message.chat.id)].personality = "The Chosen One"
+        players[str(message.chat.id)].power+=10000
+    elif personality[str(message.chat.id)] >= 6 and personality[str(message.chat.id)] <= 10:   
+        players[str(message.chat.id)].personality = "The Knight"
+        players[str(message.chat.id)].power+=3000
+    elif personality[str(message.chat.id)] > 10 and personality[str(message.chat.id)] <= 15:   
+        players[str(message.chat.id)].personality = "The Peasant"
+        players[str(message.chat.id)].power+=1000
+    elif personality[str(message.chat.id)] > 15 and personality[str(message.chat.id)] <= 18:   
+        players[str(message.chat.id)].personality = "The Repugnant"
+        players[str(message.chat.id)].power-=1000
+    elif personality[str(message.chat.id)] >= -28 and personality[str(message.chat.id)] <= -10:   
+        players[str(message.chat.id)].personality = "The Human-Demon"
+        players[str(message.chat.id)].power+=9999
+
+    bot.send_message(message.chat.id, "You seems to be "+players[str(message.chat.id)].personality)
 
 
 

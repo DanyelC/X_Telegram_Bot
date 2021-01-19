@@ -10,7 +10,8 @@ class Player:
         self.gear = ["Nothing", 0]
         self.magic = ["Nothing", 0]
         self.gold = 5000
-
+        self.power = self.score*0.5 + self.hp*10 + self.attack*5 + self.defense*2 + self.gear[1]*5+ self.magic[1]*2+ self.gold*0.7
+        #colocar animal na conta
 
 
     def send_all_list(self):
@@ -20,18 +21,25 @@ class Player:
             lista.append(x)
         return lista
 
+    
 
 #======================= QUIZ =======================
 
-# 1 - "Voce prefere a manhã, tarde ou noite? manha, tarde, noite" 
-# 2 - "Voce acredita em Deus? sim nao"
-# 3 - "Se voce fosse um Deus, qual seria? Deus da Guerra, Deus da Natureza, Deus da Sabedoria"
-# 4 - "Se pudesse dominar um elemento, qual seria? agua, fogo, vento, terra"
-# 5 - "Vocẽ é feliz? sim, nao"
-# 6 - "Com que frequencia voce mente? nenhuma, baixa, media, alta"
-# 7 - "Voce é uma pessoa estressada? sim , não"
-# 8 - "Voce é uma pessoa ambiciosa? sim , não"
-# 9 - "Trapacear só é um problema se vocẽ for pego? verdade, mentira"
-# 10 - "Poder, felicidade ou paz? dinheiro, felicidade, paz"
+# 1 - "Do you prefer morning, afternoon or evening? Morning, afternoon, night. 1,1,2"
+# 2 - "Do you believe in God? Yes, no , -1, 3"
+# 3 - "If you were a God, who would you be? God of War, God of Nature, God of Wisdom. -5 , 1 , 4"
+# 4 - "If you could master an element, what would it be? Water, fire, wind, earth. 1, -5, 1, 0 "
+# 5 - "Are you happy? Yes, no. 1 , -3"
+# 6 - "How often do you lie? None, low, medium, high. 0, -1, -2, -4"
+# 7 - "Are you a stressed person? Yes, no. -2, 2"
+# 8 - "Are you an ambitious person? Yes, no, -3, 2"
+# 9 - "Cheating is only a problem if you get caught? Truth, lie. -4, 2"
+# 10 - "Power, happiness or peace? Power, happiness, peace. -2, -1, 1"
 
 #======================= QUIZ =======================
+ #fazer aquela parada de estado?
+ # The Chosen One -- power += 10000 / 0-5
+ # Knight -- power += 3000 / 6-10
+ # Peasant -- power += 1000 / 10-15
+ # Repugnant -- power -= 1000 / 15-18
+ # Human-Demon -- power += 10000 / -28 - -10
