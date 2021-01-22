@@ -41,3 +41,6 @@ Danyel: Snake
 Danyel: Snake
 Danyel: Snake
 Danyel: Gecko
+Danyel: Duck
+Danyel: Duck
+Danyel: Duck
