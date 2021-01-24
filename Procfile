@@ -1,1 +1,1 @@
-worker python exodia.py & oasis.py & wait -n
+worker python exodia.py & oasis.py
