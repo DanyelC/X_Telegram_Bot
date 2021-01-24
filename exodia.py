@@ -9,8 +9,10 @@ import configparser
 from player import Player
 from smallgames import hangman
 
-#para usar outros arquivos, chamar com import
 
+
+    
+#para usar outros arquivos, chamar com import
 config = configparser.ConfigParser()
 config.sections()
 config.read('exodia_bot.conf')
@@ -109,7 +111,7 @@ def handle_getme(message):
             getmes[str(message.chat.first_name)]=str(message.chat.id)
             with open('arquivos-bot/getmes.txt','a') as new_file:
             #with open(path+'arquivos-bot/getmes.txt','a') as new_file:
-                new_file.write(str(message.chat.first_name)+": "+str(message.chat.id)+'\n')
+                new_file.write(str(message.chat.first_name)+" "+str(message.chat.id)+'\n')
             bot.send_message(Danyel, "XXX-ADMIM-MESSAGE-XXX: Someone just subscribed! "+message.chat.first_name+ " joined")
             bot.reply_to(message, "I just saved your chat id for further interactions")
 
@@ -121,7 +123,7 @@ def handle_getme(message):
             getmes[str(message.chat.title)]=str(message.chat.id)
             with open('arquivos-bot/getmes.txt','a') as new_file:
             #with open(path+'arquivos-bot/getmes.txt','a') as new_file:
-                new_file.write('Group '+str(message.chat.title)+": "+str(message.chat.id)+'\n')
+                new_file.write('Group '+str(message.chat.title)+" "+str(message.chat.id)+'\n')
             bot.send_message(Danyel, "*XXX-ADMIM-MESSAGE-XXX*: Someone just subscribed! "+message.chat.title+ " joined", parse_mode= 'Markdown')
             bot.reply_to(message, "I just saved your chat id for further interactions")
 
@@ -1183,6 +1185,6 @@ def thepersonality(message,personality):
 
 #=======================================QUIZ======================================================================
 
-
+#if __name__ == "__main__":
 print('Exodia, Obliterate!')
 bot.polling()

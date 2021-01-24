@@ -6,6 +6,7 @@ import requests
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 import configparser
 from player import Player
+#import exodia
 from smallgames import hangman
 
 bot = telebot.TeleBot('1322322473:AAEqIreqjYCOaTzdXBUoxj8f_BB1FiteIVo')
@@ -46,19 +47,42 @@ bot = telebot.TeleBot('1322322473:AAEqIreqjYCOaTzdXBUoxj8f_BB1FiteIVo')
 #        #bot.delete_message(call.message.chat.id, call.message.message_id)
 #        print('passou')
 
+
+oasis_getmes = {}
+def get_the_file():
+    a_file = open("/home/gta/Desktop/danyel/bot/arquivos-bot/getmes.txt")
+    for line in a_file:
+        key, value = line.split()
+    #Split line into a tuple
+        oasis_getmes[key] = value
+    #Add tuple values to dictionary
+    print(oasis_getmes)
+
+
 @bot.message_handler(commands=['start'])
 def start_main_menu(message):
-    main_keyboard = types.InlineKeyboardMarkup(row_width=1)
-    first_button = types.InlineKeyboardButton(text="Church", callback_data="church")
-    second_button = types.InlineKeyboardButton(text="Square", callback_data="square")
-    third_button = types.InlineKeyboardButton(text="Market", callback_data="market")
-    main_keyboard.add(first_button, second_button, third_button)
-    bot.send_message(message.chat.id, "Where would you like to go?", reply_markup=main_keyboard)
-
+    get_the_file()
+    if message.chat.first_name in oasis_getmes:
+        #for x, y in oasis_getmes.items():
+        #            bot.send_message(message.chat.id, x)
+        #            bot.send_message(message.chat.id, y)
+        #            bot.send_message(message.chat.id, "----------------")
+        main_keyboard = types.InlineKeyboardMarkup(row_width=1)
+        first_button = types.InlineKeyboardButton(text="Church", callback_data="church")
+        second_button = types.InlineKeyboardButton(text="Square", callback_data="square")
+        third_button = types.InlineKeyboardButton(text="Market", callback_data="market")
+        main_keyboard.add(first_button, second_button, third_button)
+        bot.send_message(message.chat.id, "Where would you like to go?", reply_markup=main_keyboard)
+    else:
+        bot.send_message(message.chat.id, "Your entry to Oasis is prohibited.\n"+"_The future is Oasis_", parse_mode="Markdown")
+        #for x, y in oasis_getmes.items():
+        #            bot.send_message(message.chat.id, x)
+        #            bot.send_message(message.chat.id, y)
+        #            bot.send_message(message.chat.id, "----------------")
 @bot.callback_query_handler(func=lambda call:True)
 def callback_inline(call):
     if call.data == "main_menu":
-
+        bot.answer_callback_query(callback_query_id=call.id, text='Menu')
         main_keyboard = types.InlineKeyboardMarkup(row_width=1)
         first_button = types.InlineKeyboardButton(text="Church", callback_data="church")
         second_button = types.InlineKeyboardButton(text="Square", callback_data="square")
@@ -67,6 +91,7 @@ def callback_inline(call):
         bot.edit_message_text(chat_id=call.message.chat.id,message_id=call.message.message_id, text="Where would you like to go?",reply_markup=main_keyboard)
 
     if call.data == "church":
+        bot.answer_callback_query(callback_query_id=call.id, text='You are in the Church!')
         keyboard = types.InlineKeyboardMarkup(row_width=3)
         button1 = types.InlineKeyboardButton(text="Pray", callback_data="pray")
         button2 = types.InlineKeyboardButton(text="Beg for money", callback_data="beg")
@@ -76,6 +101,7 @@ def callback_inline(call):
         bot.edit_message_text(chat_id=call.message.chat.id,message_id=call.message.message_id, text="You are in the Church",reply_markup=keyboard)
 
     elif call.data == "square":
+        bot.answer_callback_query(callback_query_id=call.id, text='You are in the Square!')
         keyboard = types.InlineKeyboardMarkup(row_width=3)
         button1 = types.InlineKeyboardButton(text="Meet someone", callback_data="meet")
         button2 = types.InlineKeyboardButton(text="The Tournament", callback_data="tournament")
@@ -87,6 +113,7 @@ def callback_inline(call):
 
 
     elif call.data == "market":
+        bot.answer_callback_query(callback_query_id=call.id, text='You are in the Market!')
         keyboard = types.InlineKeyboardMarkup(row_width=3)
         button1 = types.InlineKeyboardButton(text="Buy new Gear", callback_data="buy")
         button2 = types.InlineKeyboardButton(text="Buy food", callback_data="food")
@@ -108,7 +135,8 @@ def callback_inline(call):
 
 
     elif call.data == "join":
-        bot.send_message(call.message.chat.id, "_You lost 500 gold_", parse_mode="Markdown") 
+        bot.answer_callback_query(callback_query_id=call.id, text='_You lost 500 gold_', show_alert=True)
+        #bot.send_message(call.message.chat.id, "_You lost 500 gold_", parse_mode="Markdown") 
         bot.edit_message_text(chat_id=call.message.chat.id,message_id=call.message.message_id, text="_You joined the tournament. Be sure you read the rules:_",parse_mode="Markdown",reply_markup=None)
 
 
@@ -119,6 +147,7 @@ def callback_inline(call):
     #    keyboard3.add(button)
     #    bot.edit_message_text(chat_id=call.message.chat.id,message_id=call.message.message_id, text="last layer",reply_markup=keyboard3)
 
+    
 
 #============================================================================================================
 
