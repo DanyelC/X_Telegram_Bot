@@ -8,8 +8,20 @@ import configparser
 from player import Player
 #import exodia
 from smallgames import hangman
+from ibm_watson import TextToSpeechV1
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+#import os
+from pathlib import Path
 
 bot = telebot.TeleBot('1322322473:AAEqIreqjYCOaTzdXBUoxj8f_BB1FiteIVo')
+url =  'https://api.us-south.text-to-speech.watson.cloud.ibm.com/instances/f2244305-7a54-4f72-b2df-1d3a0a5b604c'
+apikey= 'pg2lScfDkxc66EmJgRxBO6FBYG3KWoSI1cUwOak_iSLd'
+
+# Setup Service
+authenticator = IAMAuthenticator(apikey)
+tts = TextToSpeechV1(authenticator=authenticator)
+tts.set_service_url(url)
+
 
 #@bot.message_handler(commands=['start'])
 #def start(message):
@@ -48,6 +60,7 @@ bot = telebot.TeleBot('1322322473:AAEqIreqjYCOaTzdXBUoxj8f_BB1FiteIVo')
 #        print('passou')
 
 
+
 oasis_getmes = {}
 def get_the_file():
     a_file = open("/home/gta/Desktop/danyel/bot/arquivos-bot/getmes.txt")
@@ -59,14 +72,50 @@ def get_the_file():
     print(oasis_getmes)
 
 
+#with open('./thefutureis.mp3', 'wb') as audio_file:
+#    res = tts.synthesize('The future is Oasis', accept='audio/mp3', voice='en-US_AllisonV3Voice').get_result()
+#    audio_file.write(res.content)
+
+
+@bot.message_handler(commands=['help'])
+def help_handler(message):
+    
+    #with open('./help.mp3', 'wb') as audio_file:
+    #    res = tts.synthesize('Oasis is a futuristic city that survived the fourth world war and has the most advanced technological tools. This city allows a small connection between human beings. Oasis is the center of the World for the ones who deserve it. We are nothing without Oasis. The future is Oasis.', accept='audio/mp3', voice='en-US_AllisonV3Voice').get_result()
+    #    audio_file.write(res.content)
+    #    bot.send_chat_action(message.chat.id, "record_audio")
+    
+    bot.send_chat_action(message.chat.id, "record_audio")
+    help = open('./help.mp3', 'rb')
+
+    bot.send_voice(message.chat.id, help)
+
+#thefutureisoasis = open('/home/gta/Desktop/danyel/bot/thefutureis.mp3', 'rb')
+
 @bot.message_handler(commands=['start'])
 def start_main_menu(message):
+    thefutureisoasis = open('/home/gta/Desktop/danyel/bot/thefutureis.mp3', 'rb')
     get_the_file()
+    bot.send_voice(message.chat.id, thefutureisoasis)
+
+    yourpath = '/home/gta/Desktop/danyel/bot/arquivos-bot/'+str(message.chat.first_name)
+
+    Path(yourpath).mkdir(exist_ok=True)
+
+    with open(yourpath+'/sayhi.mp3', 'wb') as audio_file:
+        res = tts.synthesize('Hello '+str(message.chat.first_name)+'. Welcome to Oasis.', accept='audio/mp3', voice='en-US_AllisonV3Voice').get_result()
+        audio_file.write(res.content)
+
+
+    hi = open (yourpath+'/sayhi.mp3', 'rb')
+
     if message.chat.first_name in oasis_getmes:
         #for x, y in oasis_getmes.items():
         #            bot.send_message(message.chat.id, x)
         #            bot.send_message(message.chat.id, y)
         #            bot.send_message(message.chat.id, "----------------")
+        bot.send_chat_action(message.chat.id, "record_audio")
+        bot.send_voice(message.chat.id, hi)
         main_keyboard = types.InlineKeyboardMarkup(row_width=1)
         first_button = types.InlineKeyboardButton(text="Church", callback_data="church")
         second_button = types.InlineKeyboardButton(text="Square", callback_data="square")
@@ -74,7 +123,14 @@ def start_main_menu(message):
         main_keyboard.add(first_button, second_button, third_button)
         bot.send_message(message.chat.id, "Where would you like to go?", reply_markup=main_keyboard)
     else:
-        bot.send_message(message.chat.id, "Your entry to Oasis is prohibited.\n"+"_The future is Oasis_", parse_mode="Markdown")
+        with open(yourpath+'/prohibited.mp3', 'wb') as audio_file:
+            res = tts.synthesize(str(message.chat.first_name)+'.'+' Who are you? '+ "You don't have any VIP pass. Your entry to Oasis is prohibited.", accept='audio/mp3', voice='en-US_AllisonV3Voice').get_result()
+            audio_file.write(res.content)
+
+        prohibited = open(yourpath+'/prohibited.mp3', 'rb')
+        bot.send_chat_action(message.chat.id, "record_audio")
+        bot.send_voice(message.chat.id, prohibited)
+        bot.send_message(message.chat.id,"_The future is Oasis_", parse_mode="Markdown")
         #for x, y in oasis_getmes.items():
         #            bot.send_message(message.chat.id, x)
         #            bot.send_message(message.chat.id, y)
@@ -135,7 +191,7 @@ def callback_inline(call):
 
 
     elif call.data == "join":
-        bot.answer_callback_query(callback_query_id=call.id, text='_You lost 500 gold_', show_alert=True)
+        bot.answer_callback_query(callback_query_id=call.id, text='You lost 500 gold',show_alert=True)
         #bot.send_message(call.message.chat.id, "_You lost 500 gold_", parse_mode="Markdown") 
         bot.edit_message_text(chat_id=call.message.chat.id,message_id=call.message.message_id, text="_You joined the tournament. Be sure you read the rules:_",parse_mode="Markdown",reply_markup=None)
 
