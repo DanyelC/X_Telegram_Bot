@@ -96,7 +96,7 @@ def help_handler(message):
 def start_main_menu(message):
     thefutureisoasis = open('/home/gta/Desktop/danyel/bot/thefutureis.mp3', 'rb')
     get_the_file()
-    bot.send_voice(message.chat.id, thefutureisoasis)
+    #bot.send_voice(message.chat.id, thefutureisoasis)
 
     yourpath = '/home/gta/Desktop/danyel/bot/arquivos-bot/'+str(message.chat.first_name)
 
@@ -121,7 +121,13 @@ def start_main_menu(message):
         second_button = types.InlineKeyboardButton(text="Square", callback_data="square")
         third_button = types.InlineKeyboardButton(text="Market", callback_data="market")
         main_keyboard.add(first_button, second_button, third_button)
-        bot.send_message(message.chat.id, "Where would you like to go?", reply_markup=main_keyboard)
+        #with open(yourpath+'/wheretogo.mp3', 'wb') as audio_file:
+        #    res = tts.synthesize('Where would you like to go?', accept='audio/mp3', voice='en-US_AllisonV3Voice').get_result()
+        #    audio_file.write(res.content)
+        wheretogo = open (yourpath+'/wheretogo.mp3', 'rb')
+        bot.send_voice(message.chat.id, wheretogo)
+        bot.send_message(message.chat.id, "Choose one:", reply_markup=main_keyboard)
+        bot.send_voice(message.chat.id, thefutureisoasis)
     else:
         with open(yourpath+'/prohibited.mp3', 'wb') as audio_file:
             res = tts.synthesize(str(message.chat.first_name)+'.'+' Who are you? '+ "You don't have any VIP pass. Your entry to Oasis is prohibited.", accept='audio/mp3', voice='en-US_AllisonV3Voice').get_result()
@@ -135,6 +141,7 @@ def start_main_menu(message):
         #            bot.send_message(message.chat.id, x)
         #            bot.send_message(message.chat.id, y)
         #            bot.send_message(message.chat.id, "----------------")
+
 @bot.callback_query_handler(func=lambda call:True)
 def callback_inline(call):
     if call.data == "main_menu":
@@ -143,7 +150,8 @@ def callback_inline(call):
         first_button = types.InlineKeyboardButton(text="Church", callback_data="church")
         second_button = types.InlineKeyboardButton(text="Square", callback_data="square")
         third_button = types.InlineKeyboardButton(text="Market", callback_data="market")
-        main_keyboard.add(first_button, second_button, third_button)
+        fourth_button = types.InlineKeyboardButton(text="Taverna", callback_data="tavern")
+        main_keyboard.add(first_button, second_button, third_button, fourth_button)
         bot.edit_message_text(chat_id=call.message.chat.id,message_id=call.message.message_id, text="Where would you like to go?",reply_markup=main_keyboard)
 
     if call.data == "church":

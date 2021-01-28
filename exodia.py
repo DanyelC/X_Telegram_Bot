@@ -193,6 +193,10 @@ def handle_play_score(message):
                 bot.send_chat_action(message.chat.id, "typing")
                 bot.send_message(message.chat.id, "Your score is %d and mine is %d" % (contagem[str(message.chat.first_name)], contagem[str(message.chat.first_name)+'Exodia']))
             bot.send_message(message.chat.id, "Let's play again? /play")
+            #atualizando o score:
+            if players[str(message.chat.id)]:
+                score = int(contagem[str(message.chat.first_name)]) - int(contagem[str(message.chat.first_name)+'Exodia'])
+                players[str(message.chat.id)].score = score 
 
         elif message.chat.type == "group":
             if _1 + _2 + _3 == _4 + _5 + _6: torneio= "Nobody won, sorry"
@@ -217,7 +221,13 @@ def handle_play_score(message):
             bot.send_chat_action(message.chat.id, "typing")
             if torneio!="Nobody won, sorry":
                 bot.send_message(message.chat.id, "Your score is %d and mine is %d" % (contagem[str(message.chat.title)], contagem[str(message.chat.title)+'Exodia']))
-            bot.send_message(message.chat.id, "Let's play again? /play")            
+            bot.send_message(message.chat.id, "Let's play again? /play")
+            #atualizando o score:
+            if players[str(message.chat.id)]:
+                score = int(contagem[str(message.chat.title)]) - int(contagem[str(message.chat.title)+'Exodia'])
+                players[str(message.chat.id)].score = score 
+
+            
     
         
         
@@ -333,6 +343,11 @@ def handle_player(message):
                 #    x.magia+'\n')
                 for jogadores in players:
                     x= players[jogadores].send_all_list()
+                    print(x)
+                    print(x[0]) # x[0] é "id = xxxx" logo
+                    id = x[0].split(" ")
+                    id = id[2]
+                    print(id)
                     bot.send_message(Danyel, "=========================") 
                     for y in x:
                         bot.send_message(Danyel, y)  
@@ -699,7 +714,7 @@ def step_animal_confirmation(message, animal):
                     #Player(id,animal,personalidade):
                     if str(message.chat.id) in players:
                         pass
-                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.title)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -740,7 +755,7 @@ def step_animal_confirmation(message, animal):
                     #Player(id,animal,personalidade):
                     if str(message.chat.id) in players:
                         pass
-                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.title)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -778,7 +793,7 @@ def step_animal_confirmation(message, animal):
                     #Player(id,animal,personalidade):
                     if str(message.chat.id) in players:
                         pass
-                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.title)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -817,7 +832,7 @@ def step_animal_confirmation(message, animal):
                     #Player(id,animal,personalidade):
                     if str(message.chat.id) in players:
                         pass
-                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.title)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -856,7 +871,7 @@ def step_animal_confirmation(message, animal):
                     #Player(id,animal,personalidade):
                     if str(message.chat.id) in players:
                         pass
-                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.title)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -894,7 +909,7 @@ def step_animal_confirmation(message, animal):
                     #Player(id,animal,personalidade):
                     if str(message.chat.id) in players:
                         pass
-                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.title)], "Repugnant")
                     if players[str(message.chat.id)].hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -1124,7 +1139,7 @@ def step_quiz8(message,personality): # 8 - "Are you an ambitious person? Yes, no
     bot.register_next_step_handler(answer1, step_quiz9, personality)
 
 
-def step_quiz9(message,personality): # 9 - "Cheating is only a problem if you get caught? Truth, lie. -4, 2"
+def step_quiz9(message,personality): # 9 - ""Would you kill for money?"? Truth, lie. -4, 2"
     if message.text == "Yes":
         personality[str(message.chat.id)]+= -3
     else:
@@ -1135,7 +1150,7 @@ def step_quiz9(message,personality): # 9 - "Cheating is only a problem if you ge
     No = types.KeyboardButton('No')
     markup.row( Yes,No)
     
-    answer1= bot.send_message(message.chat.id, "Cheating is only a problem if you get caught?", reply_markup=markup)
+    answer1= bot.send_message(message.chat.id, "Would you kill for money?", reply_markup=markup)
     bot.register_next_step_handler(answer1, step_quiz10, personality)
 
     
