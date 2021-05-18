@@ -63,7 +63,7 @@ tts.set_service_url(url)
 
 oasis_getmes = {}
 def get_the_file():
-    a_file = open("/home/gta/Desktop/danyel/bot/arquivos-bot/getmes.txt")
+    a_file = open("/arquivos-bot/getmes.txt") #home/gta/Desktop/danyel/bot/
     for line in a_file:
         key, value = line.split()
     #Split line into a tuple
@@ -99,8 +99,7 @@ def start_main_menu(message):
     get_the_file()
     #bot.send_voice(message.chat.id, thefutureisoasis)
 
-    yourpath = '/home/gta/Desktop/danyel/bot/arquivos-bot/'+str(message.chat.first_name)
-
+    yourpath = '/arquivos-bot/'+str(message.chat.first_name) #home/gta/Desktop/danyel/bot/
     Path(yourpath).mkdir(exist_ok=True)
 
     with open(yourpath+'/sayhi.mp3', 'wb') as audio_file:
