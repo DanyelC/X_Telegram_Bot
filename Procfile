@@ -1,1 +1,1 @@
-worker python exodia.py
+worker python oasis.py
