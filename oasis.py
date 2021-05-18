@@ -94,7 +94,8 @@ def help_handler(message):
 
 @bot.message_handler(commands=['start'])
 def start_main_menu(message):
-    thefutureisoasis = open('/home/gta/Desktop/danyel/bot/thefutureis.mp3', 'rb')
+    #thefutureisoasis = open('/home/gta/Desktop/danyel/bot/thefutureis.mp3', 'rb')
+    thefutureisoasis= open('thefutureis.mp3', 'rb')
     get_the_file()
     #bot.send_voice(message.chat.id, thefutureisoasis)
 
