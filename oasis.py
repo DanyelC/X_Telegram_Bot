@@ -136,7 +136,7 @@ def start_main_menu(message):
         bot.send_voice(message.chat.id, thefutureisoasis)
         
     elif os.path.exists(yp3):
-        sleep(3)
+        sleep(0.5)
         bot.send_chat_action(message.chat.id, "record_audio")
         bot.send_chat_action(message.chat.id, "record_audio")
     else:
