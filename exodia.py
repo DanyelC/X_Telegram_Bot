@@ -363,7 +363,6 @@ def handle_menu(message):
     bot.send_chat_action(message.chat.id, "typing")
     #bot.send_chat_action(message.chat.id, "typing")
     if message.chat.id == Danyel:
-        bot.send_message(message.chat.id, "A list of commands:")
         if message.chat.first_name == 'Danyel':
             bot.send_message(message.chat.id,
             '1) /menu - The list of all my 10 commands\n' +
@@ -389,8 +388,9 @@ def handle_menu(message):
             '3) /animals\n'+
             '4) /ungetmes\n'+
             '5) /players')
-    bot.send_message(message.chat.id, "A list of commands:")
-    else: bot.send_message(message.chat.id,
+    #else: bot.send_message(message.chat.id,
+    if message.chat.id != Danyel:
+        bot.send_message(message.chat.id,
         '1) /menu - The list of all my 10 commands\n' +
         '2) /start - Get started about the game (under development)\n' +
         '3) /help - Questions and answers about the game (under development)\n' +
