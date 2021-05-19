@@ -101,14 +101,14 @@ def start_main_menu(message):
 
     yourpath = '/app/arquivos-bot/'+str(message.chat.first_name) #home/gta/Desktop/danyel/bot/
     Path(yourpath).mkdir(exist_ok=True)
-    yp2=yourpath+'/sayhi.mp3'
+    #yp2=yourpath+'/sayhi.mp3'
     if os.path.exists(yp2):
         pass
-    else:
-        with open(yourpath+'/sayhi.mp3', 'wb') as audio_file:
-            res = tts.synthesize('Hello '+str(message.chat.first_name)+'. Welcome to Oasis.', accept='audio/mp3', voice='en-US_AllisonV3Voice').get_result()
-            audio_file.write(res.content)
-            sleep(4)
+    else: sleep(2)
+    with open(yourpath+'/sayhi.mp3', 'wb') as audio_file:
+        res = tts.synthesize('Hello '+str(message.chat.first_name)+'. Welcome to Oasis.', accept='audio/mp3', voice='en-US_AllisonV3Voice').get_result()
+        audio_file.write(res.content)
+        sleep(4)
 
     hi = open (yourpath+'/sayhi.mp3', 'rb')
 
