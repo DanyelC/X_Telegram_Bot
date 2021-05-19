@@ -108,7 +108,7 @@ def start_main_menu(message):
     with open(yourpath+'/sayhi.mp3', 'wb') as audio_file:
         res = tts.synthesize('Hello '+str(message.chat.first_name)+'. Welcome to Oasis.', accept='audio/mp3', voice='en-US_AllisonV3Voice').get_result()
         audio_file.write(res.content)
-        sleep(4)
+        #sleep(4)
 
     hi = open (yourpath+'/sayhi.mp3', 'rb')
 
