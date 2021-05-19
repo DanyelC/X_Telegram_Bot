@@ -26,7 +26,7 @@ contagem={}
 animals={}
 players={}
 #personalites={} esta no player.py
-Danyel= 8473078750 #depois apaga o 0
+Danyel= 847307875
 sobre = "This bot was developed and created by Danyel Clinário. It is still in the testing phase, any \
 suggestion is welcome! Write me!"
 #path = '/home/gta/Desktop/danyel/bot/' EXCLUIDO PARA RODAR NO HEROKU
