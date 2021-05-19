@@ -26,7 +26,7 @@ contagem={}
 animals={}
 players={}
 #personalites={} esta no player.py
-Danyel= 8473078750
+Danyel= 8473078750 #depois apaga o 0
 sobre = "This bot was developed and created by Danyel Clinário. It is still in the testing phase, any \
 suggestion is welcome! Write me!"
 #path = '/home/gta/Desktop/danyel/bot/' EXCLUIDO PARA RODAR NO HEROKU
@@ -135,7 +135,7 @@ def handle_about(message):
     bot.send_chat_action(message.chat.id, "typing")
     bot.send_chat_action(message.chat.id, "typing")
     keyboard = telebot.types.InlineKeyboardMarkup()
-    keyboard.add(telebot.types.InlineKeyboardButton('Message the developer', url='telegram.me/DanyelC'))
+    keyboard.add(telebot.types.InlineKeyboardButton('Message the developer', url ='telegram.me/X_Oasis_Bot')) #url='telegram.me/DanyelC'))
     bot.send_message(message.chat.id,sobre,reply_markup=keyboard)
     
 
