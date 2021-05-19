@@ -102,6 +102,7 @@ def start_main_menu(message):
     yourpath = '/app/arquivos-bot/'+str(message.chat.first_name) #home/gta/Desktop/danyel/bot/
     Path(yourpath).mkdir(exist_ok=True)
     yp2=yourpath+'/sayhi.mp3'
+    yp3=yourpath+'/prohibited.mp3'
     if os.path.exists(yp2):
         pass
     else: sleep(0.5)
@@ -133,7 +134,7 @@ def start_main_menu(message):
         bot.send_voice(message.chat.id, wheretogo)
         bot.send_message(message.chat.id, "Choose one:", reply_markup=main_keyboard)
         bot.send_voice(message.chat.id, thefutureisoasis)
-        yp3=yourpath+'/prohibited.mp3'
+        
     elif os.path.exists(yp3):
         pass
     else:
