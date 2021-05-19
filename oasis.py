@@ -122,11 +122,11 @@ def start_main_menu(message):
         third_button = types.InlineKeyboardButton(text="Market", callback_data="market")
         main_keyboard.add(first_button, second_button, third_button)
         #passar esse arquivo de audio p pasta principal, isso nao muda p ngm
-        with open(yourpath+'/wheretogo.mp3', 'wb') as audio_file:
-            res = tts.synthesize('Where would you like to go?', accept='audio/mp3', voice='en-US_AllisonV3Voice').get_result()
-            audio_file.write(res.content)
+        #with open(yourpath+'/wheretogo.mp3', 'wb') as audio_file:
+        #    res = tts.synthesize('Where would you like to go?', accept='audio/mp3', voice='en-US_AllisonV3Voice').get_result()
+        #    audio_file.write(res.content)
         #...
-        wheretogo = open (yourpath+'/wheretogo.mp3', 'rb')
+        wheretogo = open ('./wheretogo.mp3', 'rb') #wheretogo = open (yourpath+'/wheretogo.mp3', 'rb')
         bot.send_voice(message.chat.id, wheretogo)
         bot.send_message(message.chat.id, "Choose one:", reply_markup=main_keyboard)
         bot.send_voice(message.chat.id, thefutureisoasis)
