@@ -138,6 +138,7 @@ def start_main_menu(message):
     elif os.path.exists(yp3):
         bot.send_chat_action(message.chat.id, "record_audio")
         bot.send_chat_action(message.chat.id, "record_audio")
+        sleep(2)
     else:
         with open(yourpath+'/prohibited.mp3', 'wb') as audio_file:
             res = tts.synthesize(str(message.chat.first_name)+'.'+' Who are you? '+ "You don't have any VIP pass. Your entry to Oasis is prohibited.", accept='audio/mp3', voice='en-US_AllisonV3Voice').get_result()
