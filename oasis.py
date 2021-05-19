@@ -144,11 +144,11 @@ def start_main_menu(message):
             res = tts.synthesize(str(message.chat.first_name)+'.'+' Who are you? '+ "You don't have any VIP pass. Your entry to Oasis is prohibited.", accept='audio/mp3', voice='en-US_AllisonV3Voice').get_result()
             audio_file.write(res.content)
             #sleep(2)
-
-    prohibited = open(yourpath+'/prohibited.mp3', 'rb')
-    bot.send_chat_action(message.chat.id, "record_audio")
-    bot.send_voice(message.chat.id, prohibited)
-    bot.send_message(message.chat.id,"_The future is Oasis_", parse_mode="Markdown")
+    if message.chat.first_name not in oasis_getmes:
+        prohibited = open(yourpath+'/prohibited.mp3', 'rb')
+        bot.send_chat_action(message.chat.id, "record_audio")
+        bot.send_voice(message.chat.id, prohibited)
+        bot.send_message(message.chat.id,"_The future is Oasis_", parse_mode="Markdown")
         #for x, y in oasis_getmes.items():
         #            bot.send_message(message.chat.id, x)
         #            bot.send_message(message.chat.id, y)
