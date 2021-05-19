@@ -101,8 +101,8 @@ def start_main_menu(message):
 
     yourpath = '/app/arquivos-bot/'+str(message.chat.first_name) #home/gta/Desktop/danyel/bot/
     Path(yourpath).mkdir(exist_ok=True)
-    
-    if os.path.exists(yourpath+'/sayhi.mp3'):
+    yp2=yourpath+'/sayhi.mp3'
+    if os.path.exists(yp2):
         pass
     else:
         with open(yourpath+'/sayhi.mp3', 'wb') as audio_file:
