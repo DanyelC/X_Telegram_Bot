@@ -1,16 +1,16 @@
 class Player:
     def __init__(self,id,animal,personality):
         self.id = id
-        self.score = 0
-        self.animal = animal
-        self.personality = personality
-        self.hp = 100
-        self.attack = 10
-        self.defense = 0
-        self.gear = ["Nothing", 0]
-        self.magic = ["Nothing", 0]
-        self.gold = 5000
-        self.power = self.score*0.5 + self.hp*10 + self.attack*5 + self.defense*2 + self.gear[1]*5+ self.magic[1]*2+ self.gold*0.7
+        self.Score = 0
+        self.Animal = animal
+        self.Personality = personality
+        self.Hp = 100
+        self.Attack = 10
+        self.Defense = 0
+        self.Gear = ["Nothing", 0]
+        self.Magic = ["Nothing", 0]
+        self.Gold = 5000
+        self.Power = self.Score*0.5 + self.Hp*10 + self.Attack*5 + self.Defense*2 + self.Gear[1]*5+ self.Magic[1]*2+ self.Gold*0.7
         #colocar animal na conta
 
 
