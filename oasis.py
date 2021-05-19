@@ -10,7 +10,7 @@ from player import Player
 from smallgames import hangman
 from ibm_watson import TextToSpeechV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
-#import os
+import os
 from pathlib import Path
 
 bot = telebot.TeleBot('1322322473:AAEqIreqjYCOaTzdXBUoxj8f_BB1FiteIVo')
@@ -101,11 +101,14 @@ def start_main_menu(message):
 
     yourpath = '/app/arquivos-bot/'+str(message.chat.first_name) #home/gta/Desktop/danyel/bot/
     Path(yourpath).mkdir(exist_ok=True)
-
-    with open(yourpath+'/sayhi.mp3', 'wb') as audio_file:
-        res = tts.synthesize('Hello '+str(message.chat.first_name)+'. Welcome to Oasis.', accept='audio/mp3', voice='en-US_AllisonV3Voice').get_result()
-        audio_file.write(res.content)
-
+    
+    if os.path.exists(yourpath+'/sayhi.mp3'):
+        pass
+    else:
+        with open(yourpath+'/sayhi.mp3', 'wb') as audio_file:
+            res = tts.synthesize('Hello '+str(message.chat.first_name)+'. Welcome to Oasis.', accept='audio/mp3', voice='en-US_AllisonV3Voice').get_result()
+            audio_file.write(res.content)
+            sleep(4)
 
     hi = open (yourpath+'/sayhi.mp3', 'rb')
 
