@@ -5,7 +5,4 @@ Danyel 847307875
 Danyel 847307875
 Danyel 847307875
 Danyel 847307875
-<<<<<<< HEAD
-=======
 skldnk 847307876
->>>>>>> teste
