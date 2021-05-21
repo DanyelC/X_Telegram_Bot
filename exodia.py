@@ -48,7 +48,7 @@ def upload_file(dbx, file_location,file):
     with open(file,"rb") as f:
         dbx.files_upload(f.read(),file_location,mode=dropbox.files.WriteMode.overwrite)
 
-upload_file(dbx,file_location,file)
+#upload_file(dbx,file_location,file)
 
 
 def create_file(dbx, file_location,file,anything):
@@ -767,6 +767,8 @@ def step_animal_confirmation(message, animal):
                     with open('arquivos-bot/animals.txt','a') as new_file:
                     #with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Snake\n')
+                        arr = bytes(str(message.chat.first_name)+": "+"Snake"" "+str(message.chat.id)+'\n', 'utf-8')
+                        create_file(dbx,fanimals+str(message.chat.id)+".txt",file, arr)#########################################
                     bot.send_message(message.chat.id, "WOW, take care")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
                     
@@ -807,7 +809,9 @@ def step_animal_confirmation(message, animal):
                     animals[str(message.chat.first_name)]= 'Cat'
                     with open('arquivos-bot/animals.txt','a') as new_file:
                     #with open(path+'arquivos-bot/animals.txt','a') as new_file:
-                        new_file.write(str(message.chat.first_name)+": "+'Dog\n')
+                        new_file.write(str(message.chat.first_name)+": "+'Cat\n')
+                        arr = bytes(str(message.chat.first_name)+": "+"Cat"" "+str(message.chat.id)+'\n', 'utf-8')
+                        create_file(dbx,fanimals+str(message.chat.id)+".txt",file, arr)#########################################
                     bot.send_message(message.chat.id, "Nice!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
@@ -847,6 +851,8 @@ def step_animal_confirmation(message, animal):
                     with open('arquivos-bot/animals.txt','a') as new_file:
                     #with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Dog\n')
+                        arr = bytes(str(message.chat.first_name)+": "+"Dog"" "+str(message.chat.id)+'\n', 'utf-8')
+                        create_file(dbx,fanimals+str(message.chat.id)+".txt",file, arr)#########################################
                     bot.send_message(message.chat.id, "Nice!! Take 6, you have an army now haha")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
@@ -886,6 +892,8 @@ def step_animal_confirmation(message, animal):
                     with open('arquivos-bot/animals.txt','a') as new_file:
                     #with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Parrot\n')
+                        arr = bytes(str(message.chat.first_name)+": "+"Parrot"" "+str(message.chat.id)+'\n', 'utf-8')
+                        create_file(dbx,fanimals+str(message.chat.id)+".txt",file, arr)#########################################
                     bot.send_message(message.chat.id, "Nice!!!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
@@ -924,6 +932,8 @@ def step_animal_confirmation(message, animal):
                     with open('arquivos-bot/animals.txt','a') as new_file:
                     #with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Duck\n')
+                        arr = bytes(str(message.chat.first_name)+": "+"Duck"" "+str(message.chat.id)+'\n', 'utf-8')
+                        create_file(dbx,fanimals+str(message.chat.id)+".txt",file, arr)#########################################
                     bot.send_message(message.chat.id, "WTF...")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
@@ -962,13 +972,18 @@ def step_animal_confirmation(message, animal):
                     with open('arquivos-bot/animals.txt','a') as new_file:
                     #with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Gecko\n')
+                        arr = bytes(str(message.chat.first_name)+": "+"Gecko"" "+str(message.chat.id)+'\n', 'utf-8')
+                        create_file(dbx,fanimals+str(message.chat.id)+".txt",file, arr)#########################################
                     bot.send_message(message.chat.id, "How cute!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
                     #Player(id,animal,personalidade):
                     if str(message.chat.id) in players:
                         pass
-                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    else: 
+                        players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                        arr = bytes(str(message.chat.first_name)+": "+"Repugnant"" "+str(message.chat.id)+'\n', 'utf-8')
+                        create_file(dbx,fpersonalities+str(message.chat.id)+".txt",file, arr)#########################################
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -1238,6 +1253,8 @@ def thepersonality(message,personality):
         players[str(message.chat.id)].Personality = "The Human-Demon"
         players[str(message.chat.id)].Power+=9999
     bot.send_message(message.chat.id, "You seems to be "+players[str(message.chat.id)].Personality)
+    arr = bytes(str(message.chat.first_name)+": "+str(players[str(message.chat.id)].Personality)+" "+str(message.chat.id)+'\n', 'utf-8')
+    create_file(dbx,fpersonalities+str(message.chat.id)+".txt",file, arr)#########################################
 
 #=======================================QUIZ======================================================================
 
