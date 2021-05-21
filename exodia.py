@@ -16,6 +16,7 @@ from smallgames import hangman
 from secrets import TOKEN
 import dropbox
 
+
 dbx=dropbox.Dropbox(TOKEN)
 file='getmes.txt'
 file_location = f"/xexodiabot/arquivos-bot/{file}"
