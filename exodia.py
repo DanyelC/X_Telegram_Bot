@@ -13,7 +13,7 @@ from secrets import TOKEN
 import dropbox
 
 dbx=dropbox.Dropbox(TOKEN)
-file='/arquivos-bot/getmes.txt'
+file='/app/arquivos-bot/getmes.txt'
 file_location = f"/app/arquivos-bot/{file}"
 def upload_file(dbx, file_location,file):
     with open(file,"rb") as f:
