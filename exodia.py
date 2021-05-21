@@ -11,7 +11,7 @@ from smallgames import hangman
 
 from secrets import TOKEN
 import dropbox
-
+dbx = dropbox.Dropbox(TOKEN)
 
     
 #para usar outros arquivos, chamar com import
