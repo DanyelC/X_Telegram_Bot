@@ -45,9 +45,8 @@ upload_file(dbx,file_location,file)
 
 
 def create_file(dbx, file_location2,file,anything):
-    for x in anything:
-        with open(file,"rb") as f:
-            dbx.files_upload(f.read(),file_location2,mode=dropbox.files.WriteMode.overwrite)
+    with open(file,"rb") as f:
+        dbx.files_upload(anything,file_location2,mode=dropbox.files.WriteMode.overwrite)
 
 def download_file(filename):
     """
@@ -145,7 +144,7 @@ def handle_getme(message):
             #with open(path+'arquivos-bot/getmes.txt','a') as new_file:
                 new_file.write(str(message.chat.first_name)+" "+str(message.chat.id)+'\n')
                 #upload_file(dbx,file_location,file)
-                create_file(dbx, file_location2,file,getmes) #########################################
+                create_file(dbx, file_location2,file, str(message.chat.first_name)+" "+str(message.chat.id)+'\n') #########################################
             bot.send_message(Danyel, "XXX-ADMIM-MESSAGE-XXX: Someone just subscribed! "+message.chat.first_name+ " joined")
             bot.reply_to(message, "I just saved your chat id for further interactions")
 
