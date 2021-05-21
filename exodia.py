@@ -35,12 +35,13 @@ suggestion is welcome! Write me!"
 
 #========================================= Dropbox =========================================
 file="/app/arquivos-bot/getmes.txt"
-file_location = "/xexodiabot/"
-fgetmes=file_location+"getmes/"
-fungetmes=file_location+"ungetmes/"
-fanimals=file_location+"animals/"
-fplayers=file_location+"players/"
-fpersonalities=file_location+"personalities/"
+file_location = "/xexodiabot/example.txt"
+file_location2 = "/xexodiabot/"
+fgetmes=file_location2+"getmes/"
+fungetmes=file_location2+"ungetmes/"
+fanimals=file_location2+"animals/"
+fplayers=file_location2+"players/"
+fpersonalities=file_location2+"personalities/"
 
 
 def upload_file(dbx, file_location,file):
