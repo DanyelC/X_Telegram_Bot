@@ -34,7 +34,7 @@ suggestion is welcome! Write me!"
 #path = '/home/gta/Desktop/danyel/bot/' EXCLUIDO PARA RODAR NO HEROKU
 
 
-dbx=dropbox.Dropbox(TOKEN)
+#========================================= Dropbox =========================================
 file="/app/arquivos-bot/getmes.txt"
 file_location = "/xexodiabot/newgetmes.txt"
 def upload_file(dbx, file_location,file):
@@ -44,7 +44,21 @@ def upload_file(dbx, file_location,file):
 upload_file(dbx,file_location,file)
 
 
+def download_file(filename):
+    """
+    Get file from Dropbox
+    :param filename: full path of the file
+    :return:
+    """
+    print(f"filename {filename}")
 
+    f, r = dbx.files_download(filename)
+
+    content = r.content
+
+    return content
+
+#=============================================================================================
 
 # Handles all text messages that contains the command '/start'
 @bot.message_handler(commands=['start'])
