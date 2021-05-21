@@ -12,14 +12,6 @@ from smallgames import hangman
 from secrets import TOKEN
 import dropbox
 
-dbx=dropbox.Dropbox(TOKEN)
-file='/app/arquivos-bot/getmes.txt'
-file_location = f"/xexodiabot/{file}"
-def upload_file(dbx, file_location,file):
-    with open(file,"rb") as f:
-        dbx.files_upload(f.read(),file_location,mode=dropbox.files.WriteMode.overwrite)
-
-upload_file(dbx,file_location,file)
 
     
 #para usar outros arquivos, chamar com import
@@ -40,6 +32,17 @@ Danyel= 847307875
 sobre = "This bot was developed and created by Danyel Clinário. It is still in the testing phase, any \
 suggestion is welcome! Write me!"
 #path = '/home/gta/Desktop/danyel/bot/' EXCLUIDO PARA RODAR NO HEROKU
+
+
+dbx=dropbox.Dropbox(TOKEN)
+file="/app/arquivos-bot/getmes.txt"
+file_location = "/xexodiabot/newgetmes.txt"
+def upload_file(dbx, file_location,file):
+    with open(file,"rb") as f:
+        dbx.files_upload(f.read(),file_location,mode=dropbox.files.WriteMode.overwrite)
+
+upload_file(dbx,file_location,file)
+
 
 
 
