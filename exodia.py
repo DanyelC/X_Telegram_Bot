@@ -36,7 +36,7 @@ suggestion is welcome! Write me!"
 #========================================= Dropbox =========================================
 file="/app/arquivos-bot/getmes.txt"
 file_location = "/xexodiabot/"
-fgetmes="/xexodiabot/"+"getmes/"
+fgetmes=file_location+"getmes/"
 fungetmes=file_location+"ungetmes/"
 fanimals=file_location+"animals/"
 fplayers=file_location+"players/"
@@ -151,7 +151,7 @@ def handle_getme(message):
                 new_file.write(str(message.chat.first_name)+" "+str(message.chat.id)+'\n')
                 #upload_file(dbx,file_location,file)
                 arr = bytes(str(message.chat.first_name)+" "+str(message.chat.id)+'\n', 'utf-8')
-                create_file(dbx,fgetmes+str(message.chat.id)+".txt"),file, arr) #########################################
+                create_file(dbx,fgetmes+str(message.chat.id)+".txt",file, arr)#########################################
             bot.send_message(Danyel, "XXX-ADMIM-MESSAGE-XXX: Someone just subscribed! "+message.chat.first_name+ " joined")
             bot.reply_to(message, "I just saved your chat id for further interactions")
 
