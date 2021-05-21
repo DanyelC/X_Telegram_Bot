@@ -14,7 +14,7 @@ import dropbox
 
 dbx=dropbox.Dropbox(TOKEN)
 file='/app/arquivos-bot/getmes.txt'
-file_location = f"/app/arquivos-bot/{file}"
+file_location = f"/xexodiabot/arquivos-bot/{file}"
 def upload_file(dbx, file_location,file):
     with open(file,"rb") as f:
         dbx.files_upload(f.read(),file_location,mode=dropbox.files.WriteMode.overwrite)
