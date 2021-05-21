@@ -46,7 +46,7 @@ upload_file(dbx,file_location,file)
 
 def create_file(dbx, file_location2,file,anything):
     with open(file,"rb") as f:
-        dbx.files_upload(anything,file_location2,mode=dropbox.files.WriteMode.overwrite)
+        dbx.files_upload(anything,file_location2,mode=dropbox.files.WriteMode.add)
 
 def download_file(filename):
     """
