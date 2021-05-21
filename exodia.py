@@ -144,7 +144,8 @@ def handle_getme(message):
             #with open(path+'arquivos-bot/getmes.txt','a') as new_file:
                 new_file.write(str(message.chat.first_name)+" "+str(message.chat.id)+'\n')
                 #upload_file(dbx,file_location,file)
-                create_file(dbx, file_location2,file, str(message.chat.first_name)+" "+str(message.chat.id)+'\n') #########################################
+                arr = bytes(str(message.chat.first_name)+" "+str(message.chat.id)+'\n', 'utf-8')
+                create_file(dbx, file_location2,file, arr) #########################################
             bot.send_message(Danyel, "XXX-ADMIM-MESSAGE-XXX: Someone just subscribed! "+message.chat.first_name+ " joined")
             bot.reply_to(message, "I just saved your chat id for further interactions")
 
