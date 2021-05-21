@@ -8,9 +8,23 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 import configparser
 from player import Player
 from smallgames import hangman
+<<<<<<< HEAD
 
 
 
+=======
+from secrets import TOKEN
+import dropbox
+
+dbx=dropbox.Dropbox(TOKEN)
+file='getmes.txt'
+file_location = f"/xexodiabot/arquivos-bot/{file}"
+def upload_file(dbx, file_location,file):
+    with open(file,"rb") as f:
+        dbx.files_upload(f.read(),file_location,mode=dropbox.files.WriteMode.overwrite)
+
+upload_file(dbx,file_location,file)
+>>>>>>> teste
     
 #para usar outros arquivos, chamar com import
 config = configparser.ConfigParser()
