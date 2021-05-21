@@ -39,7 +39,7 @@ file_location = "/xexodiabot/newgetmes.txt"
 file_location2 = "/xexodiabot/getmes.txt"
 def upload_file(dbx, file_location,file):
     with open(file,"rb") as f:
-        dbx.files_upload(f.read(),file_location,mode=dropbox.files.WriteMode.overwrite)
+        dbx.files_upload(f.read(),file_location,mode=dropbox.files.WriteMode.add)
 
 upload_file(dbx,file_location,file)
 
