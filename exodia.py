@@ -85,8 +85,8 @@ file="example.txt"
 file_location = "/xexodiabot/data/getmes.txt" #data/players/847307875.txt"
 file_location2 = "/xexodiabot/teste/teste"
 
-def txt_to_dict(file_location,dicio):
-  file_location, r = dbx.files_download(file_location)
+def txt_to_dict(file_locationany,dicio):
+  f, r = dbx.files_download(file_locationany)
   arrayo= r.content
   arrayo=arrayo.decode()
   #print (arrayo)
@@ -105,7 +105,7 @@ def txt_to_dict(file_location,dicio):
 txt_to_dict(fgetmes,getmes)
 txt_to_dict(fungetmes,ungetmes)
 txt_to_dict(fanimals,animals)
-txt_to_dict(fplayers,players)
+#txt_to_dict(fplayers+str(message.chat.id),players)
 #txt_to_dict(fpersonalities)
 #txt_to_dict(fcontagem,contagem)
 
