@@ -114,7 +114,11 @@ def txt_to_dict(file_locationany,dicio):
 def txt_to_players(file_location,message):
     f, r = dbx.files_download(file_location)
     y= r.content
+    print("dentro do txt")
+    print(y)
     y=y.decode()
+    print(y)
+    print("acabou o txt")
   
     #z = y[0].find(" = ")
     players[str(message.chat.id)].id = y[0]
@@ -1364,9 +1368,6 @@ def thepersonality(message,personality):
         print(x)
         print(y.send_all_list())
     print("===========")
-    for x in players[str(message.chat.id)]:
-        print(x)
-        print(x.send_all_list())
 
 #=======================================QUIZ======================================================================
 
