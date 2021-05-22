@@ -1278,7 +1278,7 @@ def thepersonality(message,personality):
     for y in x:
         data+=y+"\n"
     data=data.encode()
-    create_file_data(dbx,fplayers+str(message.chat.id+".txt",data)#######################################################################
+    create_file_data(dbx,fplayers+str(message.chat.id)+".txt",data)#######################################################################
 
 #=======================================QUIZ======================================================================
 
