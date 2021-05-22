@@ -120,9 +120,8 @@ def txt_to_players(file_location,message):
     y=y[1:(len(y)-1)]
     print(y)
     print("acabou o txt")
-    for x in y:
-        print(x)
-    y="".join(y)
+    y = list(y)
+    #y="".join(y)
     print(y)
     #z = y[0].find(",")
     players[str(message.chat.id)].id = y[0]
