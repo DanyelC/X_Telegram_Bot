@@ -67,10 +67,10 @@ def create_file_players(dbx,file_location,dicio,key):
   #arrayo=""
   y=(dicio[key])
   print(y)
-  y=str(y.send_all_list())
+  y=y.send_all_list()
   print(y)
   #y=str(dicio[key])
-  y = y.encode()
+  y = bytes(y)
   print(y)
   #with open(file,"rb") as f:
   dbx.files_upload(y,file_location,mode=dropbox.files.WriteMode("overwrite"))
@@ -116,12 +116,14 @@ def txt_to_players(file_location,message):
     y= r.content
     print("dentro do txt")
     print(y)
-    y=list(y.decode())
+    y=y.decode()
+    y=y[1:(len(y)-1)]
     print(y)
     print("acabou o txt")
     for x in y:
         print(x)
-    #z = y[0].find(" = ")
+    y="".join(y)
+    #z = y[0].find(",")
     players[str(message.chat.id)].id = y[0]
     #z = y[1].find(" = ")
     players[str(message.chat.id)].Score = y[1]
