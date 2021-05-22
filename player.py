@@ -17,8 +17,9 @@ class Player:
     def send_all_list(self):
         lista = []
         for attribute, value in self.__dict__.items():
-            x =  str(attribute) + ' = ' +str(value)
-            lista.append(x)
+            #x =  str(attribute) + ' = ' +str(value)
+            lista.append(str(value))
+            #lista.append(x)
         return lista
 
     
