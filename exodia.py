@@ -36,7 +36,7 @@ suggestion is welcome! Write me!"
 #========================================= Dropbox =========================================
 file="/app/arquivos-bot/getmes.txt"
 file_location = "/xexodiabot/example.txt"
-file_location2 = "/xexodiabot/"
+file_location2 = "/xexodiabot/data/"
 fgetmes=file_location2+"getmes.txt"
 fungetmes=file_location2+"ungetmes.txt"
 fanimals=file_location2+"animals.txt"
@@ -63,6 +63,11 @@ def create_file_dict(dbx,file_location,dicio):
   arrayo = arrayo.encode()
   #with open(file,"rb") as f:
   dbx.files_upload(arrayo,file_location,mode=dropbox.files.WriteMode("overwrite"))
+
+
+def create_file_data(dbx,file_location,data):
+  #with open(file,"rb") as f:
+  dbx.files_upload(data,file_location,mode=dropbox.files.WriteMode("overwrite"))
 
 def download_file(filename):
     """
@@ -159,9 +164,7 @@ def handle_getme(message):
             with open('arquivos-bot/getmes.txt','a') as new_file:
             #with open(path+'arquivos-bot/getmes.txt','a') as new_file:
                 new_file.write(str(message.chat.first_name)+" "+str(message.chat.id)+'\n')
-                #upload_file(dbx,file_location,file)
-                arr = bytes(str(message.chat.first_name)+" "+str(message.chat.id)+'\n', 'utf-8')
-                create_file_dict(dbx,fgetmes,getmes)#########################################
+                create_file_dict(dbx,fgetmes,getmes)#######################################################################
             bot.send_message(Danyel, "XXX-ADMIM-MESSAGE-XXX: Someone just subscribed! "+message.chat.first_name+ " joined")
             bot.reply_to(message, "I just saved your chat id for further interactions")
 
@@ -769,22 +772,22 @@ def step_animal_confirmation(message, animal):
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
             else:       
-                if str(message.chat.first_name) in animals:
+                if str(message.chat.id) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
-                    animals[str(message.chat.first_name)]= 'Snake'
+                    animals[str(message.chat.id)]= 'Snake'
                     with open('arquivos-bot/animals.txt','a') as new_file:
                     #with open(path+'arquivos-bot/animals.txt','a') as new_file:
-                        new_file.write(str(message.chat.first_name)+": "+'Snake\n')
-                        arr = bytes(str(message.chat.first_name)+": "+"Snake"" "+str(message.chat.id)+'\n', 'utf-8')
-                        create_file(dbx,fanimals+str(message.chat.id)+".txt",file, arr)#########################################
+                        new_file.write(str(message.chat.id)+": "+'Snake\n')
+                        #arr = bytes(str(message.chat.first_name)+": "+"Snake"" "+str(message.chat.id)+'\n', 'utf-8')
+                        create_file_dict(dbx,fanimals,animals)#######################################################################
                     bot.send_message(message.chat.id, "WOW, take care")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
                     
                     #Player(id,animal,personalidade):
                     if str(message.chat.id) in players:
                         pass
-                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                     #print(players[str(message.chat.id)].id)
@@ -812,22 +815,22 @@ def step_animal_confirmation(message, animal):
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
             else:
-                if str(message.chat.first_name) in animals:
+                if str(message.chat.id) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
-                    animals[str(message.chat.first_name)]= 'Cat'
+                    animals[str(message.chat.id)]= 'Cat'
                     with open('arquivos-bot/animals.txt','a') as new_file:
                     #with open(path+'arquivos-bot/animals.txt','a') as new_file:
-                        new_file.write(str(message.chat.first_name)+": "+'Cat\n')
-                        arr = bytes(str(message.chat.first_name)+": "+"Cat"" "+str(message.chat.id)+'\n', 'utf-8')
-                        create_file(dbx,fanimals+str(message.chat.id)+".txt",file, arr)#########################################
+                        new_file.write(str(message.chat.id)+": "+'Cat\n')
+                        #arr = bytes(str(message.chat.first_name)+": "+"Cat"" "+str(message.chat.id)+'\n', 'utf-8')
+                        create_file_dict(dbx,fanimals,animals)#######################################################################
                     bot.send_message(message.chat.id, "Nice!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
                     #Player(id,animal,personalidade):
                     if str(message.chat.id) in players:
                         pass
-                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -853,22 +856,22 @@ def step_animal_confirmation(message, animal):
                         quiz(message)
             
             else:
-                if str(message.chat.first_name) in animals:
+                if str(message.chat.id) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
-                    animals[str(message.chat.first_name)]= 'Dog'
+                    animals[str(message.chat.id)]= 'Dog'
                     with open('arquivos-bot/animals.txt','a') as new_file:
                     #with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Dog\n')
-                        arr = bytes(str(message.chat.first_name)+": "+"Dog"" "+str(message.chat.id)+'\n', 'utf-8')
-                        create_file(dbx,fanimals+str(message.chat.id)+".txt",file, arr)#########################################
+                        #arr = bytes(str(message.chat.first_name)+": "+"Dog"" "+str(message.chat.id)+'\n', 'utf-8')
+                        create_file_dict(dbx,fanimals,animals)#######################################################################
                     bot.send_message(message.chat.id, "Nice!! Take 6, you have an army now haha")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
                     #Player(id,animal,personalidade):
                     if str(message.chat.id) in players:
                         pass
-                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -894,22 +897,22 @@ def step_animal_confirmation(message, animal):
                         quiz(message)
             
             else:
-                if str(message.chat.first_name) in animals:
+                if str(message.chat.id) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
-                    animals[str(message.chat.first_name)]= 'Parrot'
+                    animals[str(message.chat.id)]= 'Parrot'
                     with open('arquivos-bot/animals.txt','a') as new_file:
                     #with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Parrot\n')
-                        arr = bytes(str(message.chat.first_name)+": "+"Parrot"" "+str(message.chat.id)+'\n', 'utf-8')
-                        create_file(dbx,fanimals+str(message.chat.id)+".txt",file, arr)#########################################
+                        #arr = bytes(str(message.chat.first_name)+": "+"Parrot"" "+str(message.chat.id)+'\n', 'utf-8')
+                        create_file_dict(dbx,fanimals,animals)#######################################################################
                     bot.send_message(message.chat.id, "Nice!!!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
                     #Player(id,animal,personalidade):
                     if str(message.chat.id) in players:
                         pass
-                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -934,22 +937,22 @@ def step_animal_confirmation(message, animal):
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
             else:
-                if str(message.chat.first_name) in animals:
+                if str(message.chat.id) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
-                    animals[str(message.chat.first_name)]= 'Duck'
+                    animals[str(message.chat.id)]= 'Duck'
                     with open('arquivos-bot/animals.txt','a') as new_file:
                     #with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Duck\n')
-                        arr = bytes(str(message.chat.first_name)+": "+"Duck"" "+str(message.chat.id)+'\n', 'utf-8')
-                        create_file(dbx,fanimals+str(message.chat.id)+".txt",file, arr)#########################################
+                        #arr = bytes(str(message.chat.first_name)+": "+"Duck"" "+str(message.chat.id)+'\n', 'utf-8')
+                        create_file_dict(dbx,fanimals,animals)#######################################################################
                     bot.send_message(message.chat.id, "WTF...")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
                     #Player(id,animal,personalidade):
                     if str(message.chat.id) in players:
                         pass
-                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
+                    else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -974,15 +977,15 @@ def step_animal_confirmation(message, animal):
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
             else:
-                if str(message.chat.first_name) in animals:
+                if str(message.chat.id) in animals:
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
-                    animals[str(message.chat.first_name)]= 'Gecko'
+                    animals[str(message.chat.id)]= 'Gecko'
                     with open('arquivos-bot/animals.txt','a') as new_file:
                     #with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.first_name)+": "+'Gecko\n')
-                        arr = bytes(str(message.chat.first_name)+": "+"Gecko"" "+str(message.chat.id)+'\n', 'utf-8')
-                        create_file(dbx,fanimals+str(message.chat.id)+".txt",file, arr)#########################################
+                        #arr = bytes(str(message.chat.first_name)+": "+"Gecko"" "+str(message.chat.id)+'\n', 'utf-8')
+                        create_file_dict(dbx,fanimals,animals)#######################################################################
                     bot.send_message(message.chat.id, "How cute!")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
 
@@ -990,9 +993,17 @@ def step_animal_confirmation(message, animal):
                     if str(message.chat.id) in players:
                         pass
                     else: 
-                        players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.first_name)], "Repugnant")
-                        arr = bytes(str(message.chat.first_name)+": "+"Repugnant"" "+str(message.chat.id)+'\n', 'utf-8')
-                        create_file(dbx,fpersonalities+str(message.chat.id)+".txt",file, arr)#########################################
+                        players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
+                        #arr = bytes(str(message.chat.first_name)+": "+"Repugnant"" "+str(message.chat.id)+'\n', 'utf-8')
+                        
+                        x = players[str(message.chat.id)].send_all_list()
+                        del(x[0])
+                        data=""
+                        for y in x:
+                            data+=data+"\n"
+                        data=data.encode()
+                        
+                        create_file_data(dbx,fplayers,data)#######################################################################
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -1262,8 +1273,8 @@ def thepersonality(message,personality):
         players[str(message.chat.id)].Personality = "The Human-Demon"
         players[str(message.chat.id)].Power+=9999
     bot.send_message(message.chat.id, "You seems to be "+players[str(message.chat.id)].Personality)
-    arr = bytes(str(message.chat.first_name)+": "+str(players[str(message.chat.id)].Personality)+" "+str(message.chat.id)+'\n', 'utf-8')
-    create_file(dbx,fpersonalities+str(message.chat.id)+".txt",file, arr)#########################################
+    #arr = bytes(str(message.chat.first_name)+": "+str(players[str(message.chat.id)].Personality)+" "+str(message.chat.id)+'\n', 'utf-8')
+    create_file_dict(dbx,fpersonalities,personality)#########################################
 
 #=======================================QUIZ======================================================================
 
