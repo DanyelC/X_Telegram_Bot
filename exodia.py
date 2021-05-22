@@ -276,7 +276,6 @@ def handle_play_score(message):
             #atualizando o score:
             for x,y in players.items:
                 print(x,y)
-
             print("===========")
             #print(players)
             if players[str(message.chat.id)]:
