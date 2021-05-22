@@ -1259,19 +1259,24 @@ def step_quiz_score(message,personality):
 def thepersonality(message,personality):
     if personality[str(message.chat.id)] >= 0 and personality[str(message.chat.id)] <= 5:
         players[str(message.chat.id)].Personality = "The Chosen One"
+        personality[str(message.chat.id)]= "The Chosen One"
         players[str(message.chat.id)].Power+=10000
     elif personality[str(message.chat.id)] >= 6 and personality[str(message.chat.id)] <= 10:   
         players[str(message.chat.id)].Personality = "The Knight"
+        personality[str(message.chat.id)]= "The Knight"
         players[str(message.chat.id)].Power+=3000
     elif personality[str(message.chat.id)] > 10 and personality[str(message.chat.id)] <= 15:   
         players[str(message.chat.id)].Personality = "The Peasant"
+        personality[str(message.chat.id)]= "The Peasant"
         players[str(message.chat.id)].Power+=1000
     elif personality[str(message.chat.id)] > 15 and personality[str(message.chat.id)] <= 18:   
         players[str(message.chat.id)].Personality = "The Repugnant"
         players[str(message.chat.id)].Power-=1000
+        personality[str(message.chat.id)]= "The Repugnant"
     elif personality[str(message.chat.id)] >= -28 and personality[str(message.chat.id)] <= -10:   
         players[str(message.chat.id)].Personality = "The Human-Demon"
         players[str(message.chat.id)].Power+=9999
+        personality[str(message.chat.id)]= "The Human-Demon"
     bot.send_message(message.chat.id, "You seems to be "+players[str(message.chat.id)].Personality)
     #arr = bytes(str(message.chat.first_name)+": "+str(players[str(message.chat.id)].Personality)+" "+str(message.chat.id)+'\n', 'utf-8')
     create_file_dict(dbx,fpersonalities,personality)#########################################
