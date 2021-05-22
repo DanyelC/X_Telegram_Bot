@@ -67,7 +67,7 @@ def create_file_players(dbx,file_location,dicio,key):
   #arrayo=""
   y=(dicio[key])
   print(y)
-  y=y.send_all_list()
+  y=str(y.send_all_list())
   print(y)
   #y=str(dicio[key])
   y = y.encode()
