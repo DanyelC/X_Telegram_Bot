@@ -10,7 +10,7 @@ class Player:
         self.Gear = ["Nothing", 0]
         self.Magic = ["Nothing", 0]
         self.Gold = 5000
-        self.Power = self.Score*0.5 + self.Hp*10 + self.Attack*5 + self.Defense*2 + self.Gear[1]*5+ self.Magic[1]*2+ self.Gold*0.7
+        self.Power = float(self.Score)*0.5 + float(self.Hp)*10 + float(self.Attack)*5 + float(self.Defense)*2 + float(self.Gear[1])*5+ float(self.Magic[1])*2+ float(self.Gold)*0.7
         #colocar animal na conta
 
 

@@ -119,29 +119,30 @@ def txt_to_players(file_location,message):
     y=y.decode()
     print(y)
     print("acabou o txt")
-  
+    for x in y:
+        print(x)
     #z = y[0].find(" = ")
     players[str(message.chat.id)].id = y[0]
     #z = y[1].find(" = ")
-    players[str(message.chat.id)].Score = (y[1])
+    players[str(message.chat.id)].Score = y[1]
     #z = y[2].find(" = ")
-    players[str(message.chat.id)].Animal = (y[2])
+    players[str(message.chat.id)].Animal = y[2]
     #z = y[3].find(" = ")
-    players[str(message.chat.id)].Personality = (y[3])
+    players[str(message.chat.id)].Personality = y[3]
     #z = y[4].find(" = ")
-    players[str(message.chat.id)].Hp = (y[4])
+    players[str(message.chat.id)].Hp = y[4]
     #z = y[5].find(" = ")
-    players[str(message.chat.id)].Attack = (y[5])
+    players[str(message.chat.id)].Attack = y[5]
     #z = y[6].find(" = ")
-    players[str(message.chat.id)].Defense = (y[6])
+    players[str(message.chat.id)].Defense = y[6]
     #z = y[7].find(" = ")
-    players[str(message.chat.id)].Gear = (y[7])
+    players[str(message.chat.id)].Gear = y[7]
     #z = y[8].find(" = ")
-    players[str(message.chat.id)].Magic = (y[8])
+    players[str(message.chat.id)].Magic = y[8]
     #z = y[9].find(" = ")
-    players[str(message.chat.id)].Gold = (y[9])
+    players[str(message.chat.id)].Gold = y[9]
     #z = y[10].find(" = ")
-    players[str(message.chat.id)].Power = (y[10])
+    players[str(message.chat.id)].Power = y[10]
 
 
 #=============================================================================================
