@@ -112,7 +112,7 @@ def txt_to_players(file_location,message):
     f, r = dbx.files_download(file_location)
     y= r.content
     y=y.decode()
-    players[str(message.chat.id)].id = y[0][y[0].find("= ")+2:]
+    players[str(message.chat.id)].id = y[0][(y[0]).find("= ")+2:]
     players[str(message.chat.id)].Score = (y[1][y[1].find("= ")+2:])
     players[str(message.chat.id)].Animal = y[2][y[2].find("= ")+2:]
     players[str(message.chat.id)].Personality = y[3][y[3].find("= ")+2:]
