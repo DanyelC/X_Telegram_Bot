@@ -101,9 +101,9 @@ def txt_to_dict(file_locationany,dicio):
 
 #=============================================================================================
 
-txt_to_dict(fgetmes,getmes)
-txt_to_dict(fungetmes,ungetmes)
-txt_to_dict(fanimals,animals)
+#txt_to_dict(fgetmes,getmes)
+#txt_to_dict(fungetmes,ungetmes)
+#txt_to_dict(fanimals,animals)
 #txt_to_dict(fplayers+str(message.chat.id),players)
 #txt_to_dict(fpersonalities)
 #txt_to_dict(fcontagem,contagem)
@@ -274,6 +274,7 @@ def handle_play_score(message):
                 bot.send_message(message.chat.id, "Your score is %d and mine is %d" % (contagem[str(message.chat.id)], contagem[str(message.chat.id)+'Exodia']))
             bot.send_message(message.chat.id, "Let's play again? /play")
             #atualizando o score:
+            print(players)
             if players[str(message.chat.id)]:
                 score = int(contagem[str(message.chat.id)]) - int(contagem[str(message.chat.id)+'Exodia'])
                 players[str(message.chat.id)].Score = score
