@@ -40,7 +40,7 @@ file_location2 = "/xexodiabot/data/"
 fgetmes=file_location2+"getmes.txt"
 fungetmes=file_location2+"ungetmes.txt"
 fanimals=file_location2+"animals.txt"
-fplayers=file_location2+"players.txt"
+fplayers=file_location2#+"players.txt"
 fpersonalities=file_location2+"personalities.txt"
 
 
@@ -299,6 +299,7 @@ def handle_stop(message):
             with open('arquivos-bot/ungetmes.txt','a') as new_file: 
             #with open(path+'arquivos-bot/ungetmes.txt','a') as new_file: 
                 new_file.write(name+': '+ cid+'\n')
+            create_file_dict(dbx,fungetmes,ungetmes)#######################################################################
             del getmes[str(message.chat.first_name)]
             bot.send_chat_action(message.chat.id, "typing")
             bot.send_message(message.chat.id, "Your chat id was deleted, but your friend still here, waiting for you \U0001F97A")
@@ -1277,8 +1278,7 @@ def thepersonality(message,personality):
     for y in x:
         data+=y+"\n"
     data=data.encode()
-                        
-    create_file_data(dbx,fplayers,data)#######################################################################
+    create_file_data(dbx,fplayers+str(message.chat.id+".txt",data)#######################################################################
 
 #=======================================QUIZ======================================================================
 
