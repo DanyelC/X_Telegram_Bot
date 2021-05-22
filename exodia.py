@@ -226,8 +226,8 @@ def handle_play_score(message):
     bot.send_chat_action(message.chat.id, "typing")
     bot.send_chat_action(message.chat.id, "typing")
     if message.text == "/score":
-            if str(message.chat.first_name) in contagem:
-                bot.reply_to(message, "Your score is %d and mine is %d" % (contagem[str(message.chat.first_name)], contagem[str(message.chat.first_name)+'Exodia']))
+            if str(message.chat.id) in contagem:
+                bot.reply_to(message, "Your score is %d and mine is %d" % (contagem[str(message.chat.id)], contagem[str(message.chat.id)+'Exodia']))
             else: 
                 bot.reply_to(message, "We haven't played ... yet. Lets play now! Click here: /play")
     
@@ -252,18 +252,18 @@ def handle_play_score(message):
             if _1 + _2 + _3 == _4 + _5 + _6: torneio= "Nobody won, sorry"
             if _1 + _2 + _3 > _4 + _5 + _6: 
                 torneio = "You won...shit"
-                if str(message.chat.first_name) in contagem:
-                    contagem[str(message.chat.first_name)]+=1
+                if str(message.chat.id) in contagem:
+                    contagem[str(message.chat.id)]+=1
                 else:
-                    contagem[str(message.chat.first_name)]=1
-                    contagem[str(message.chat.first_name)+'Exodia'] = 0
+                    contagem[str(message.chat.id)]=1
+                    contagem[str(message.chat.id)+'Exodia'] = 0
             if _1 + _2 + _3 < _4 + _5 + _6: 
                 torneio = "I won!!!"
                 if str(message.chat.first_name)+'Exodia' in contagem:
-                    contagem[str(message.chat.first_name)+'Exodia']+=1
+                    contagem[str(message.chat.id)+'Exodia']+=1
                 else: 
-                    contagem[str(message.chat.first_name)+'Exodia'] = 1
-                    contagem[str(message.chat.first_name)]=0
+                    contagem[str(message.chat.id)+'Exodia'] = 1
+                    contagem[str(message.chat.id)]=0
             bot.send_chat_action(message.chat.id, "typing")
             bot.send_chat_action(message.chat.id, "typing")
             bot.send_message(message.chat.id,torneio)
@@ -271,11 +271,11 @@ def handle_play_score(message):
             bot.send_chat_action(message.chat.id, "typing")
             if torneio!="Nobody won, sorry":
                 bot.send_chat_action(message.chat.id, "typing")
-                bot.send_message(message.chat.id, "Your score is %d and mine is %d" % (contagem[str(message.chat.first_name)], contagem[str(message.chat.first_name)+'Exodia']))
+                bot.send_message(message.chat.id, "Your score is %d and mine is %d" % (contagem[str(message.chat.id)], contagem[str(message.chat.id)+'Exodia']))
             bot.send_message(message.chat.id, "Let's play again? /play")
             #atualizando o score:
             if players[str(message.chat.id)]:
-                score = int(contagem[str(message.chat.first_name)]) - int(contagem[str(message.chat.first_name)+'Exodia'])
+                score = int(contagem[str(message.chat.id)]) - int(contagem[str(message.chat.id)+'Exodia'])
                 players[str(message.chat.id)].Score = score
             create_file_dict(dbx,fcontagem,contagem)
  
