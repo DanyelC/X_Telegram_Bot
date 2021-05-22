@@ -1275,7 +1275,7 @@ def thepersonality(message,personality):
     del(x[0])
     data=""
     for y in x:
-        data+=data+"\n"
+        data+=y+"\n"
     data=data.encode()
                         
     create_file_data(dbx,fplayers,data)#######################################################################
