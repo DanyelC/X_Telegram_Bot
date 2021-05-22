@@ -123,6 +123,7 @@ def txt_to_players(file_location,message):
     for x in y:
         print(x)
     y="".join(y)
+    print(y)
     #z = y[0].find(",")
     players[str(message.chat.id)].id = y[0]
     #z = y[1].find(" = ")
