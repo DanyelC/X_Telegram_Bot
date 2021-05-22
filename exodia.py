@@ -40,15 +40,14 @@ file_location2 = "/xexodiabot/data/"
 fgetmes=file_location2+"getmes.txt"
 fungetmes=file_location2+"ungetmes.txt"
 fanimals=file_location2+"animals.txt"
-fplayers=file_location2#+"players.txt"
+fcontagem=file_location2+"contagem.txt"
+fplayers=file_location2+"players/"
 fpersonalities=file_location2+"personalities.txt"
-
 
 def upload_file(dbx, file_location,file):
     with open(file,"rb") as f:
         dbx.files_upload(f.read(),file_location,mode=dropbox.files.WriteMode.overwrite)
 
-#upload_file(dbx,file_location,file)
 
 
 def create_file(dbx, file_location,file,anything):
@@ -76,14 +75,43 @@ def download_file(filename):
     :return:
     """
     print(f"filename {filename}")
-
     f, r = dbx.files_download(filename)
-
     content = r.content
-
     return content
 
+
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
+file="example.txt"
+file_location = "/xexodiabot/data/getmes.txt" #data/players/847307875.txt"
+file_location2 = "/xexodiabot/teste/teste"
+
+def txt_to_dict(file_location,dicio):
+  f, r = dbx.files_download(file_location)
+  arrayo= r.content
+  arrayo=arrayo.decode()
+  #print (arrayo)
+  #dicio={}
+  arrayo=arrayo.split()
+  #print(arrayo)
+  for x in range((len(arrayo)-2)):
+    dicio[arrayo[x]]= arrayo[x+1]
+
+  #print(dicio)
+  return dicio
+
+
 #=============================================================================================
+
+txt_to_dict(fgetmes,getmes)
+txt_to_dict(fungetmes,ungetmes)
+txt_to_dict(fanimals,animals)
+txt_to_dict(fplayers,players)
+#txt_to_dict(fpersonalities)
+#txt_to_dict(fcontagem,contagem)
+
+
+
+
 
 # Handles all text messages that contains the command '/start'
 @bot.message_handler(commands=['start'])
@@ -249,7 +277,9 @@ def handle_play_score(message):
             #atualizando o score:
             if players[str(message.chat.id)]:
                 score = int(contagem[str(message.chat.first_name)]) - int(contagem[str(message.chat.first_name)+'Exodia'])
-                players[str(message.chat.id)].Score = score 
+                players[str(message.chat.id)].Score = score
+            create_file_dict(dbx,fcontagem,contagem)
+ 
 
         elif message.chat.type == "group":
             if _1 + _2 + _3 == _4 + _5 + _6: torneio= "Nobody won, sorry"
