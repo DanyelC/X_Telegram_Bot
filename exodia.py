@@ -70,7 +70,7 @@ def create_file_players(dbx,file_location,dicio,key):
   y=y.send_all_list()
   print(y)
   #y=str(dicio[key])
-  y = bytes(y)
+  y = y.encode()
   print(y)
   #with open(file,"rb") as f:
   dbx.files_upload(y,file_location,mode=dropbox.files.WriteMode("overwrite"))
