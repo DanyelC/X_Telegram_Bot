@@ -1274,9 +1274,9 @@ def thepersonality(message,personality):
         players[str(message.chat.id)].Power-=1000
         personality[str(message.chat.id)]= "The Repugnant"
     elif personality[str(message.chat.id)] >= -28 and personality[str(message.chat.id)] <= -10:   
-        players[str(message.chat.id)].Personality = "The Human-Demon"
+        players[str(message.chat.id)].Personality = "The Cambion"
         players[str(message.chat.id)].Power+=9999
-        personality[str(message.chat.id)]= "The Human-Demon"
+        personality[str(message.chat.id)]= "The Cambion"
     bot.send_message(message.chat.id, "You seems to be "+players[str(message.chat.id)].Personality)
     #arr = bytes(str(message.chat.first_name)+": "+str(players[str(message.chat.id)].Personality)+" "+str(message.chat.id)+'\n', 'utf-8')
     create_file_dict(dbx,fpersonalities,personality)#########################################
