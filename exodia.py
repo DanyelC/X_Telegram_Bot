@@ -1364,7 +1364,7 @@ def thepersonality(message,personality):
         print(x)
         print(y.send_all_list())
     print("===========")
-    for x in players[str(message.chat.first_name)]:
+    for x in players[str(message.chat.id)]:
         print(x)
         print(x.send_all_list())
 
