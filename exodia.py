@@ -86,7 +86,7 @@ file_location = "/xexodiabot/data/getmes.txt" #data/players/847307875.txt"
 file_location2 = "/xexodiabot/teste/teste"
 
 def txt_to_dict(file_location,dicio):
-  f, r = dbx.files_download(file_location)
+  file_location, r = dbx.files_download(file_location)
   arrayo= r.content
   arrayo=arrayo.decode()
   #print (arrayo)
