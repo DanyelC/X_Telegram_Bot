@@ -277,7 +277,7 @@ def handle_play_score(message):
             for x,y in players.items:
                 print(x,y)
 
-            print(===========)
+            print("===========")
             #print(players)
             if players[str(message.chat.id)]:
                 score = int(contagem[str(message.chat.id)]) - int(contagem[str(message.chat.id)+'Exodia'])
