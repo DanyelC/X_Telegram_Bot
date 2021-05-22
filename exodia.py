@@ -37,11 +37,11 @@ suggestion is welcome! Write me!"
 file="/app/arquivos-bot/getmes.txt"
 file_location = "/xexodiabot/example.txt"
 file_location2 = "/xexodiabot/"
-fgetmes=file_location2+"getmes/"
-fungetmes=file_location2+"ungetmes/"
-fanimals=file_location2+"animals/"
-fplayers=file_location2+"players/"
-fpersonalities=file_location2+"personalities/"
+fgetmes=file_location2+"getmes.txt"
+fungetmes=file_location2+"ungetmes.txt"
+fanimals=file_location2+"animals.txt"
+fplayers=file_location2+"players.txt"
+fpersonalities=file_location2+"personalities.txt"
 
 
 def upload_file(dbx, file_location,file):
@@ -54,6 +54,15 @@ def upload_file(dbx, file_location,file):
 def create_file(dbx, file_location,file,anything):
     with open(file,"rb") as f:
         dbx.files_upload(anything,file_location,mode=dropbox.files.WriteMode("overwrite"))
+
+
+def create_file_dict(dbx,file_location,dicio):
+  arrayo=""
+  for x, y in dicio.items():
+    arrayo+=(str(x)+" "+ str(y)+'\n')
+  arrayo = arrayo.encode()
+  #with open(file,"rb") as f:
+  dbx.files_upload(arrayo,file_location,mode=dropbox.files.WriteMode("overwrite"))
 
 def download_file(filename):
     """
@@ -152,7 +161,7 @@ def handle_getme(message):
                 new_file.write(str(message.chat.first_name)+" "+str(message.chat.id)+'\n')
                 #upload_file(dbx,file_location,file)
                 arr = bytes(str(message.chat.first_name)+" "+str(message.chat.id)+'\n', 'utf-8')
-                create_file(dbx,fgetmes+str(message.chat.id)+".txt",file, arr)#########################################
+                create_file_dict(dbx,fgetmes,getmes)#########################################
             bot.send_message(Danyel, "XXX-ADMIM-MESSAGE-XXX: Someone just subscribed! "+message.chat.first_name+ " joined")
             bot.reply_to(message, "I just saved your chat id for further interactions")
 
