@@ -63,6 +63,14 @@ def create_file_dict(dbx,file_location,dicio):
   dbx.files_upload(arrayo,file_location,mode=dropbox.files.WriteMode("overwrite"))
 
 
+def create_file_players(dbx,file_location,dicio,key):
+  #arrayo=""
+  y=str(dicio[key])
+  y = y.encode()
+  #with open(file,"rb") as f:
+  dbx.files_upload(y,file_location,mode=dropbox.files.WriteMode("overwrite"))
+
+
 def create_file_data(dbx,file_location,data):
   #with open(file,"rb") as f:
   dbx.files_upload(data,file_location,mode=dropbox.files.WriteMode("overwrite"))
@@ -97,6 +105,22 @@ def txt_to_dict(file_locationany,dicio):
 
   #print(dicio)
   return dicio
+
+def txt_to_players(file_location,message):
+    f, r = dbx.files_download(file_location)
+    y= r.content
+    y=y.decode()
+    players[str(message.chat.id)].id = y[0][y[0].find("= ")+2:]
+    players[str(message.chat.id)].Score = int(y[1][y[1].find("= ")+2:])
+    players[str(message.chat.id)].Animal = y[2][y[2].find("= ")+2:]
+    players[str(message.chat.id)].Personality = y[3][y[3].find("= ")+2:]
+    players[str(message.chat.id)].Hp = int(y[4][y[4].find("= ")+2:])
+    players[str(message.chat.id)].Attack = int(y[5][y[5].find("= ")+2:])
+    players[str(message.chat.id)].Defense = int(y[6][y[6].find("= ")+2:])
+    players[str(message.chat.id)].Gear = y[7][y[7].find("= ")+2:]
+    players[str(message.chat.id)].Magic = y[8][y[8].find("= ")+2:]
+    players[str(message.chat.id)].Gold = float(y[9][y[9].find("= ")+2:])
+    players[str(message.chat.id)].Power = float(y[10][y[10].find("= ")+2:])
 
 
 #=============================================================================================
@@ -1313,6 +1337,16 @@ def thepersonality(message,personality):
         data+=y+"\n"
     data=data.encode()
     create_file_data(dbx,fplayers+str(message.chat.id)+".txt",data)#######################################################################
+    create_file_players(dbx,fplayers+str(message.chat.first_name)+".txt",players,str(message.chat.id))
+    for x,y in players.items():
+        print(x)
+        print(y.send_all_list())
+    print("===========")
+    txt_to_players(file_location2,message)
+    for x,y in players.items():
+        print(x)
+        print(y.send_all_list())
+    print("===========")
 
 #=======================================QUIZ======================================================================
 
