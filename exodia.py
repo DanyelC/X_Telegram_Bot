@@ -66,9 +66,12 @@ def create_file_dict(dbx,file_location,dicio):
 def create_file_players(dbx,file_location,dicio,key):
   #arrayo=""
   y=(dicio[key])
-  y=str(y.send_all_list())
+  print(y)
+  y=y.send_all_list()
+  print(y)
   #y=str(dicio[key])
   y = y.encode()
+  print(y)
   #with open(file,"rb") as f:
   dbx.files_upload(y,file_location,mode=dropbox.files.WriteMode("overwrite"))
 
@@ -1361,6 +1364,9 @@ def thepersonality(message,personality):
         print(x)
         print(y.send_all_list())
     print("===========")
+    for x in players[str(message.chat.first_name)]:
+        print(x)
+        print(x.send_all_list())
 
 #=======================================QUIZ======================================================================
 
