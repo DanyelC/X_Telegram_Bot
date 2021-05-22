@@ -116,7 +116,7 @@ def txt_to_players(file_location,message):
     y= r.content
     print("dentro do txt")
     print(y)
-    y=y.decode()
+    y=list(y.decode())
     print(y)
     print("acabou o txt")
     for x in y:
