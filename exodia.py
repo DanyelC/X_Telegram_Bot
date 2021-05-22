@@ -65,8 +65,8 @@ def create_file_dict(dbx,file_location,dicio):
 
 def create_file_players(dbx,file_location,dicio,key):
   #arrayo=""
-  y=str(dicio[key])
-  y=y.send_all_list()
+  y=(dicio[key])
+  y=str(y.send_all_list())
   #y=str(dicio[key])
   y = y.encode()
   #with open(file,"rb") as f:
