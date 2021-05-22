@@ -329,7 +329,7 @@ def handle_admin_contagem(message):
     f = open('arquivos-bot/ungetmes.txt','w')
     #f = open(path+'arquivos-bot/ungetmes.txt','w')
     if message.chat.id == Danyel:
-        if message.chat.first_name == 'Danyel':
+        if message.chat.first_name == 'Danyel' or 'Xaxaxa':
             if contagem:
                 for x, y in contagem.items():
                     bot.send_message(message.chat.id, str(x)+": "+str(y))
@@ -343,7 +343,7 @@ def handle_admin_contagem(message):
 @bot.message_handler(commands=['animals'])
 def handle_admin_animals(message):
     if message.chat.id == Danyel:
-        if message.chat.first_name == 'Danyel':
+        if message.chat.first_name == 'Danyel' or 'Xaxaxa':
             if animals:
                 for x, y in animals.items():
                     bot.send_message(message.chat.id, x)
@@ -356,7 +356,7 @@ def handle_admin_animals(message):
 @bot.message_handler(commands=['getmes'])
 def handle_adminhozinho(message):
     if message.chat.id == Danyel:
-        if message.chat.first_name == 'Danyel':
+        if message.chat.first_name == 'Danyel' or 'Xaxaxa':
             if getmes:
                 for x, y in getmes.items():
                     bot.send_message(message.chat.id, x)
@@ -368,7 +368,7 @@ def handle_adminhozinho(message):
 @bot.message_handler(commands=['ungetmes'])
 def handle_adminhozinho(message):
     if message.chat.id == Danyel:
-        if message.chat.first_name == 'Danyel':
+        if message.chat.first_name == 'Danyel' or 'Xaxaxa':
             if ungetmes:
                 for x, y in ungetmes.items():
                     bot.send_message(message.chat.id, x)
@@ -381,7 +381,7 @@ def handle_adminhozinho(message):
 @bot.message_handler(commands=['players'])
 def handle_player(message):
     if message.chat.id == Danyel:
-        if message.chat.first_name == 'Danyel':
+        if message.chat.first_name == 'Danyel' or 'Xaxaxa':
             if players:
                 #for y,x in players:
                 #    bot.send_message(Danyel,
@@ -416,7 +416,7 @@ def handle_menu(message):
     bot.send_chat_action(message.chat.id, "typing")
     bot.send_chat_action(message.chat.id, "typing")
     if message.chat.id == Danyel:
-        if message.chat.first_name == 'Danyel':
+        if message.chat.first_name == 'Danyel' or 'Xaxaxa':
             bot.send_message(message.chat.id,
             '1) /menu - The list of all my 10 commands\n' +
             '2) /start - Get started about the game (under development)\n' +
@@ -477,7 +477,7 @@ def handle_myfriend(message):
     bot.send_chat_action(message.chat.id, "typing")
     if message.chat.type == "private":
         if str(message.chat.first_name) in animals:
-            x = bot.reply_to(message, "Your friend is: "+ animals[message.chat.first_name])
+            x = bot.reply_to(message, "Your friend is: "+ animals[message.chat.id])
             
             markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
             yes = types.KeyboardButton('Yes')
@@ -995,15 +995,6 @@ def step_animal_confirmation(message, animal):
                     else: 
                         players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
                         #arr = bytes(str(message.chat.first_name)+": "+"Repugnant"" "+str(message.chat.id)+'\n', 'utf-8')
-                        
-                        x = players[str(message.chat.id)].send_all_list()
-                        del(x[0])
-                        data=""
-                        for y in x:
-                            data+=data+"\n"
-                        data=data.encode()
-                        
-                        create_file_data(dbx,fplayers,data)#######################################################################
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -1280,6 +1271,14 @@ def thepersonality(message,personality):
     bot.send_message(message.chat.id, "You seems to be "+players[str(message.chat.id)].Personality)
     #arr = bytes(str(message.chat.first_name)+": "+str(players[str(message.chat.id)].Personality)+" "+str(message.chat.id)+'\n', 'utf-8')
     create_file_dict(dbx,fpersonalities,personality)#########################################
+    x = players[str(message.chat.id)].send_all_list()
+    del(x[0])
+    data=""
+    for y in x:
+        data+=data+"\n"
+    data=data.encode()
+                        
+    create_file_data(dbx,fplayers,data)#######################################################################
 
 #=======================================QUIZ======================================================================
 
