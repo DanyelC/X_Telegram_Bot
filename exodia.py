@@ -113,16 +113,16 @@ def txt_to_players(file_location,message):
     y= r.content
     y=y.decode()
     players[str(message.chat.id)].id = y[0][y[0].find("= ")+2:]
-    players[str(message.chat.id)].Score = int(y[1][y[1].find("= ")+2:])
+    players[str(message.chat.id)].Score = (y[1][y[1].find("= ")+2:])
     players[str(message.chat.id)].Animal = y[2][y[2].find("= ")+2:]
     players[str(message.chat.id)].Personality = y[3][y[3].find("= ")+2:]
-    players[str(message.chat.id)].Hp = int(y[4][y[4].find("= ")+2:])
-    players[str(message.chat.id)].Attack = int(y[5][y[5].find("= ")+2:])
-    players[str(message.chat.id)].Defense = int(y[6][y[6].find("= ")+2:])
+    players[str(message.chat.id)].Hp = (y[4][y[4].find("= ")+2:])
+    players[str(message.chat.id)].Attack = (y[5][y[5].find("= ")+2:])
+    players[str(message.chat.id)].Defense = (y[6][y[6].find("= ")+2:])
     players[str(message.chat.id)].Gear = y[7][y[7].find("= ")+2:]
     players[str(message.chat.id)].Magic = y[8][y[8].find("= ")+2:]
-    players[str(message.chat.id)].Gold = float(y[9][y[9].find("= ")+2:])
-    players[str(message.chat.id)].Power = float(y[10][y[10].find("= ")+2:])
+    players[str(message.chat.id)].Gold = (y[9][y[9].find("= ")+2:])
+    players[str(message.chat.id)].Power = (y[10][y[10].find("= ")+2:])
 
 
 #=============================================================================================
