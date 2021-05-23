@@ -575,14 +575,14 @@ def step_animal_change(message):
         bot.send_chat_action(message.chat.id, "typing")
         bot.send_message(message.chat.id, "kick this idiot!")
         players[str(message.chat.id)].Hp-=10
-        create_file_players(dbx,fplayerslist,players,str(message.chat.id))
+        create_file_players(dbx,fplayerslist+str(message.chat.id),players,str(message.chat.id))
         sleep(1)
         bot.send_message(message.chat.id, "_"+animals[str(message.chat.first_name)]+" kicked you\n"+"you lost 10 HP_", parse_mode = 'Markdown')
         sleep(1)
         bot.send_message(message.chat.id, "_Exodia grabs your gold_", parse_mode = 'Markdown')
         sleep(1)
         players[str(message.chat.id)].Gold-=1000
-        create_file_players(dbx,fplayerslist,players,str(message.chat.id))
+        create_file_players(dbx,fplayerslist+str(message.chat.id),players,str(message.chat.id))
 
         bot.send_message(message.chat.id, "_you lost 1k gold_", parse_mode = 'Markdown')
         bot.send_chat_action(message.chat.id, "typing")
@@ -594,13 +594,13 @@ def step_animal_change(message):
         sleep(1)
         bot.send_message(message.chat.id, "_Exodia punches you_", parse_mode = 'Markdown')
         players[str(message.chat.id)].Hp-=50
-        create_file_players(dbx,fplayerslist,players,str(message.chat.id))
+        create_file_players(dbx,fplayerslist+str(message.chat.id),players,str(message.chat.id))
         sleep(1)
         bot.send_message(message.chat.id, "_you lost 50 HP_", parse_mode = 'Markdown')
         sleep(1)
         bot.send_message(message.chat.id, "*GIVE ME MORE MONEY!*", parse_mode = 'Markdown')
         players[str(message.chat.id)].Gold-=1000
-        create_file_players(dbx,fplayerslist,players,str(message.chat.id))
+        create_file_players(dbx,fplayerslist+str(message.chat.id),players,str(message.chat.id))
         sleep(1)
         bot.send_message(message.chat.id, "_you lost 1k gold again_", parse_mode = 'Markdown')
         handle_choose_animal(message)
@@ -858,7 +858,7 @@ def step_animal_confirmation(message, animal):
                     if str(message.chat.id) in players:
                         pass
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
-                    create_file_players(dbx,fplayerslist,players,str(message.chat.id))
+                    create_file_players(dbx,fplayerslist+str(message.chat.id),players,str(message.chat.id))
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                     #print(players[str(message.chat.id)].id)
@@ -902,7 +902,7 @@ def step_animal_confirmation(message, animal):
                     if str(message.chat.id) in players:
                         pass
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
-                    create_file_players(dbx,fplayerslist,players,str(message.chat.id))
+                    create_file_players(dbx,fplayerslist+str(message.chat.id),players,str(message.chat.id))
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -944,7 +944,7 @@ def step_animal_confirmation(message, animal):
                     if str(message.chat.id) in players:
                         pass
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
-                    create_file_players(dbx,fplayerslist,players,str(message.chat.id))
+                    create_file_players(dbx,fplayerslist+str(message.chat.id),players,str(message.chat.id))
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -986,7 +986,7 @@ def step_animal_confirmation(message, animal):
                     if str(message.chat.id) in players:
                         pass
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
-                    create_file_players(dbx,fplayerslist,players,str(message.chat.id))
+                    create_file_players(dbx,fplayerslist+str(message.chat.id),players,str(message.chat.id))
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -1027,7 +1027,7 @@ def step_animal_confirmation(message, animal):
                     if str(message.chat.id) in players:
                         pass
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
-                    create_file_players(dbx,fplayerslist,players,str(message.chat.id))
+                    create_file_players(dbx,fplayerslist+str(message.chat.id),players,str(message.chat.id))
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -1069,7 +1069,7 @@ def step_animal_confirmation(message, animal):
                         pass
                     else: 
                         players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
-                        create_file_players(dbx,fplayerslist,players,str(message.chat.id))
+                        create_file_players(dbx,fplayerslist+str(message.chat.id),players,str(message.chat.id))
                         #arr = bytes(str(message.chat.first_name)+": "+"Repugnant"" "+str(message.chat.id)+'\n', 'utf-8')
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
@@ -1364,7 +1364,7 @@ def thepersonality(message,personality):
         data+=y+"\n"
     data=data.encode()
     create_file_data(dbx,fplayers+str(message.chat.id)+".txt",data)#######################################################################
-    create_file_players(dbx,fplayerslist,players,str(message.chat.id))
+    create_file_players(dbx,fplayerslist+str(message.chat.id),players,str(message.chat.id))
     #for x,y in players.items():
     #    print(x)
     #    print(y.send_all_list())
