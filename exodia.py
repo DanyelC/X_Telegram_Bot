@@ -42,6 +42,7 @@ fungetmes=file_location2+"ungetmes.txt"
 fanimals=file_location2+"animals.txt"
 fcontagem=file_location2+"contagem.txt"
 fplayers=file_location2+"players/"
+fplayerslist=file_location2+"players/list/"
 fpersonalities=file_location2+"personalities.txt"
 
 def upload_file(dbx, file_location,file):
@@ -59,73 +60,48 @@ def create_file_dict(dbx,file_location,dicio):
   for x, y in dicio.items():
     arrayo+=(str(x)+" "+ str(y)+'\n')
   arrayo = arrayo.encode()
-  #with open(file,"rb") as f:
   dbx.files_upload(arrayo,file_location,mode=dropbox.files.WriteMode("overwrite"))
 
 
 def create_file_players(dbx,file_location,dicio,key):
-  #arrayo=""
   y=(dicio[key])
   print(y)
   y=str(y.send_all_list())
   print(y)
-  #y=str(dicio[key])
   y = y.encode()
   print(y)
-  #with open(file,"rb") as f:
   dbx.files_upload(y,file_location,mode=dropbox.files.WriteMode("overwrite"))
 
 
 def create_file_data(dbx,file_location,data):
-  #with open(file,"rb") as f:
   dbx.files_upload(data,file_location,mode=dropbox.files.WriteMode("overwrite"))
 
 def download_file(filename):
-    """
-    Get file from Dropbox
+    """Get file from Dropbox
     :param filename: full path of the file
-    :return:
-    """
+    :return:"""
     print(f"filename {filename}")
     f, r = dbx.files_download(filename)
     content = r.content
     return content
 
-
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
-file="example.txt"
-file_location = "/xexodiabot/data/getmes.txt" #data/players/847307875.txt"
-file_location2 = "/xexodiabot/teste/teste"
-
 def txt_to_dict(file_locationany,dicio):
   f, r = dbx.files_download(file_locationany)
   arrayo= r.content
   arrayo=arrayo.decode()
-  #print (arrayo)
-  #dicio={}
   arrayo=arrayo.split()
-  #print(arrayo)
   for x in range((len(arrayo)-2)):
     dicio[arrayo[x]]= arrayo[x+1]
-
-  #print(dicio)
   return dicio
 
 def txt_to_players(file_location,message):
     f, r = dbx.files_download(file_location)
     y= r.content
-    #print("dentro do txt")
-    #print(y)
     y=y.decode()
     y=y[1:(len(y)-1)]
-    #print(y)
-    #print("acabou o txt")
     y = list(y)
-    #y="".join(y)
-    #print(y)
     y = "".join(y)
     teste1 = y.split(", ")
-    #print (teste1)
     for x in range(7):
         teste1[x]=teste1[x][1:len(teste1[x])-1]
     teste1[11]=teste1[11][1:len(teste1[11])-1]
@@ -137,8 +113,6 @@ def txt_to_players(file_location,message):
     z = teste1[9].find("\''")
     w = teste1[10].find("]")
     algo2=(teste1[9][3:z]+"'"+teste1[10][0:w]).split("'")
-    print(type(algo1))
-    print(type(algo2))
     y=[]
     for x in range(7):
         y.append(teste1[x])
@@ -159,18 +133,14 @@ def txt_to_players(file_location,message):
     players[str(message.chat.id)].Gold = y[9]
     players[str(message.chat.id)].Power = y[10]
 
-
 #=============================================================================================
 
-#txt_to_dict(fgetmes,getmes)
-#txt_to_dict(fungetmes,ungetmes)
-#txt_to_dict(fanimals,animals)
+txt_to_dict(fgetmes,getmes)
+txt_to_dict(fungetmes,ungetmes)
+txt_to_dict(fanimals,animals)
 #txt_to_dict(fplayers+str(message.chat.id),players)
-#txt_to_dict(fpersonalities)
-#txt_to_dict(fcontagem,contagem)
-
-
-
+txt_to_dict(fpersonalities)
+txt_to_dict(fcontagem,contagem)
 
 
 # Handles all text messages that contains the command '/start'
@@ -199,7 +169,6 @@ def handle_start(message):
             bot.send_message(message.chat.id, "But before starting...")
             handle_choose_animal(message)
             
-
     else:   
         bot.send_message(message.chat.id, 'Hello people from '+ message.chat.title +' group. My name is Exodia. How can I help you?')
         bot.send_chat_action(message.chat.id, "typing")
@@ -215,7 +184,6 @@ def handle_start(message):
 
     
     
-
 # Handles all text messages that contains the command '/help'.
 @bot.message_handler(commands=['help'])
 def handle_help(message):
@@ -335,11 +303,10 @@ def handle_play_score(message):
                 bot.send_message(message.chat.id, "Your score is %d and mine is %d" % (contagem[str(message.chat.id)], contagem[str(message.chat.id)+'Exodia']))
             bot.send_message(message.chat.id, "Let's play again? /play")
             #atualizando o score:
-            for x,y in players.items():
-                print(x)
-                print(y.send_all_list())
-            print("===========")
-            #print(players)
+            #for x,y in players.items():
+            #    print(x)
+            #    print(y.send_all_list())
+            #print("===========")
             if players[str(message.chat.id)]:
                 score = int(contagem[str(message.chat.id)]) - int(contagem[str(message.chat.id)+'Exodia'])
                 players[str(message.chat.id)].Score = score
@@ -492,11 +459,11 @@ def handle_player(message):
                 #    x.magia+'\n')
                 for jogadores in players:
                     x= players[jogadores].send_all_list()
-                    print(x)
-                    print(x[0]) # x[0] é "id = xxxx" logo
-                    id = x[0].split(" ")
-                    id = id[2]
-                    print(id)
+                    #print(x)
+                    #print(x[0]) # x[0] é "id = xxxx" logo
+                    #id = x[0].split(" ")
+                    #id = id[2]
+                    #print(id)
                     bot.send_message(Danyel, "=========================") 
                     for y in x:
                         bot.send_message(Danyel, y)  
@@ -607,26 +574,32 @@ def step_animal_change(message):
         bot.send_chat_action(message.chat.id, "typing")
         bot.send_message(message.chat.id, "kick this idiot!")
         players[str(message.chat.id)].Hp-=10
+        create_file_players(dbx,fplayerslist,players,str(message.chat.id))
         sleep(1)
         bot.send_message(message.chat.id, "_"+animals[str(message.chat.first_name)]+" kicked you\n"+"you lost 10 HP_", parse_mode = 'Markdown')
         sleep(1)
         bot.send_message(message.chat.id, "_Exodia grabs your gold_", parse_mode = 'Markdown')
         sleep(1)
         players[str(message.chat.id)].Gold-=1000
+        create_file_players(dbx,fplayerslist,players,str(message.chat.id))
+
         bot.send_message(message.chat.id, "_you lost 1k gold_", parse_mode = 'Markdown')
         bot.send_chat_action(message.chat.id, "typing")
         del animals[str(message.chat.first_name)]
+        create_file_dict(dbx,fanimals,animals)
         bot.send_message(message.chat.id, "Ok so, I'm going to take your friend to a new home...")
         bot.send_chat_action(message.chat.id, "typing")
         bot.send_message(message.chat.id, "But first, take this...")
         sleep(1)
         bot.send_message(message.chat.id, "_Exodia punches you_", parse_mode = 'Markdown')
         players[str(message.chat.id)].Hp-=50
+        create_file_players(dbx,fplayerslist,players,str(message.chat.id))
         sleep(1)
         bot.send_message(message.chat.id, "_you lost 50 HP_", parse_mode = 'Markdown')
         sleep(1)
         bot.send_message(message.chat.id, "*GIVE ME MORE MONEY!*", parse_mode = 'Markdown')
         players[str(message.chat.id)].Gold-=1000
+        create_file_players(dbx,fplayerslist,players,str(message.chat.id))
         sleep(1)
         bot.send_message(message.chat.id, "_you lost 1k gold again_", parse_mode = 'Markdown')
         handle_choose_animal(message)
@@ -872,11 +845,11 @@ def step_animal_confirmation(message, animal):
                     bot.send_message(message.chat.id, "You already have your friend, but you can take a look:")
                 else:
                     animals[str(message.chat.id)]= 'Snake'
+                    create_file_dict(dbx,fanimals,animals)#######################################################################
                     with open('arquivos-bot/animals.txt','a') as new_file:
                     #with open(path+'arquivos-bot/animals.txt','a') as new_file:
                         new_file.write(str(message.chat.id)+": "+'Snake\n')
                         #arr = bytes(str(message.chat.first_name)+": "+"Snake"" "+str(message.chat.id)+'\n', 'utf-8')
-                        create_file_dict(dbx,fanimals,animals)#######################################################################
                     bot.send_message(message.chat.id, "WOW, take care")
                     bot.send_message(message.chat.id, "Now you are ready to start your journey :)")
                     
@@ -884,6 +857,7 @@ def step_animal_confirmation(message, animal):
                     if str(message.chat.id) in players:
                         pass
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
+                    create_file_players(dbx,fplayerslist,players,str(message.chat.id))
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                     #print(players[str(message.chat.id)].id)
@@ -927,6 +901,7 @@ def step_animal_confirmation(message, animal):
                     if str(message.chat.id) in players:
                         pass
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
+                    create_file_players(dbx,fplayerslist,players,str(message.chat.id))
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -968,6 +943,7 @@ def step_animal_confirmation(message, animal):
                     if str(message.chat.id) in players:
                         pass
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
+                    create_file_players(dbx,fplayerslist,players,str(message.chat.id))
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -1009,6 +985,7 @@ def step_animal_confirmation(message, animal):
                     if str(message.chat.id) in players:
                         pass
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
+                    create_file_players(dbx,fplayerslist,players,str(message.chat.id))
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -1049,6 +1026,7 @@ def step_animal_confirmation(message, animal):
                     if str(message.chat.id) in players:
                         pass
                     else: players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
+                    create_file_players(dbx,fplayerslist,players,str(message.chat.id))
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
                         quiz(message)
@@ -1090,6 +1068,7 @@ def step_animal_confirmation(message, animal):
                         pass
                     else: 
                         players[str(message.chat.id)]= Player(message.chat.id,animals[str(message.chat.id)], "Repugnant")
+                        create_file_players(dbx,fplayerslist,players,str(message.chat.id))
                         #arr = bytes(str(message.chat.first_name)+": "+"Repugnant"" "+str(message.chat.id)+'\n', 'utf-8')
                     if players[str(message.chat.id)].Hp==100:
                         bot.send_message(message.chat.id, "I always think human lives are repugnants, so I described you like this. Take this simple quiz, let's see if you have something good")
@@ -1194,6 +1173,7 @@ def step_quiz2(message,personality): #Do you believe in God? Yes, no , -1, 3"
         personality[str(message.chat.id)]= 2
     else:
         personality[str(message.chat.id)]= 1
+    create_file_dict(dbx,fpersonalities,personality)
 
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
     Yes = types.KeyboardButton('Yes')
@@ -1208,6 +1188,7 @@ def step_quiz3(message,personality):# 3 - "If you were a God, who would you be? 
         personality[str(message.chat.id)]+= -1
     else:
         personality[str(message.chat.id)]+= 3
+    create_file_dict(dbx,fpersonalities,personality)
     
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
     War = types.KeyboardButton('God of War')
@@ -1225,6 +1206,7 @@ def step_quiz4(message,personality):# 4 - "If you could master an element, what 
         personality[str(message.chat.id)]+= 1
     else: 
         personality[str(message.chat.id)]+= 4
+    create_file_dict(dbx,fpersonalities,personality)
         
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
     Water = types.KeyboardButton('Water')
@@ -1243,6 +1225,7 @@ def step_quiz5(message,personality):# 5 - "Are you happy? Yes, no. 1 , -3"
         personality[str(message.chat.id)]+= 0
     else: 
         personality[str(message.chat.id)]+= 1
+    create_file_dict(dbx,fpersonalities,personality)
         
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
     Yes = types.KeyboardButton('Yes')
@@ -1257,6 +1240,7 @@ def step_quiz6(message,personality):# 6 - "How often do you lie? None, low, medi
         personality[str(message.chat.id)]+= 1
     else:
         personality[str(message.chat.id)]+= -3
+    create_file_dict(dbx,fpersonalities,personality)
 
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
     Nonex = types.KeyboardButton('None')
@@ -1277,6 +1261,7 @@ def step_quiz7(message,personality): # 7 - "Are you a stressed person? Yes, no. 
         personality[str(message.chat.id)]+= -2
     else:
         personality[str(message.chat.id)]+= -4
+    create_file_dict(dbx,fpersonalities,personality)
         
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
     Yes = types.KeyboardButton('Yes')
@@ -1292,6 +1277,7 @@ def step_quiz8(message,personality): # 8 - "Are you an ambitious person? Yes, no
         personality[str(message.chat.id)]+= -2
     else:
         personality[str(message.chat.id)]+= 2
+    create_file_dict(dbx,fpersonalities,personality)
         
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
     Yes = types.KeyboardButton('Yes')
@@ -1307,6 +1293,7 @@ def step_quiz9(message,personality): # 9 - ""Would you kill for money?"? Truth, 
         personality[str(message.chat.id)]+= -3
     else:
         personality[str(message.chat.id)]+= 2
+    create_file_dict(dbx,fpersonalities,personality)
         
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
     Yes = types.KeyboardButton('Yes')
@@ -1322,6 +1309,7 @@ def step_quiz10(message,personality): # 10 - "Power, happiness or peace? Power, 
         personality[str(message.chat.id)]+= -4
     else:
         personality[str(message.chat.id)]+= 2
+    create_file_dict(dbx,fpersonalities,personality)
 
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
     Power = types.KeyboardButton('Power')
@@ -1340,6 +1328,7 @@ def step_quiz_score(message,personality):
         personality[str(message.chat.id)]+= 1
     else:
         personality[str(message.chat.id)]+= -1
+    create_file_dict(dbx,fpersonalities,personality)
     thepersonality(message,personality)
 
 
@@ -1374,16 +1363,16 @@ def thepersonality(message,personality):
         data+=y+"\n"
     data=data.encode()
     create_file_data(dbx,fplayers+str(message.chat.id)+".txt",data)#######################################################################
-    create_file_players(dbx,fplayers+str(message.chat.first_name)+".txt",players,str(message.chat.id))
-    for x,y in players.items():
-        print(x)
-        print(y.send_all_list())
-    print("===========")
+    create_file_players(dbx,fplayerslist,players,str(message.chat.id))
+    #for x,y in players.items():
+    #    print(x)
+    #    print(y.send_all_list())
+    #print("===========")
     txt_to_players(fplayers+str(message.chat.first_name)+".txt",message)
-    for x,y in players.items():
-        print(x)
-        print(y.send_all_list())
-    print("===========")
+    #for x,y in players.items():
+    #    print(x)
+    #    print(y.send_all_list())
+    #print("===========")
 
 #=======================================QUIZ======================================================================
 
