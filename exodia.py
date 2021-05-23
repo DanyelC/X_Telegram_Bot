@@ -123,6 +123,28 @@ def txt_to_players(file_location,message):
     y = list(y)
     #y="".join(y)
     print(y)
+    y = "".join(y)
+    teste1 = y.split(", ")
+    print (teste1)
+    for x in range(7):
+        teste1[x]=teste1[x][1:len(teste1[x])-1]
+    #7,8, 9 e 10
+    teste1[11]=teste1[11][1:len(teste1[11])-1]
+    teste1[12]=teste1[12][1:len(teste1[12])-1]
+    z = teste1[7].find("\''")
+    w = teste1[8].find("]")
+    algo1=(teste1[7][3:z]+"'"+teste1[8][0:w]).split("'")
+    z = teste1[9].find("\''")
+    w = teste1[10].find("]")
+    algo2=(teste1[9][3:z]+"'"+teste1[10][0:w]).split("'")
+    y=[]
+    for x in range(7):
+        y.append(teste1[x])
+    y.append(algo1)
+    y.append(algo2)
+    for x in range(11,13):
+        y.append(teste1[x])
+
     #z = y[0].find(",")
     players[str(message.chat.id)].id = y[0]
     #z = y[1].find(" = ")
