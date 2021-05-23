@@ -141,7 +141,6 @@ txt_to_dict(fanimals,animals)
 for x,y in getmes.items():
     txt_to_dict(fplayers+y,players)
 #txt_to_dict(fplayers+str(message.chat.id),players)
-txt_to_dict(fpersonalities,personali)
 #txt_to_dict(fcontagem,contagem)
 
 
