@@ -114,29 +114,31 @@ def txt_to_dict(file_locationany,dicio):
 def txt_to_players(file_location,message):
     f, r = dbx.files_download(file_location)
     y= r.content
-    print("dentro do txt")
-    print(y)
+    #print("dentro do txt")
+    #print(y)
     y=y.decode()
     y=y[1:(len(y)-1)]
-    print(y)
-    print("acabou o txt")
+    #print(y)
+    #print("acabou o txt")
     y = list(y)
     #y="".join(y)
-    print(y)
+    #print(y)
     y = "".join(y)
     teste1 = y.split(", ")
-    print (teste1)
+    #print (teste1)
     for x in range(7):
         teste1[x]=teste1[x][1:len(teste1[x])-1]
-    #7,8, 9 e 10
     teste1[11]=teste1[11][1:len(teste1[11])-1]
     teste1[12]=teste1[12][1:len(teste1[12])-1]
+    #7,8, 9 e 10
     z = teste1[7].find("\''")
     w = teste1[8].find("]")
     algo1=(teste1[7][3:z]+"'"+teste1[8][0:w]).split("'")
     z = teste1[9].find("\''")
     w = teste1[10].find("]")
     algo2=(teste1[9][3:z]+"'"+teste1[10][0:w]).split("'")
+    print(type(algo1))
+    print(type(algo2))
     y=[]
     for x in range(7):
         y.append(teste1[x])
@@ -145,27 +147,16 @@ def txt_to_players(file_location,message):
     for x in range(11,13):
         y.append(teste1[x])
 
-    #z = y[0].find(",")
     players[str(message.chat.id)].id = y[0]
-    #z = y[1].find(" = ")
     players[str(message.chat.id)].Score = y[1]
-    #z = y[2].find(" = ")
     players[str(message.chat.id)].Animal = y[2]
-    #z = y[3].find(" = ")
     players[str(message.chat.id)].Personality = y[3]
-    #z = y[4].find(" = ")
     players[str(message.chat.id)].Hp = y[4]
-    #z = y[5].find(" = ")
     players[str(message.chat.id)].Attack = y[5]
-    #z = y[6].find(" = ")
     players[str(message.chat.id)].Defense = y[6]
-    #z = y[7].find(" = ")
     players[str(message.chat.id)].Gear = y[7]
-    #z = y[8].find(" = ")
     players[str(message.chat.id)].Magic = y[8]
-    #z = y[9].find(" = ")
     players[str(message.chat.id)].Gold = y[9]
-    #z = y[10].find(" = ")
     players[str(message.chat.id)].Power = y[10]
 
 
