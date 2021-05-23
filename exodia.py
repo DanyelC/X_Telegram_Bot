@@ -85,8 +85,8 @@ def download_file(filename):
     content = r.content
     return content
 
-def txt_to_dict(file_locationany,dicio):
-  f, r = dbx.files_download(file_locationany)
+def txt_to_dict(file_location,dicio):
+  f, r = dbx.files_download(file_location)
   arrayo= r.content
   arrayo=arrayo.decode()
   arrayo=arrayo.split()
@@ -138,9 +138,11 @@ def txt_to_players(file_location,message):
 txt_to_dict(fgetmes,getmes)
 txt_to_dict(fungetmes,ungetmes)
 txt_to_dict(fanimals,animals)
+for x,y in getmes.items():
+    txt_to_dict(fplayers+y,players)
 #txt_to_dict(fplayers+str(message.chat.id),players)
 txt_to_dict(fpersonalities)
-txt_to_dict(fcontagem,contagem)
+#txt_to_dict(fcontagem,contagem)
 
 
 # Handles all text messages that contains the command '/start'
