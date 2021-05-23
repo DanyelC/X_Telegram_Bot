@@ -141,7 +141,7 @@ txt_to_dict(fanimals,animals)
 for x,y in getmes.items():
     txt_to_dict(fplayers+y,players)
 #txt_to_dict(fplayers+str(message.chat.id),players)
-txt_to_dict(fpersonalities)
+txt_to_dict(fpersonalities,personali)
 #txt_to_dict(fcontagem,contagem)
 
 
@@ -1175,7 +1175,7 @@ def step_quiz2(message,personality): #Do you believe in God? Yes, no , -1, 3"
         personality[str(message.chat.id)]= 2
     else:
         personality[str(message.chat.id)]= 1
-    create_file_dict(dbx,fpersonalities,personality)
+    #create_file_dict(dbx,fpersonalities,personality)
 
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
     Yes = types.KeyboardButton('Yes')
@@ -1190,7 +1190,7 @@ def step_quiz3(message,personality):# 3 - "If you were a God, who would you be? 
         personality[str(message.chat.id)]+= -1
     else:
         personality[str(message.chat.id)]+= 3
-    create_file_dict(dbx,fpersonalities,personality)
+    #create_file_dict(dbx,fpersonalities,personality)
     
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
     War = types.KeyboardButton('God of War')
@@ -1208,7 +1208,7 @@ def step_quiz4(message,personality):# 4 - "If you could master an element, what 
         personality[str(message.chat.id)]+= 1
     else: 
         personality[str(message.chat.id)]+= 4
-    create_file_dict(dbx,fpersonalities,personality)
+    #create_file_dict(dbx,fpersonalities,personality)
         
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
     Water = types.KeyboardButton('Water')
@@ -1227,7 +1227,7 @@ def step_quiz5(message,personality):# 5 - "Are you happy? Yes, no. 1 , -3"
         personality[str(message.chat.id)]+= 0
     else: 
         personality[str(message.chat.id)]+= 1
-    create_file_dict(dbx,fpersonalities,personality)
+    #create_file_dict(dbx,fpersonalities,personality)
         
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
     Yes = types.KeyboardButton('Yes')
@@ -1242,7 +1242,7 @@ def step_quiz6(message,personality):# 6 - "How often do you lie? None, low, medi
         personality[str(message.chat.id)]+= 1
     else:
         personality[str(message.chat.id)]+= -3
-    create_file_dict(dbx,fpersonalities,personality)
+    #create_file_dict(dbx,fpersonalities,personality)
 
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
     Nonex = types.KeyboardButton('None')
@@ -1263,7 +1263,7 @@ def step_quiz7(message,personality): # 7 - "Are you a stressed person? Yes, no. 
         personality[str(message.chat.id)]+= -2
     else:
         personality[str(message.chat.id)]+= -4
-    create_file_dict(dbx,fpersonalities,personality)
+    #create_file_dict(dbx,fpersonalities,personality)
         
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
     Yes = types.KeyboardButton('Yes')
@@ -1311,7 +1311,7 @@ def step_quiz10(message,personality): # 10 - "Power, happiness or peace? Power, 
         personality[str(message.chat.id)]+= -4
     else:
         personality[str(message.chat.id)]+= 2
-    create_file_dict(dbx,fpersonalities,personality)
+    #create_file_dict(dbx,fpersonalities,personality)
 
     markup = types.ReplyKeyboardMarkup(one_time_keyboard= True)
     Power = types.KeyboardButton('Power')
@@ -1330,7 +1330,7 @@ def step_quiz_score(message,personality):
         personality[str(message.chat.id)]+= 1
     else:
         personality[str(message.chat.id)]+= -1
-    create_file_dict(dbx,fpersonalities,personality)
+    #create_file_dict(dbx,fpersonalities,personality)
     thepersonality(message,personality)
 
 
@@ -1357,7 +1357,7 @@ def thepersonality(message,personality):
         personality[str(message.chat.id)]= "The Cambion"
     bot.send_message(message.chat.id, "You seems to be "+players[str(message.chat.id)].Personality)
     #arr = bytes(str(message.chat.first_name)+": "+str(players[str(message.chat.id)].Personality)+" "+str(message.chat.id)+'\n', 'utf-8')
-    create_file_dict(dbx,fpersonalities,personality)#########################################
+    #create_file_dict(dbx,fpersonalities,personality)#########################################
     x = players[str(message.chat.id)].send_all_list()
     del(x[0])
     data=""
