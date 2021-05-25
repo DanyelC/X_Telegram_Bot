@@ -575,14 +575,14 @@ def step_animal_change(message):
         bot.send_chat_action(message.chat.id, "typing")
         bot.send_message(message.chat.id, "kick this idiot!")
         players[str(message.chat.id)].Hp-=10
-        create_file_players(dbx,fplayerslist+str(message.chat.id),players,str(message.chat.id))
+        create_file_players(dbx,fplayerslist+str(message.chat.id)+".txt",players,str(message.chat.id))
         sleep(1)
         bot.send_message(message.chat.id, "_"+animals[str(message.chat.first_name)]+" kicked you\n"+"you lost 10 HP_", parse_mode = 'Markdown')
         sleep(1)
         bot.send_message(message.chat.id, "_Exodia grabs your gold_", parse_mode = 'Markdown')
         sleep(1)
         players[str(message.chat.id)].Gold-=1000
-        create_file_players(dbx,fplayerslist+str(message.chat.id),players,str(message.chat.id))
+        create_file_players(dbx,fplayerslist+str(message.chat.id)+".txt",players,str(message.chat.id))
 
         bot.send_message(message.chat.id, "_you lost 1k gold_", parse_mode = 'Markdown')
         bot.send_chat_action(message.chat.id, "typing")
@@ -594,13 +594,13 @@ def step_animal_change(message):
         sleep(1)
         bot.send_message(message.chat.id, "_Exodia punches you_", parse_mode = 'Markdown')
         players[str(message.chat.id)].Hp-=50
-        create_file_players(dbx,fplayerslist+str(message.chat.id),players,str(message.chat.id))
+        create_file_players(dbx,fplayerslist+str(message.chat.id)+".txt",players, str(message.chat.id))
         sleep(1)
         bot.send_message(message.chat.id, "_you lost 50 HP_", parse_mode = 'Markdown')
         sleep(1)
         bot.send_message(message.chat.id, "*GIVE ME MORE MONEY!*", parse_mode = 'Markdown')
         players[str(message.chat.id)].Gold-=1000
-        create_file_players(dbx,fplayerslist+str(message.chat.id),players,str(message.chat.id))
+        create_file_players(dbx,fplayerslist+str(message.chat.id)+".txt",players,str(message.chat.id))
         sleep(1)
         bot.send_message(message.chat.id, "_you lost 1k gold again_", parse_mode = 'Markdown')
         handle_choose_animal(message)
