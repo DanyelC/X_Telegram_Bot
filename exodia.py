@@ -102,6 +102,7 @@ def txt_to_players(file_location,message):
     y = list(y)
     y = "".join(y)
     teste1 = y.split(", ")
+    print(teste1)
     print(len(teste1))
     print(len(teste1[0]))
     print(teste1[0])
