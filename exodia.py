@@ -1369,7 +1369,7 @@ def thepersonality(message,personality):
     #    print(x)
     #    print(y.send_all_list())
     #print("===========")
-    txt_to_players(fplayers+str(message.chat.first_name)+".txt",message)
+    txt_to_players(fplayers+str(message.chat.id)+".txt",message)
     #for x,y in players.items():
     #    print(x)
     #    print(y.send_all_list())
