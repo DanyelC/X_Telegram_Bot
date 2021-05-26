@@ -102,6 +102,9 @@ def txt_to_players(file_location,message):
     y = list(y)
     y = "".join(y)
     teste1 = y.split(", ")
+    print(len(teste1))
+    print(len(teste1[0]))
+    print(teste1[0])
     for x in range(7):
         teste1[x]=teste1[x][1:len(teste1[x])-1]
     teste1[11]=teste1[11][1:len(teste1[11])-1]
