@@ -68,6 +68,7 @@ def create_file_players(dbx,file_location,dicio,key):
   print(y)
   y=str(y.send_all_list())
   print(y)
+  print("é aqui")
   y = y.encode()
   print(y)
   dbx.files_upload(y,file_location,mode=dropbox.files.WriteMode("overwrite"))
