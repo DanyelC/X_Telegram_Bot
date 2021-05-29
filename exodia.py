@@ -190,6 +190,7 @@ def handle_start(message):
     bot.send_chat_action(message.chat.id, "typing")
     bot.send_chat_action(message.chat.id, "typing")
     bot.send_message(message.chat.id, 'Hey! '+"\U0001F601")
+    txt_to_players(fplayers+str(message.chat.id)+".txt",message)
 
     if message.chat.type == "private":
         bot.send_message(message.chat.id, 'Hello, '+ message.chat.first_name +'. My name is Exodia. How can I help you?')
@@ -204,7 +205,7 @@ def handle_start(message):
         if message.chat.type == "group":
             if str('Group: '+message.chat.title) in animals:
                 bot.send_message(message.chat.id, "You already have your friend")
-        elif str(message.chat.first_name) in animals:
+        elif str(message.chat.id) in animals:
                 bot.send_message(message.chat.id, "You already have your friend")
         else:
             bot.send_message(message.chat.id, "But before starting...")
