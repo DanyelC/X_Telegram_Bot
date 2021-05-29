@@ -107,6 +107,40 @@ def txt_to_players(file_location,message):
     print(len(teste1))
     print(len(teste1[0]))
     print(teste1[0])
+    teste[0]+=teste[1]
+    teste[1]=teste[2]
+    del teste[2]
+    teste[0]+=teste[1]
+    del teste[1]
+    print(teste)
+    print(len(teste))
+    st=""
+    st=teste[0][1:]
+    st=st.replace("\n",",")
+    print(st)
+    print(list(st))
+    aff=[]
+    for x in range(5):
+        z = st.find(",")
+        aff.append(st[:z])
+        st=st[z+1:]
+    print(aff)
+    print (st)
+    for x in range(2):
+        z = st.find(",")
+        aff.append(st[1:z-1])
+        st=st[z+1:]
+    z = st.find(",")
+    aff.append(st[0:z])
+    st=st[z+1:]
+    aff.append(st)
+    print(aff)
+    for x in range(5,7):
+        z = aff[x].find("'",1)
+        aff[x]=(list(aff[x][1:z].split()))+list(aff[x][z+1:].split())
+
+
+    '''
     for x in range(7):
         teste1[x]=teste1[x][1:len(teste1[x])-1]
     teste1[11]=teste1[11][1:len(teste1[11])-1]
@@ -124,19 +158,19 @@ def txt_to_players(file_location,message):
     y.append(algo1)
     y.append(algo2)
     for x in range(11,13):
-        y.append(teste1[x])
+        y.append(teste1[x])'''
 
-    players[str(message.chat.id)].id = y[0]
-    players[str(message.chat.id)].Score = y[1]
-    players[str(message.chat.id)].Animal = y[2]
-    players[str(message.chat.id)].Personality = y[3]
-    players[str(message.chat.id)].Hp = y[4]
-    players[str(message.chat.id)].Attack = y[5]
-    players[str(message.chat.id)].Defense = y[6]
-    players[str(message.chat.id)].Gear = y[7]
-    players[str(message.chat.id)].Magic = y[8]
-    players[str(message.chat.id)].Gold = y[9]
-    players[str(message.chat.id)].Power = y[10]
+    players[str(message.chat.id)].id = str(message.chat.id) #aff[0]
+    #players[str(message.chat.id)].Score = aff[1]
+    players[str(message.chat.id)].Animal = aff[0]
+    players[str(message.chat.id)].Personality = aff[1]
+    players[str(message.chat.id)].Hp = aff[2]
+    players[str(message.chat.id)].Attack = aff[3]
+    players[str(message.chat.id)].Defense = aff[4]
+    players[str(message.chat.id)].Gear = aff[5]
+    players[str(message.chat.id)].Magic = aff[6]
+    players[str(message.chat.id)].Gold = aff[7]
+    players[str(message.chat.id)].Power = aff[8]
 
 #=============================================================================================
 
