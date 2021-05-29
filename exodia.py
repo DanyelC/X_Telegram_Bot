@@ -107,6 +107,7 @@ def txt_to_players(file_location,message):
     print(len(teste1))
     print(len(teste1[0]))
     print(teste1[0])
+    teste=[]
     teste[0]+=teste[1]
     teste[1]=teste[2]
     del teste[2]
