@@ -1,1 +1,1 @@
-TOKEN='Spvt6estwvkAAAAAAAAAAffvQlDNg11iRXoCL_FPtrOnoTehg5wS6--ovTEpkJd_'
+TOKEN='token'
