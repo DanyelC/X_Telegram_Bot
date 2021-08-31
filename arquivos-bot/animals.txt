@@ -1,9 +1,0 @@
-Danyel: Gecko
-Danyel: Snake
-Danyel: Gecko
-Danyel: Dog
-Danyel: Parrot
-Danyel: Dog
-Group Teste: Gecko
-Group Teste: Gecko
-Group Teste: Gecko
