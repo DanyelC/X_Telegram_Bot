@@ -13,9 +13,9 @@ from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 import os
 from pathlib import Path
 
-bot = telebot.TeleBot('1322322473:AAEqIreqjYCOaTzdXBUoxj8f_BB1FiteIVo')
+bot = telebot.TeleBot('token')
 url =  'https://api.us-south.text-to-speech.watson.cloud.ibm.com/instances/f2244305-7a54-4f72-b2df-1d3a0a5b604c'
-apikey= 'pg2lScfDkxc66EmJgRxBO6FBYG3KWoSI1cUwOak_iSLd'
+apikey= 'token'
 
 # Setup Service
 authenticator = IAMAuthenticator(apikey)
